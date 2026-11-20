@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <title>《闪身步30招：九宫格多世界大乱斗》 — 恐龙 / 丧尸 / 木乃伊 + 中文语音喊招</title>
+  <title>《闪身步30招：全屏九宫格大乱斗》 — 恐龙 / 拟真丧尸 / 拟真木乃伊 + 搞笑撞屏结局</title>
   <style>
     :root {
       --gold: #f59e0b;
       --cyan: #38bdf8;
       --crimson: #ef4444;
       --emerald: #10b981;
-      --bg-card: rgba(12, 10, 14, 0.88);
+      --bg-card: rgba(10, 10, 14, 0.86);
       --border-gold: rgba(245, 158, 11, 0.52);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
@@ -26,58 +26,58 @@
 
     /* Top HUD Bar */
     .hud-top {
-      position: absolute; top: 8px; left: 8px; right: 8px;
+      position: absolute; top: 6px; left: 8px; right: 8px;
       display: flex; justify-content: space-between; align-items: flex-start;
       pointer-events: none; z-index: 15; gap: 8px;
     }
     .hud-card {
       background: var(--bg-card); backdrop-filter: blur(10px);
-      border: 1px solid var(--border-gold); border-radius: 12px;
-      padding: 8px 11px; pointer-events: auto;
+      border: 1px solid var(--border-gold); border-radius: 11px;
+      padding: 7px 10px; pointer-events: auto;
       box-shadow: 0 8px 26px rgba(0, 0, 0, 0.7);
     }
     .title-line {
-      display: flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 900; color: var(--gold);
+      display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 900; color: var(--gold);
     }
     .badge-v2 {
-      font-size: 10px; padding: 1px 7px; border-radius: 99px;
+      font-size: 9.5px; padding: 1px 7px; border-radius: 99px;
       background: rgba(56, 189, 248, 0.22); color: #7dd3fc; border: 1px solid rgba(56,189,248,0.45);
     }
-    .bars-box { margin-top: 5px; display: flex; flex-direction: column; gap: 4px; min-width: 215px; }
-    .bar-row { display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 700; }
+    .bars-box { margin-top: 4px; display: flex; flex-direction: column; gap: 3px; min-width: 215px; }
+    .bar-row { display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; }
     .bar-bg { flex: 1; height: 8px; background: rgba(255,255,255,0.14); border-radius: 99px; overflow: hidden; }
-    .bar-fg { height: 100%; transition: width 0.14s; border-radius: 99px; }
+    .bar-fg { height: 100%; transition: width 0.12s; border-radius: 99px; }
     .hp-fg { background: linear-gradient(90deg, #dc2626, #f59e0b); width: 100%; }
     .qi-fg { background: linear-gradient(90deg, #0ea5e9, #c084fc); width: 50%; }
     .stats-row {
-      display: grid; grid-template-columns: repeat(4, auto); gap: 10px;
-      margin-top: 5px; font-size: 10.5px;
+      display: grid; grid-template-columns: repeat(4, auto); gap: 9px;
+      margin-top: 4px; font-size: 10px;
     }
-    .st-cell span { font-size: 9px; color: #a8a29e; display: block; }
-    .st-cell strong { font-size: 12.5px; color: #fff; }
+    .st-cell span { font-size: 8.5px; color: #a8a29e; display: block; }
+    .st-cell strong { font-size: 12px; color: #fff; }
 
-    /* Right Control Workshop: World / Enemy / Voice / Comedy Music / Mode Switch */
+    /* Right Control Workshop */
     .hud-right {
-      width: 286px; display: flex; flex-direction: column; gap: 5px;
+      width: 288px; display: flex; flex-direction: column; gap: 4px;
     }
     .panel-head {
       display: flex; justify-content: space-between; align-items: center;
-      font-size: 11px; font-weight: 800; color: var(--gold);
+      font-size: 10.5px; font-weight: 800; color: var(--gold);
     }
     .ctrl-row {
-      display: flex; align-items: center; gap: 5px; font-size: 10.5px;
+      display: flex; align-items: center; gap: 5px; font-size: 10px;
     }
-    .ctrl-row label { width: 52px; color: #d6d3d1; font-weight: 700; flex-shrink: 0; }
+    .ctrl-row label { width: 50px; color: #d6d3d1; font-weight: 700; flex-shrink: 0; }
     .ctrl-select {
       flex: 1; background: rgba(28, 25, 23, 0.96); color: #fef3c7;
       border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 6px;
-      padding: 3px 6px; font-size: 10.5px; font-weight: 700; outline: none; cursor: pointer;
+      padding: 2.5px 6px; font-size: 10px; font-weight: 700; outline: none; cursor: pointer;
     }
     .btn-grid-2 {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 2px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 1px;
     }
     .c-btn {
-      padding: 4px 6px; font-size: 10px; font-weight: 700;
+      padding: 3.5px 6px; font-size: 10px; font-weight: 700;
       border-radius: 6px; border: 1px solid rgba(245, 158, 11, 0.38);
       background: rgba(255, 255, 255, 0.08); color: #fef3c7; cursor: pointer;
       transition: all 0.14s; text-align: center; white-space: nowrap; text-decoration: none;
@@ -87,16 +87,16 @@
       background: var(--gold); color: #0c0a09; border-color: #fff;
     }
 
-    /* Bottom Dock: Dodge vs Attack Quick Controls + 30 Moves Wheel */
+    /* Bottom Dock */
     .moves-dock {
-      position: absolute; bottom: 6px; left: 8px; right: 8px; z-index: 15;
+      position: absolute; bottom: 5px; left: 8px; right: 8px; z-index: 15;
       background: var(--bg-card); backdrop-filter: blur(12px);
-      border: 1px solid var(--border-gold); border-radius: 11px;
-      padding: 6px 9px; pointer-events: auto;
+      border: 1px solid var(--border-gold); border-radius: 10px;
+      padding: 5px 8px; pointer-events: auto;
     }
     .dock-header {
       display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 5px; margin-bottom: 5px;
+      flex-wrap: wrap; gap: 4px; margin-bottom: 4px;
     }
     .stance-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
     .stance-tab {
@@ -106,13 +106,13 @@
     }
     .stance-tab.active { background: var(--gold); color: #0c0a09; border-color: #fff; }
     .moves-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(134px, 1fr));
-      gap: 4px; max-height: 70px; overflow-y: auto; padding-right: 4px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+      gap: 4px; max-height: 60px; overflow-y: auto; padding-right: 4px;
     }
     .move-card {
       background: rgba(24, 24, 27, 0.94);
       border: 1px solid rgba(245, 158, 11, 0.3);
-      border-radius: 6px; padding: 4px 6px; cursor: pointer; transition: all 0.12s;
+      border-radius: 6px; padding: 3px 6px; cursor: pointer; transition: all 0.12s;
     }
     .move-card.is-dodge { border-color: rgba(56, 189, 248, 0.45); }
     .move-card.is-dodge .m-name { color: #7dd3fc; }
@@ -121,51 +121,87 @@
       border-color: #fff; box-shadow: 0 0 12px rgba(245, 158, 11, 0.65);
       background: rgba(245, 158, 11, 0.3);
     }
-    .move-card .m-name { font-size: 10.5px; font-weight: 800; color: #fef08a; }
+    .move-card .m-name { font-size: 10px; font-weight: 800; color: #fef08a; }
     .move-card .m-meta {
-      font-size: 9px; color: #a8a29e; display: flex; justify-content: space-between; margin-top: 1px;
+      font-size: 8.5px; color: #a8a29e; display: flex; justify-content: space-between; margin-top: 1px;
     }
 
-    /* Mobile / Touch Floating D-Pad + Dodge/Attack Circle Buttons */
+    /* Floating Touch D-Pad & Action Buttons */
     .touch-overlay {
-      position: absolute; bottom: 112px; left: 12px; right: 12px;
+      position: absolute; bottom: 102px; left: 12px; right: 12px;
       display: flex; justify-content: space-between; align-items: flex-end;
       pointer-events: none; z-index: 16;
     }
     .dpad-grid {
-      display: grid; grid-template-columns: repeat(3, 42px); grid-template-rows: repeat(3, 42px);
-      gap: 4px; pointer-events: auto;
+      display: grid; grid-template-columns: repeat(3, 40px); grid-template-rows: repeat(3, 40px);
+      gap: 3px; pointer-events: auto;
     }
     .dpad-btn {
       border-radius: 8px; border: 1px solid rgba(245, 158, 11, 0.55);
-      background: rgba(15, 23, 42, 0.72); color: #fef08a; font-size: 16px; font-weight: 900;
+      background: rgba(15, 23, 42, 0.68); color: #fef08a; font-size: 15px; font-weight: 900;
       cursor: pointer; touch-action: manipulation;
     }
     .dpad-btn:active { background: var(--gold); color: #000; }
     .action-circles {
-      display: flex; gap: 8px; align-items: flex-end; pointer-events: auto;
+      display: flex; gap: 7px; align-items: flex-end; pointer-events: auto;
     }
     .act-btn {
-      width: 66px; height: 66px; border-radius: 50%; border: 2.5px solid #fff;
-      font-weight: 900; font-size: 12px; cursor: pointer;
+      width: 64px; height: 64px; border-radius: 50%; border: 2.5px solid #fff;
+      font-weight: 900; font-size: 11.5px; cursor: pointer;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7); touch-action: manipulation;
     }
-    .act-btn small { font-size: 8.5px; font-weight: 700; opacity: 0.92; }
-    .act-dodge { background: linear-gradient(135deg, #38bdf8, #0284c7); color: #fff; width: 72px; height: 72px; }
+    .act-btn small { font-size: 8px; font-weight: 700; opacity: 0.92; }
+    .act-dodge { background: linear-gradient(135deg, #38bdf8, #0284c7); color: #fff; width: 70px; height: 70px; }
     .act-kick { background: linear-gradient(135deg, #fef08a, #f59e0b); color: #0c0a09; }
-    .act-ult { background: linear-gradient(135deg, #fca5a5, #dc2626); color: #fff; width: 58px; height: 58px; }
+    .act-ult { background: linear-gradient(135deg, #fca5a5, #dc2626); color: #fff; width: 56px; height: 56px; }
+
+    /* Hilarious Game-Over Glass-Splat Overlay Card (Appears after hero splats & starts sliding!) */
+    #gameover-overlay {
+      position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+      z-index: 40; display: none; flex-direction: column; align-items: center;
+      background: rgba(15, 10, 12, 0.92); backdrop-filter: blur(12px);
+      border: 2.5px solid #ef4444; border-radius: 16px;
+      padding: 16px 26px; text-align: center; min-width: 340px; max-width: 92vw;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(239, 68, 68, 0.45);
+      animation: popInCard 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    #gameover-overlay.show { display: flex; }
+    @keyframes popInCard {
+      from { opacity: 0; transform: translate(-50%, 30px) scale(0.85); }
+      to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+    }
+    .go-stamp {
+      font-size: 26px; font-weight: 900; color: #fef08a;
+      text-shadow: 0 3px 10px #dc2626; letter-spacing: 0.06em;
+    }
+    .go-epitaph {
+      font-size: 13px; color: #fca5a5; font-weight: 700; margin: 6px 0 10px;
+    }
+    .go-stats {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+      font-size: 12px; color: #e7e5e4; margin-bottom: 12px;
+      background: rgba(255,255,255,0.06); padding: 8px 14px; border-radius: 10px;
+    }
+    .go-stats strong { color: #38bdf8; font-size: 15px; display: block; }
+    .btn-restart {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: #fff; border: 2px solid #fef08a; border-radius: 99px;
+      padding: 9px 26px; font-size: 15px; font-weight: 900; cursor: pointer;
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5); transition: transform 0.15s;
+    }
+    .btn-restart:hover { transform: scale(1.06); }
 
     body.hud-collapsed .hud-right .ctrl-row,
     body.hud-collapsed .hud-right .btn-grid-2,
     body.hud-collapsed .moves-dock .moves-grid { display: none !important; }
 
     @media (max-width: 960px), (max-height: 600px) {
-      .hud-top > .hud-card:first-child { transform: scale(0.78); transform-origin: top left; }
-      .hud-right { transform: scale(0.76); transform-origin: top right; }
-      .moves-grid { max-height: 48px; }
-      .dpad-grid { transform: scale(0.86); transform-origin: bottom left; }
-      .action-circles { transform: scale(0.86); transform-origin: bottom right; }
+      .hud-top > .hud-card:first-child { transform: scale(0.76); transform-origin: top left; }
+      .hud-right { transform: scale(0.74); transform-origin: top right; }
+      .moves-grid { max-height: 44px; }
+      .dpad-grid { transform: scale(0.84); transform-origin: bottom left; }
+      .action-circles { transform: scale(0.84); transform-origin: bottom right; }
     }
   </style>
 </head>
@@ -176,22 +212,22 @@
   <div class="hud-top">
     <div class="hud-card">
       <div class="title-line">
-        <span>🕺 《闪身步30招：九宫格大乱斗》</span>
-        <span class="badge-v2">v2.0 九宫格多世界版</span>
+        <span>🕺 《闪身步30招：全屏九宫格》</span>
+        <span class="badge-v2" id="diff-badge">🟡 中等难度</span>
       </div>
-      <div style="font-size:10px;color:#d6d3d1;margin-top:2px;">
-        WASD/点格子切位 | <strong style="color:#38bdf8;">Space: 01.闪身步(纯躲避+回气)</strong> | <strong style="color:#f59e0b;">J: 02.浪子踢球(攻击)</strong>
+      <div style="font-size:9.5px;color:#d6d3d1;margin-top:2px;">
+        WASD/点全屏九宫格移动 | <strong style="color:#38bdf8;">Space: 01.闪身步(纯躲避)</strong> | <strong style="color:#f59e0b;">J: 02.浪子踢球(攻击)</strong>
       </div>
       <div class="bars-box">
         <div class="bar-row">
           <span style="width:40px;color:#f87171;">气血HP</span>
           <div class="bar-bg"><div id="hp-bar" class="bar-fg hp-fg"></div></div>
-          <span id="hp-text" style="width:48px;text-align:right;">150/150</span>
+          <span id="hp-text" style="width:52px;text-align:right;">150/150</span>
         </div>
         <div class="bar-row">
           <span style="width:40px;color:#38bdf8;">气力QI</span>
           <div class="bar-bg"><div id="qi-bar" class="bar-fg qi-fg"></div></div>
-          <span id="qi-text" style="width:48px;text-align:right;">50/100</span>
+          <span id="qi-text" style="width:52px;text-align:right;">60/100</span>
         </div>
       </div>
       <div class="stats-row">
@@ -202,30 +238,40 @@
       </div>
     </div>
 
-    <!-- Right Panel: World, Enemy, Chinese Voice & Comedy BGM Controls -->
+    <!-- Right Panel: Difficulty / World / Enemy / Voice / Comedy BGM -->
     <div class="hud-card hud-right">
       <div class="panel-head">
-        <span>🌍 多世界 / 敌人 / 语音 / 配乐工坊</span>
+        <span>⚙️ 难度 / 多世界 / 语音 / 配乐</span>
         <button class="c-btn" style="padding:1px 6px;" onclick="document.body.classList.toggle('hud-collapsed')">折叠/展开</button>
+      </div>
+
+      <div class="ctrl-row">
+        <label>🔥 难度:</label>
+        <select id="sel-difficulty" class="ctrl-select" style="border-color:#ef4444;color:#fef08a;">
+          <option value="easy">🟢 简单 Easy (新手热身·预警长)</option>
+          <option value="medium" selected>🟡 中等 Medium (标准街机节奏)</option>
+          <option value="hard">🔴 困难 Hard (高速夹击·高伤害)</option>
+          <option value="nightmare">💀 地狱宗师 Nightmare (极限闪身)</option>
+        </select>
       </div>
 
       <div class="ctrl-row">
         <label>🗺️ 场景:</label>
         <select id="sel-world" class="ctrl-select">
-          <option value="jurassic">🌋 侏罗纪恐龙世界 (自动配恐龙)</option>
-          <option value="city">🏙️ 现代都市摩天楼 (自动配丧尸)</option>
-          <option value="desert">🏜️ 古埃及沙漠金字塔 (自动配木乃伊)</option>
-          <option value="studio">🪞 北舞练功房时空裂缝 (全明星混战)</option>
+          <option value="jurassic">🌋 侏罗纪恐龙世界 (配恐龙)</option>
+          <option value="city">🏙️ 现代都市摩天楼 (配拟真丧尸)</option>
+          <option value="desert">🏜️ 古埃及沙漠金字塔 (配拟真木乃伊)</option>
+          <option value="studio">🪞 北舞练功房时空裂缝 (全明星)</option>
         </select>
       </div>
 
       <div class="ctrl-row">
         <label>👾 敌人:</label>
         <select id="sel-faction" class="ctrl-select">
-          <option value="dinos">🦖 侏罗纪恐龙大军 (霸王龙/迅猛龙/三角龙/翼龙)</option>
-          <option value="zombies">🧟 现代都市丧尸大军 (狂奔丧尸/铁锤Boss/尸鸦)</option>
-          <option value="mummies">🏺 古埃及沙漠木乃伊 (绷带木乃伊/黄金法老/圣甲虫)</option>
-          <option value="mixed">🌀 时空大乱斗 (恐龙+丧尸+木乃伊全登场!)</option>
+          <option value="dinos">🦖 侏罗纪恐龙大军 (手绘精版)</option>
+          <option value="zombies">🧟 现代写实丧尸大军 (拟真硬核)</option>
+          <option value="mummies">🏺 古埃及写实木乃伊 (拟真法老)</option>
+          <option value="mixed">🌀 全明星时空大乱斗</option>
         </select>
       </div>
 
@@ -233,16 +279,16 @@
         <label>🎵 音乐:</label>
         <select id="sel-bgm" class="ctrl-select">
           <option value="huagudeng">🥁 魔性花鼓灯锣鼓 (原味鬼畜)</option>
-          <option value="comedy">🤡 功夫喜剧搞笑唢呐快板 (诙谐风)</option>
-          <option value="desert_snake">🏺 沙漠神秘搞笑蛇笛舞曲 (木乃伊风)</option>
+          <option value="comedy">🤡 功夫喜剧搞笑唢呐快板</option>
+          <option value="desert_snake">🏺 沙漠神秘搞笑蛇笛舞曲</option>
           <option value="retro_8bit">👾 8-Bit 复古搞笑像素电音</option>
         </select>
       </div>
 
       <div class="btn-grid-2">
-        <button class="c-btn active" id="btn-voice">🔊 中文喊招语音: ON</button>
-        <button class="c-btn" id="btn-bgm-toggle">🎵 播放搞笑配乐: OFF</button>
-        <button class="c-btn" id="btn-autobot">🤖 AI 自动演示: OFF</button>
+        <button class="c-btn active" id="btn-voice">🔊 喊招语音: ON</button>
+        <button class="c-btn" id="btn-bgm-toggle">🎵 搞笑配乐: OFF</button>
+        <button class="c-btn" id="btn-autobot">🤖 AI演示: OFF</button>
         <label class="c-btn" style="cursor:pointer;">
           📷 上传真人头像
           <input type="file" id="avatar-upload" accept="image/*" style="display:none;" />
@@ -256,9 +302,9 @@
     </div>
   </div>
 
-  <!-- On-Screen Grid D-Pad + Pure Dodge / Attack Action Buttons (Desktop & Mobile!) -->
-  <div class="touch-overlay">
-    <div class="dpad-grid" title="九宫格方向移动 (或直接点击画面上的任意格子！)">
+  <!-- On-Screen Touch D-Pad & Action Buttons -->
+  <div class="touch-overlay" id="touch-overlay">
+    <div class="dpad-grid" title="九宫格方向移动 (也可直接点全屏任意格子！)">
       <div></div>
       <button type="button" class="dpad-btn" id="dp-up">⬆</button>
       <div></div>
@@ -277,13 +323,13 @@
     </div>
   </div>
 
-  <!-- Bottom 30 Moves Arsenal Dock -->
-  <div class="moves-dock">
+  <!-- Bottom 30 Moves Dock -->
+  <div class="moves-dock" id="moves-dock">
     <div class="dock-header">
       <div class="stance-tabs" id="stance-tabs">
-        <button class="stance-tab active" data-cat="all">📜 全部 30 招 (点击喊招释放)</button>
-        <button class="stance-tab" data-cat="dodge">💨 纯闪避步法 (10招·零攻击)</button>
-        <button class="stance-tab" data-cat="attack">🦵 反击绝招 (20招·踢飞敌人)</button>
+        <button class="stance-tab active" data-cat="all">📜 全部 30 招</button>
+        <button class="stance-tab" data-cat="dodge">💨 纯闪避步法 (10招)</button>
+        <button class="stance-tab" data-cat="attack">🦵 反击绝招 (20招)</button>
       </div>
       <div style="display:flex;gap:5px;flex-wrap:wrap;">
         <button class="c-btn" style="background:#0284c7;color:#fff;border-color:#7dd3fc;" onclick="executeMove(1)">💨 01.闪身步(纯躲)</button>
@@ -295,15 +341,43 @@
     <div class="moves-grid" id="moves-grid"></div>
   </div>
 
+  <!-- Hilarious Glass-Splat Game Over Overlay Card -->
+  <div id="gameover-overlay">
+    <div class="go-stamp">💥 啪叽！闪岔气撞屏幕啦！</div>
+    <div class="go-epitaph" id="go-epitaph">医生温馨提醒：非专业人士请勿盲目猛拧闪身步，小心闪着老腰 😂</div>
+    <div class="go-stats">
+      <div><span>最终得分</span><strong id="go-score">0</strong></div>
+      <div><span>完美闪身</span><strong id="go-dodges">0 次</strong></div>
+      <div><span>踢飞敌人</span><strong id="go-kills">0</strong></div>
+      <div><span>挑战难度</span><strong id="go-diff">中等</strong></div>
+    </div>
+    <button type="button" class="btn-restart" id="btn-restart">🔄 擦擦玻璃，揉揉腰再来一局！</button>
+  </div>
+
   <script>
     const MOVES_30 = [{"id": 1, "name": "01. 闪身步", "voice": "闪身步！", "kind": "dodge", "cat": "纯闪避", "key": "Space", "dmg": 0, "qiCost": 0, "iframe": 0.65, "desc": "【纯闪避·无攻击】腰腹猛拧瞬间闪去安全格！躲开红格必触发极限闪身+25气力！"}, {"id": 4, "name": "04. 拔泥步", "voice": "拔泥步！", "kind": "dodge", "cat": "纯闪避", "key": "1", "dmg": 0, "qiCost": 0, "iframe": 0.6, "desc": "【纯闪避·无攻击】高抬大腿稳健换格，免疫地面减速陷阱并躲避冲撞！"}, {"id": 5, "name": "05. 野鸡溜", "voice": "野鸡溜！", "kind": "dodge", "cat": "纯闪避", "key": "2", "dmg": 0, "qiCost": 0, "iframe": 0.72, "desc": "【纯闪避·无攻击】贴地超低身位疾滑换格，专躲空中翼龙/尸鸦/圣甲虫俯冲！"}, {"id": 6, "name": "06. 游场碎步", "voice": "游场碎步！", "kind": "dodge", "cat": "纯闪避", "key": "3", "dmg": 0, "qiCost": 0, "iframe": 0.75, "desc": "【纯闪避·无攻击】高频碎步闪避并留下一串残影分身，大幅延长无敌时间！"}, {"id": 7, "name": "07. 矮子步", "voice": "矮子步！", "kind": "dodge", "cat": "纯闪避", "key": "4", "dmg": 0, "qiCost": 0, "iframe": 0.68, "desc": "【纯闪避·无攻击】极限深蹲蟹行切格，轻松躲过横穿整排的冲锋巨兽！"}, {"id": 8, "name": "08. 车水步", "voice": "车水步！", "kind": "dodge", "cat": "纯闪避", "key": "5", "dmg": 0, "qiCost": 0, "iframe": 0.62, "desc": "【纯闪避·无攻击】连续后撤踏板步退至后排安全格，躲开正上方竖列俯冲！"}, {"id": 9, "name": "09. 走梗平衡步", "voice": "走梗步！", "kind": "dodge", "cat": "纯闪避", "key": "6", "dmg": 0, "qiCost": 0, "iframe": 0.7, "desc": "【纯闪避·无攻击】在九宫格边缘极速穿行，灵巧穿梭于两只敌人缝隙之间！"}, {"id": 10, "name": "10. 盘根拧腰步", "voice": "盘根拧腰！", "kind": "dodge", "cat": "纯闪避", "key": "7", "dmg": 0, "qiCost": 0, "iframe": 0.8, "desc": "【纯闪避·无攻击】原地360度螺旋拧腰化劲，直接闪避当前格内所有冲击！"}, {"id": 22, "name": "22. 旱船晃·太极闪", "voice": "旱船晃！", "kind": "dodge", "cat": "纯闪避", "key": "X", "dmg": 0, "qiCost": 10, "iframe": 0.9, "desc": "【纯闪避·缓速】左右摇晃身段进入太极领域，令全场敌人减速65%并安全躲避！"}, {"id": 26, "name": "26. 白鹤亮翅·金钟闪", "voice": "白鹤亮翅！", "kind": "dodge", "cat": "纯闪避", "key": "N", "dmg": 0, "qiCost": 15, "iframe": 1.15, "desc": "【纯闪避·无敌】双臂振开金光护体，获得超长1.15秒绝对闪避无敌！"}, {"id": 2, "name": "02. 浪子踢球", "voice": "浪子踢球！", "kind": "attack", "cat": "主力攻击", "key": "J", "dmg": 140, "qiCost": 0, "iframe": 0.2, "range": "col", "desc": "【攻击招式】后仰顿挫高勾腿，将当前竖列扑来的敌人当皮球一脚踢飞上天！"}, {"id": 3, "name": "03. 狗熊哆嗦毛", "voice": "狗熊哆嗦毛！", "kind": "attack", "cat": "周围震飞", "key": "K", "dmg": 120, "qiCost": 10, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】核心肌群高频抖动，震飞自身十字相邻5格内的全部敌人！"}, {"id": 11, "name": "11. 猴子扳桩", "voice": "猴子扳桩！", "kind": "attack", "cat": "单体擒摔", "key": "8", "dmg": 200, "qiCost": 15, "iframe": 0.25, "range": "col", "desc": "【攻击招式】跃起扳住前方敌人猛烈砸向九宫格地面，重创Boss！"}, {"id": 12, "name": "12. 扁担闪·横扫", "voice": "扁担闪！", "kind": "attack", "cat": "整排横扫", "key": "9", "dmg": 165, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】双臂如铁扁担平举横扫，清空整条横排3格所有敌人！"}, {"id": 13, "name": "13. 十字靠身(铁山靠)", "voice": "铁山靠！", "kind": "attack", "cat": "十字撞击", "key": "L", "dmg": 240, "qiCost": 20, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】拧腰沉肩猛烈铁山靠，将十字范围内重甲Boss撞出硬直！"}, {"id": 14, "name": "14. 蛤蟆洼·震地", "voice": "蛤蟆洼！", "kind": "attack", "cat": "范围震晕", "key": "U", "dmg": 180, "qiCost": 18, "iframe": 0.25, "range": "cross", "desc": "【攻击招式】深蹲蛙跃重踏九宫格，震飞周围全部恐龙/丧尸/木乃伊！"}, {"id": 15, "name": "15. 小儿骑竹马", "voice": "小儿骑竹马！", "kind": "attack", "cat": "竖列踏击", "key": "I", "dmg": 160, "qiCost": 12, "iframe": 0.28, "range": "col", "desc": "【攻击招式】跨步腾跃踩踏前方敌人脊背借力二段劈踢！"}, {"id": 16, "name": "16. 燕子三抄水", "voice": "燕子三抄水！", "kind": "attack", "cat": "三连飞踢", "key": "O", "dmg": 215, "qiCost": 20, "iframe": 0.28, "range": "col", "desc": "【攻击招式】连续三次掠格飞踢，专斩高速冲锋敌人！"}, {"id": 17, "name": "17. 喜鹊登枝", "voice": "喜鹊登枝！", "kind": "attack", "cat": "防空神踢", "key": "P", "dmg": 185, "qiCost": 15, "iframe": 0.25, "range": "all_air", "desc": "【攻击招式】凌空蹬踏高空踢击，专打天上飞来的翼龙/尸鸦/圣甲虫！"}, {"id": 18, "name": "18. 拐子步·侧踹", "voice": "拐子侧踹！", "kind": "attack", "cat": "横排破甲", "key": "F", "dmg": 195, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】怪异折线变向后重侧踹，踹穿整排重甲防线！"}, {"id": 19, "name": "19. 磨盘转·旋风", "voice": "磨盘旋风腿！", "kind": "attack", "cat": "九宫旋风", "key": "G", "dmg": 230, "qiCost": 25, "iframe": 0.35, "range": "cross", "desc": "【攻击招式】高速旋转扫腿，卷起金色旋风清空十字五格！"}, {"id": 20, "name": "20. 鲤鱼打挺·回春", "voice": "鲤鱼打挺！", "kind": "attack", "cat": "反击回血", "key": "R", "dmg": 150, "qiCost": 25, "iframe": 0.4, "range": "cross", "desc": "【攻击+回血】猛烈挺腹弹射震飞周围敌人，并回复30点生命值！"}, {"id": 21, "name": "21. 大鹏展翅·掠空", "voice": "大鹏展翅！", "kind": "attack", "cat": "整排音爆", "key": "Z", "dmg": 260, "qiCost": 25, "iframe": 0.35, "range": "row", "desc": "【绝学攻击】双臂展开掀起整排音爆冲击，横扫所有横向敌人！"}, {"id": 23, "name": "23. 大花场·八连踢", "voice": "大花场八连踢！", "kind": "attack", "cat": "机关连踢", "key": "C", "dmg": 340, "qiCost": 35, "iframe": 0.4, "range": "col", "desc": "【绝学攻击】连续8脚浪子踢球高速连发，瞬间融化竖列Boss！"}, {"id": 24, "name": "24. 仙人指路·点穴", "voice": "仙人指路！", "kind": "attack", "cat": "贯穿激光", "key": "V", "dmg": 295, "qiCost": 30, "iframe": 0.28, "range": "col", "desc": "【绝学攻击】单指罡气贯穿整条竖列，100%触发暴击秒杀！"}, {"id": 25, "name": "25. 叶底藏花·回马枪", "voice": "叶底藏花！", "kind": "attack", "cat": "致命反踢", "key": "B", "dmg": 310, "qiCost": 30, "iframe": 0.35, "range": "cross", "desc": "【绝学攻击】假意退让瞬间拧腰回头重踢，专克偷袭敌人！"}, {"id": 27, "name": "27. 黑虎掏心·寸劲", "voice": "黑虎掏心！", "kind": "attack", "cat": "单体秒杀", "key": "M", "dmg": 420, "qiCost": 35, "iframe": 0.3, "range": "col", "desc": "【绝学攻击】贴身核心寸劲爆发，对霸王龙/巨型丧尸/法老王造成毁灭伤害！"}, {"id": 28, "name": "28. 金鸡独立·千斤坠", "voice": "金鸡独立千斤坠！", "kind": "attack", "cat": "全图震爆", "key": "T", "dmg": 360, "qiCost": 45, "iframe": 0.45, "range": "all", "desc": "【全屏绝学】单腿独立蓄力后千斤坠踏裂九宫格，震飞全屏敌人！"}, {"id": 29, "name": "29. 乌龙绞柱·风暴", "voice": "乌龙绞柱！", "kind": "attack", "cat": "全图龙卷", "key": "Y", "dmg": 390, "qiCost": 50, "iframe": 0.5, "range": "all", "desc": "【全屏绝学】双腿螺旋绞杀卷起全屏龙卷风，把九宫格所有敌人卷上天空！"}, {"id": 30, "name": "30. 三十路闪身万象归宗", "voice": "终极奥义！三十路闪身万象归宗！", "kind": "attack", "cat": "终极奥义", "key": "Q/E", "dmg": 780, "qiCost": 60, "iframe": 1.2, "range": "all", "desc": "【终极必杀】九宫格9个格子同时召唤黑背心宗师分身，齐声施展浪子踢球清空全屏！"}];
-    const GDD = {"slug": "shanshenbu-30-jurassic", "title": "闪身步30招：九宫格多世界大乱斗 (恐龙/丧尸/木乃伊 + 语音喊招)", "prompt": "v2.0 九宫格俯瞰原地奔跑动作闪避游戏：3x3九宫格上下左右移动、恐龙/丧尸/木乃伊从上下左右俯冲来袭、闪身步纯躲避无攻击、攻击绝招反击、中文喊招语音、4首诙谐搞笑音乐、双模式支持切回v1.0横版街机", "tagline": "3×3 九宫格原地奔跑闪避 × 闪身步纯躲避 / 浪子踢球反击 × 侏罗纪恐龙 / 现代丧尸 / 沙漠木乃伊", "genre": "2D 俯瞰九宫格奔跑闪避 & 功夫绝招反击 (3x3 Grid Multi-World Arcade)", "reference_skeleton": "Mega Man Battle Network 3x3 Grid + Cadillacs & Dinosaurs + Anhui Huagudeng", "hero_name": "2D手绘黑背心宗师（九宫格原地奔跑 + 闪身步纯躲避 + 浪子踢球攻击 + 支持上传真人照片）", "enemy_label": "三大世界敌人阵营（侏罗纪恐龙 / 现代都市丧尸 / 古埃及沙漠木乃伊）自由切换或大乱斗", "primary_action": "01.闪身步（纯躲避零攻击，完美躲红格+25气力） + 02.浪子踢球（主动攻击踢飞敌人）", "special_action": "30.三十路闪身万象归宗（九宫格9格全屏分身合击 + 中文语音喊招！）", "visual_preset": "4 大动态卷轴场景（侏罗纪丛林 / 现代都市摩天楼 / 古埃及沙漠金字塔 / 北舞练功房）", "music_preset": "4 首诙谐搞笑配乐自由切换（花鼓灯锣鼓 / 功夫喜剧快板 / 沙漠蛇笛 / 8-Bit 电音）", "created_at": "2026-11-20 15:31:26", "moves_30": [{"id": 1, "name": "01. 闪身步", "voice": "闪身步！", "kind": "dodge", "cat": "纯闪避", "key": "Space", "dmg": 0, "qiCost": 0, "iframe": 0.65, "desc": "【纯闪避·无攻击】腰腹猛拧瞬间闪去安全格！躲开红格必触发极限闪身+25气力！"}, {"id": 4, "name": "04. 拔泥步", "voice": "拔泥步！", "kind": "dodge", "cat": "纯闪避", "key": "1", "dmg": 0, "qiCost": 0, "iframe": 0.6, "desc": "【纯闪避·无攻击】高抬大腿稳健换格，免疫地面减速陷阱并躲避冲撞！"}, {"id": 5, "name": "05. 野鸡溜", "voice": "野鸡溜！", "kind": "dodge", "cat": "纯闪避", "key": "2", "dmg": 0, "qiCost": 0, "iframe": 0.72, "desc": "【纯闪避·无攻击】贴地超低身位疾滑换格，专躲空中翼龙/尸鸦/圣甲虫俯冲！"}, {"id": 6, "name": "06. 游场碎步", "voice": "游场碎步！", "kind": "dodge", "cat": "纯闪避", "key": "3", "dmg": 0, "qiCost": 0, "iframe": 0.75, "desc": "【纯闪避·无攻击】高频碎步闪避并留下一串残影分身，大幅延长无敌时间！"}, {"id": 7, "name": "07. 矮子步", "voice": "矮子步！", "kind": "dodge", "cat": "纯闪避", "key": "4", "dmg": 0, "qiCost": 0, "iframe": 0.68, "desc": "【纯闪避·无攻击】极限深蹲蟹行切格，轻松躲过横穿整排的冲锋巨兽！"}, {"id": 8, "name": "08. 车水步", "voice": "车水步！", "kind": "dodge", "cat": "纯闪避", "key": "5", "dmg": 0, "qiCost": 0, "iframe": 0.62, "desc": "【纯闪避·无攻击】连续后撤踏板步退至后排安全格，躲开正上方竖列俯冲！"}, {"id": 9, "name": "09. 走梗平衡步", "voice": "走梗步！", "kind": "dodge", "cat": "纯闪避", "key": "6", "dmg": 0, "qiCost": 0, "iframe": 0.7, "desc": "【纯闪避·无攻击】在九宫格边缘极速穿行，灵巧穿梭于两只敌人缝隙之间！"}, {"id": 10, "name": "10. 盘根拧腰步", "voice": "盘根拧腰！", "kind": "dodge", "cat": "纯闪避", "key": "7", "dmg": 0, "qiCost": 0, "iframe": 0.8, "desc": "【纯闪避·无攻击】原地360度螺旋拧腰化劲，直接闪避当前格内所有冲击！"}, {"id": 22, "name": "22. 旱船晃·太极闪", "voice": "旱船晃！", "kind": "dodge", "cat": "纯闪避", "key": "X", "dmg": 0, "qiCost": 10, "iframe": 0.9, "desc": "【纯闪避·缓速】左右摇晃身段进入太极领域，令全场敌人减速65%并安全躲避！"}, {"id": 26, "name": "26. 白鹤亮翅·金钟闪", "voice": "白鹤亮翅！", "kind": "dodge", "cat": "纯闪避", "key": "N", "dmg": 0, "qiCost": 15, "iframe": 1.15, "desc": "【纯闪避·无敌】双臂振开金光护体，获得超长1.15秒绝对闪避无敌！"}, {"id": 2, "name": "02. 浪子踢球", "voice": "浪子踢球！", "kind": "attack", "cat": "主力攻击", "key": "J", "dmg": 140, "qiCost": 0, "iframe": 0.2, "range": "col", "desc": "【攻击招式】后仰顿挫高勾腿，将当前竖列扑来的敌人当皮球一脚踢飞上天！"}, {"id": 3, "name": "03. 狗熊哆嗦毛", "voice": "狗熊哆嗦毛！", "kind": "attack", "cat": "周围震飞", "key": "K", "dmg": 120, "qiCost": 10, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】核心肌群高频抖动，震飞自身十字相邻5格内的全部敌人！"}, {"id": 11, "name": "11. 猴子扳桩", "voice": "猴子扳桩！", "kind": "attack", "cat": "单体擒摔", "key": "8", "dmg": 200, "qiCost": 15, "iframe": 0.25, "range": "col", "desc": "【攻击招式】跃起扳住前方敌人猛烈砸向九宫格地面，重创Boss！"}, {"id": 12, "name": "12. 扁担闪·横扫", "voice": "扁担闪！", "kind": "attack", "cat": "整排横扫", "key": "9", "dmg": 165, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】双臂如铁扁担平举横扫，清空整条横排3格所有敌人！"}, {"id": 13, "name": "13. 十字靠身(铁山靠)", "voice": "铁山靠！", "kind": "attack", "cat": "十字撞击", "key": "L", "dmg": 240, "qiCost": 20, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】拧腰沉肩猛烈铁山靠，将十字范围内重甲Boss撞出硬直！"}, {"id": 14, "name": "14. 蛤蟆洼·震地", "voice": "蛤蟆洼！", "kind": "attack", "cat": "范围震晕", "key": "U", "dmg": 180, "qiCost": 18, "iframe": 0.25, "range": "cross", "desc": "【攻击招式】深蹲蛙跃重踏九宫格，震飞周围全部恐龙/丧尸/木乃伊！"}, {"id": 15, "name": "15. 小儿骑竹马", "voice": "小儿骑竹马！", "kind": "attack", "cat": "竖列踏击", "key": "I", "dmg": 160, "qiCost": 12, "iframe": 0.28, "range": "col", "desc": "【攻击招式】跨步腾跃踩踏前方敌人脊背借力二段劈踢！"}, {"id": 16, "name": "16. 燕子三抄水", "voice": "燕子三抄水！", "kind": "attack", "cat": "三连飞踢", "key": "O", "dmg": 215, "qiCost": 20, "iframe": 0.28, "range": "col", "desc": "【攻击招式】连续三次掠格飞踢，专斩高速冲锋敌人！"}, {"id": 17, "name": "17. 喜鹊登枝", "voice": "喜鹊登枝！", "kind": "attack", "cat": "防空神踢", "key": "P", "dmg": 185, "qiCost": 15, "iframe": 0.25, "range": "all_air", "desc": "【攻击招式】凌空蹬踏高空踢击，专打天上飞来的翼龙/尸鸦/圣甲虫！"}, {"id": 18, "name": "18. 拐子步·侧踹", "voice": "拐子侧踹！", "kind": "attack", "cat": "横排破甲", "key": "F", "dmg": 195, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】怪异折线变向后重侧踹，踹穿整排重甲防线！"}, {"id": 19, "name": "19. 磨盘转·旋风", "voice": "磨盘旋风腿！", "kind": "attack", "cat": "九宫旋风", "key": "G", "dmg": 230, "qiCost": 25, "iframe": 0.35, "range": "cross", "desc": "【攻击招式】高速旋转扫腿，卷起金色旋风清空十字五格！"}, {"id": 20, "name": "20. 鲤鱼打挺·回春", "voice": "鲤鱼打挺！", "kind": "attack", "cat": "反击回血", "key": "R", "dmg": 150, "qiCost": 25, "iframe": 0.4, "range": "cross", "desc": "【攻击+回血】猛烈挺腹弹射震飞周围敌人，并回复30点生命值！"}, {"id": 21, "name": "21. 大鹏展翅·掠空", "voice": "大鹏展翅！", "kind": "attack", "cat": "整排音爆", "key": "Z", "dmg": 260, "qiCost": 25, "iframe": 0.35, "range": "row", "desc": "【绝学攻击】双臂展开掀起整排音爆冲击，横扫所有横向敌人！"}, {"id": 23, "name": "23. 大花场·八连踢", "voice": "大花场八连踢！", "kind": "attack", "cat": "机关连踢", "key": "C", "dmg": 340, "qiCost": 35, "iframe": 0.4, "range": "col", "desc": "【绝学攻击】连续8脚浪子踢球高速连发，瞬间融化竖列Boss！"}, {"id": 24, "name": "24. 仙人指路·点穴", "voice": "仙人指路！", "kind": "attack", "cat": "贯穿激光", "key": "V", "dmg": 295, "qiCost": 30, "iframe": 0.28, "range": "col", "desc": "【绝学攻击】单指罡气贯穿整条竖列，100%触发暴击秒杀！"}, {"id": 25, "name": "25. 叶底藏花·回马枪", "voice": "叶底藏花！", "kind": "attack", "cat": "致命反踢", "key": "B", "dmg": 310, "qiCost": 30, "iframe": 0.35, "range": "cross", "desc": "【绝学攻击】假意退让瞬间拧腰回头重踢，专克偷袭敌人！"}, {"id": 27, "name": "27. 黑虎掏心·寸劲", "voice": "黑虎掏心！", "kind": "attack", "cat": "单体秒杀", "key": "M", "dmg": 420, "qiCost": 35, "iframe": 0.3, "range": "col", "desc": "【绝学攻击】贴身核心寸劲爆发，对霸王龙/巨型丧尸/法老王造成毁灭伤害！"}, {"id": 28, "name": "28. 金鸡独立·千斤坠", "voice": "金鸡独立千斤坠！", "kind": "attack", "cat": "全图震爆", "key": "T", "dmg": 360, "qiCost": 45, "iframe": 0.45, "range": "all", "desc": "【全屏绝学】单腿独立蓄力后千斤坠踏裂九宫格，震飞全屏敌人！"}, {"id": 29, "name": "29. 乌龙绞柱·风暴", "voice": "乌龙绞柱！", "kind": "attack", "cat": "全图龙卷", "key": "Y", "dmg": 390, "qiCost": 50, "iframe": 0.5, "range": "all", "desc": "【全屏绝学】双腿螺旋绞杀卷起全屏龙卷风，把九宫格所有敌人卷上天空！"}, {"id": 30, "name": "30. 三十路闪身万象归宗", "voice": "终极奥义！三十路闪身万象归宗！", "kind": "attack", "cat": "终极奥义", "key": "Q/E", "dmg": 780, "qiCost": 60, "iframe": 1.2, "range": "all", "desc": "【终极必杀】九宫格9个格子同时召唤黑背心宗师分身，齐声施展浪子踢球清空全屏！"}]};
+    const GDD = {"slug": "shanshenbu-30-jurassic", "title": "闪身步30招：全屏九宫格多世界大乱斗 v2.1", "prompt": "v2.1 全屏九宫格覆盖整个画面 + 拟真写实漫画风丧尸与木乃伊 + 简单/中等/困难/地狱4档难度 + 真实归零失败并触发主角飞撞碎玻璃歪脸慢滑搞笑结局", "tagline": "全屏 3×3 九宫格闪身步 × 恐龙/写实丧尸/写实木乃伊 × 4档难度 × 撞碎屏幕歪脸搞笑结局", "genre": "2D 全屏九宫格多世界奔跑闪避 & 功夫绝招反击", "created_at": "2026-11-20 15:45:54", "moves_30": [{"id": 1, "name": "01. 闪身步", "voice": "闪身步！", "kind": "dodge", "cat": "纯闪避", "key": "Space", "dmg": 0, "qiCost": 0, "iframe": 0.65, "desc": "【纯闪避·无攻击】腰腹猛拧瞬间闪去安全格！躲开红格必触发极限闪身+25气力！"}, {"id": 4, "name": "04. 拔泥步", "voice": "拔泥步！", "kind": "dodge", "cat": "纯闪避", "key": "1", "dmg": 0, "qiCost": 0, "iframe": 0.6, "desc": "【纯闪避·无攻击】高抬大腿稳健换格，免疫地面减速陷阱并躲避冲撞！"}, {"id": 5, "name": "05. 野鸡溜", "voice": "野鸡溜！", "kind": "dodge", "cat": "纯闪避", "key": "2", "dmg": 0, "qiCost": 0, "iframe": 0.72, "desc": "【纯闪避·无攻击】贴地超低身位疾滑换格，专躲空中翼龙/尸鸦/圣甲虫俯冲！"}, {"id": 6, "name": "06. 游场碎步", "voice": "游场碎步！", "kind": "dodge", "cat": "纯闪避", "key": "3", "dmg": 0, "qiCost": 0, "iframe": 0.75, "desc": "【纯闪避·无攻击】高频碎步闪避并留下一串残影分身，大幅延长无敌时间！"}, {"id": 7, "name": "07. 矮子步", "voice": "矮子步！", "kind": "dodge", "cat": "纯闪避", "key": "4", "dmg": 0, "qiCost": 0, "iframe": 0.68, "desc": "【纯闪避·无攻击】极限深蹲蟹行切格，轻松躲过横穿整排的冲锋巨兽！"}, {"id": 8, "name": "08. 车水步", "voice": "车水步！", "kind": "dodge", "cat": "纯闪避", "key": "5", "dmg": 0, "qiCost": 0, "iframe": 0.62, "desc": "【纯闪避·无攻击】连续后撤踏板步退至后排安全格，躲开正上方竖列俯冲！"}, {"id": 9, "name": "09. 走梗平衡步", "voice": "走梗步！", "kind": "dodge", "cat": "纯闪避", "key": "6", "dmg": 0, "qiCost": 0, "iframe": 0.7, "desc": "【纯闪避·无攻击】在九宫格边缘极速穿行，灵巧穿梭于两只敌人缝隙之间！"}, {"id": 10, "name": "10. 盘根拧腰步", "voice": "盘根拧腰！", "kind": "dodge", "cat": "纯闪避", "key": "7", "dmg": 0, "qiCost": 0, "iframe": 0.8, "desc": "【纯闪避·无攻击】原地360度螺旋拧腰化劲，直接闪避当前格内所有冲击！"}, {"id": 22, "name": "22. 旱船晃·太极闪", "voice": "旱船晃！", "kind": "dodge", "cat": "纯闪避", "key": "X", "dmg": 0, "qiCost": 10, "iframe": 0.9, "desc": "【纯闪避·缓速】左右摇晃身段进入太极领域，令全场敌人减速65%并安全躲避！"}, {"id": 26, "name": "26. 白鹤亮翅·金钟闪", "voice": "白鹤亮翅！", "kind": "dodge", "cat": "纯闪避", "key": "N", "dmg": 0, "qiCost": 15, "iframe": 1.15, "desc": "【纯闪避·无敌】双臂振开金光护体，获得超长1.15秒绝对闪避无敌！"}, {"id": 2, "name": "02. 浪子踢球", "voice": "浪子踢球！", "kind": "attack", "cat": "主力攻击", "key": "J", "dmg": 140, "qiCost": 0, "iframe": 0.2, "range": "col", "desc": "【攻击招式】后仰顿挫高勾腿，将当前竖列扑来的敌人当皮球一脚踢飞上天！"}, {"id": 3, "name": "03. 狗熊哆嗦毛", "voice": "狗熊哆嗦毛！", "kind": "attack", "cat": "周围震飞", "key": "K", "dmg": 120, "qiCost": 10, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】核心肌群高频抖动，震飞自身十字相邻5格内的全部敌人！"}, {"id": 11, "name": "11. 猴子扳桩", "voice": "猴子扳桩！", "kind": "attack", "cat": "单体擒摔", "key": "8", "dmg": 200, "qiCost": 15, "iframe": 0.25, "range": "col", "desc": "【攻击招式】跃起扳住前方敌人猛烈砸向九宫格地面，重创Boss！"}, {"id": 12, "name": "12. 扁担闪·横扫", "voice": "扁担闪！", "kind": "attack", "cat": "整排横扫", "key": "9", "dmg": 165, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】双臂如铁扁担平举横扫，清空整条横排3格所有敌人！"}, {"id": 13, "name": "13. 十字靠身(铁山靠)", "voice": "铁山靠！", "kind": "attack", "cat": "十字撞击", "key": "L", "dmg": 240, "qiCost": 20, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】拧腰沉肩猛烈铁山靠，将十字范围内重甲Boss撞出硬直！"}, {"id": 14, "name": "14. 蛤蟆洼·震地", "voice": "蛤蟆洼！", "kind": "attack", "cat": "范围震晕", "key": "U", "dmg": 180, "qiCost": 18, "iframe": 0.25, "range": "cross", "desc": "【攻击招式】深蹲蛙跃重踏九宫格，震飞周围全部恐龙/丧尸/木乃伊！"}, {"id": 15, "name": "15. 小儿骑竹马", "voice": "小儿骑竹马！", "kind": "attack", "cat": "竖列踏击", "key": "I", "dmg": 160, "qiCost": 12, "iframe": 0.28, "range": "col", "desc": "【攻击招式】跨步腾跃踩踏前方敌人脊背借力二段劈踢！"}, {"id": 16, "name": "16. 燕子三抄水", "voice": "燕子三抄水！", "kind": "attack", "cat": "三连飞踢", "key": "O", "dmg": 215, "qiCost": 20, "iframe": 0.28, "range": "col", "desc": "【攻击招式】连续三次掠格飞踢，专斩高速冲锋敌人！"}, {"id": 17, "name": "17. 喜鹊登枝", "voice": "喜鹊登枝！", "kind": "attack", "cat": "防空神踢", "key": "P", "dmg": 185, "qiCost": 15, "iframe": 0.25, "range": "all_air", "desc": "【攻击招式】凌空蹬踏高空踢击，专打天上飞来的翼龙/尸鸦/圣甲虫！"}, {"id": 18, "name": "18. 拐子步·侧踹", "voice": "拐子侧踹！", "kind": "attack", "cat": "横排破甲", "key": "F", "dmg": 195, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】怪异折线变向后重侧踹，踹穿整排重甲防线！"}, {"id": 19, "name": "19. 磨盘转·旋风", "voice": "磨盘旋风腿！", "kind": "attack", "cat": "九宫旋风", "key": "G", "dmg": 230, "qiCost": 25, "iframe": 0.35, "range": "cross", "desc": "【攻击招式】高速旋转扫腿，卷起金色旋风清空十字五格！"}, {"id": 20, "name": "20. 鲤鱼打挺·回春", "voice": "鲤鱼打挺！", "kind": "attack", "cat": "反击回血", "key": "R", "dmg": 150, "qiCost": 25, "iframe": 0.4, "range": "cross", "desc": "【攻击+回血】猛烈挺腹弹射震飞周围敌人，并回复30点生命值！"}, {"id": 21, "name": "21. 大鹏展翅·掠空", "voice": "大鹏展翅！", "kind": "attack", "cat": "整排音爆", "key": "Z", "dmg": 260, "qiCost": 25, "iframe": 0.35, "range": "row", "desc": "【绝学攻击】双臂展开掀起整排音爆冲击，横扫所有横向敌人！"}, {"id": 23, "name": "23. 大花场·八连踢", "voice": "大花场八连踢！", "kind": "attack", "cat": "机关连踢", "key": "C", "dmg": 340, "qiCost": 35, "iframe": 0.4, "range": "col", "desc": "【绝学攻击】连续8脚浪子踢球高速连发，瞬间融化竖列Boss！"}, {"id": 24, "name": "24. 仙人指路·点穴", "voice": "仙人指路！", "kind": "attack", "cat": "贯穿激光", "key": "V", "dmg": 295, "qiCost": 30, "iframe": 0.28, "range": "col", "desc": "【绝学攻击】单指罡气贯穿整条竖列，100%触发暴击秒杀！"}, {"id": 25, "name": "25. 叶底藏花·回马枪", "voice": "叶底藏花！", "kind": "attack", "cat": "致命反踢", "key": "B", "dmg": 310, "qiCost": 30, "iframe": 0.35, "range": "cross", "desc": "【绝学攻击】假意退让瞬间拧腰回头重踢，专克偷袭敌人！"}, {"id": 27, "name": "27. 黑虎掏心·寸劲", "voice": "黑虎掏心！", "kind": "attack", "cat": "单体秒杀", "key": "M", "dmg": 420, "qiCost": 35, "iframe": 0.3, "range": "col", "desc": "【绝学攻击】贴身核心寸劲爆发，对霸王龙/巨型丧尸/法老王造成毁灭伤害！"}, {"id": 28, "name": "28. 金鸡独立·千斤坠", "voice": "金鸡独立千斤坠！", "kind": "attack", "cat": "全图震爆", "key": "T", "dmg": 360, "qiCost": 45, "iframe": 0.45, "range": "all", "desc": "【全屏绝学】单腿独立蓄力后千斤坠踏裂九宫格，震飞全屏敌人！"}, {"id": 29, "name": "29. 乌龙绞柱·风暴", "voice": "乌龙绞柱！", "kind": "attack", "cat": "全图龙卷", "key": "Y", "dmg": 390, "qiCost": 50, "iframe": 0.5, "range": "all", "desc": "【全屏绝学】双腿螺旋绞杀卷起全屏龙卷风，把九宫格所有敌人卷上天空！"}, {"id": 30, "name": "30. 三十路闪身万象归宗", "voice": "终极奥义！三十路闪身万象归宗！", "kind": "attack", "cat": "终极奥义", "key": "Q/E", "dmg": 780, "qiCost": 60, "iframe": 1.2, "range": "all", "desc": "【终极必杀】九宫格9个格子同时召唤黑背心宗师分身，齐声施展浪子踢球清空全屏！"}]};
 
     // =========================================================================
-    // 1. CHINESE VOCAL MOVE CALLOUT ENGINE (Web Speech API zh-CN — "闪身步！" "浪子踢球！")
+    // 1. DIFFICULTY PRESETS (Easy / Medium / Hard / Nightmare)
+    // =========================================================================
+    const DIFFICULTIES = {
+      easy:      { label: '🟢 简单 Easy',       telegraph: 1.38, speedMult: 0.76, dmgNormal: 12, dmgBoss: 22, spawnSec: 2.15, maxDangerCells: 4, doubleSpawnChance: 0.12 },
+      medium:    { label: '🟡 中等 Medium',     telegraph: 0.96, speedMult: 1.00, dmgNormal: 20, dmgBoss: 34, spawnSec: 1.48, maxDangerCells: 5, doubleSpawnChance: 0.35 },
+      hard:      { label: '🔴 困难 Hard',       telegraph: 0.64, speedMult: 1.36, dmgNormal: 30, dmgBoss: 48, spawnSec: 0.96, maxDangerCells: 6, doubleSpawnChance: 0.55 },
+      nightmare: { label: '💀 地狱宗师 Nightmare', telegraph: 0.46, speedMult: 1.68, dmgNormal: 42, dmgBoss: 68, spawnSec: 0.68, maxDangerCells: 7, doubleSpawnChance: 0.72 },
+    };
+
+    // =========================================================================
+    // 2. CHINESE VOCAL MOVE CALLOUT ENGINE (Web Speech API zh-CN)
     // =========================================================================
     let voiceEnabled = true;
     const DODGE_TAUNTS = ['闪身步！没打着！', '闪身步！差一点！', '核心稳如泰山！', '漂亮闪身！'];
+    const FAIL_VOICES = [
+      '哎呀妈呀！闪身步闪岔气啦！啪叽！',
+      '救命啊！我的脸贴在玻璃上了！',
+      '韧带拉伤啦！这恐龙不讲武德！',
+    ];
     let zhVoice = null;
 
     function loadChineseVoice() {
@@ -324,15 +398,15 @@
         const u = new SpeechSynthesisUtterance(text);
         u.lang = 'zh-CN';
         if (zhVoice) u.voice = zhVoice;
-        u.rate = isComicHigh ? 1.38 : 1.25;
-        u.pitch = isComicHigh ? 1.32 : 1.05;
+        u.rate = isComicHigh ? 1.32 : 1.22;
+        u.pitch = isComicHigh ? 1.34 : 1.05;
         u.volume = 1.0;
         window.speechSynthesis.speak(u);
       } catch (_) {}
     }
 
     // =========================================================================
-    // 2. 4 COMEDIC / FUN WEBAUDIO BGM TRACKS + FOLK SFX ENGINE
+    // 3. 4 COMEDIC / FUN WEBAUDIO BGM TRACKS + SPLAT & SQUEAK SFX
     // =========================================================================
     class ComedyMusicEngine {
       constructor() {
@@ -352,10 +426,7 @@
       setTrack(trackName) {
         this.track = trackName;
         this.step = 0;
-        if (this.isPlaying) {
-          clearInterval(this.timer);
-          this.startLoop();
-        }
+        if (this.isPlaying) { clearInterval(this.timer); this.startLoop(); }
       }
       toggle() {
         this.init();
@@ -372,26 +443,21 @@
       tick() {
         if (!this.ctx || !this.isPlaying) return;
         const s = this.step++;
-
         if (this.track === 'huagudeng') {
-          // 魔性花鼓灯锣鼓 (Dong-Qiang-Dong-Dong-Qiang + Pentatonic Suona)
           const notes = [293.66, 329.63, 440, 392, 329.63, 293.66, 220, 293.66];
           if (s % 4 === 0 || s % 4 === 2) this.playDrum(80, 0.14, 0.16);
           else this.playSlideTone(580, 720, 0.09, 'sawtooth', 0.055);
           this.playTone(notes[s % notes.length], 0.15, 'triangle', 0.075);
         } else if (this.track === 'comedy') {
-          // 功夫喜剧搞笑唢呐快板 (bouncy xylophone + boing spring bass!)
           const goofy = [523.25, 659.25, 587.33, 783.99, 659.25, 523.25, 440, 587.33];
           this.playTone(goofy[s % goofy.length], 0.09, 'square', 0.055);
-          if (s % 4 === 0) this.playSlideTone(140, 290, 0.13, 'sine', 0.14); // Funny boing!
-          if (s % 2 === 1) this.playTone(1150, 0.04, 'triangle', 0.05); // Wooden clapper (快板)!
+          if (s % 4 === 0) this.playSlideTone(140, 290, 0.13, 'sine', 0.14);
+          if (s % 2 === 1) this.playTone(1150, 0.04, 'triangle', 0.05);
         } else if (this.track === 'desert_snake') {
-          // 沙漠神秘搞笑蛇笛舞曲 (Hijaz / Phrygian Dominant Scale!)
           const hijaz = [293.66, 311.13, 369.99, 392.0, 440.0, 466.16, 392.0, 369.99];
           this.playSlideTone(hijaz[s % hijaz.length], hijaz[(s + 1) % hijaz.length], 0.19, 'sawtooth', 0.05);
           if (s % 2 === 0) this.playDrum(115, 0.11, 0.13);
         } else {
-          // 8-Bit 复古搞笑像素电音 (NES Chiptune)
           const chip = [330, 392, 523, 659, 523, 392, 440, 587];
           this.playTone(chip[s % chip.length], 0.11, 'square', 0.06);
           if (s % 2 === 0) this.playTone(chip[s % chip.length] * 0.25, 0.11, 'triangle', 0.11);
@@ -402,8 +468,7 @@
         const now = this.ctx.currentTime;
         const osc = this.ctx.createOscillator();
         const g = this.ctx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, now);
+        osc.type = type; osc.frequency.setValueAtTime(freq, now);
         g.gain.setValueAtTime(vol, now);
         g.gain.exponentialRampToValueAtTime(0.001, now + dur);
         osc.connect(g); g.connect(this.ctx.destination);
@@ -422,38 +487,35 @@
         osc.connect(g); g.connect(this.ctx.destination);
         osc.start(now); osc.stop(now + dur);
       }
-      playDrum(freq, dur, vol) {
-        this.playSlideTone(freq * 2.1, freq * 0.5, dur, 'sine', vol);
-      }
+      playDrum(freq, dur, vol) { this.playSlideTone(freq * 2.1, freq * 0.5, dur, 'sine', vol); }
       playSFX(kind) {
         this.init();
         if (!this.ctx) return;
-        if (kind === 'dodge') {
-          this.playSlideTone(280, 760, 0.14, 'sine', 0.14);
-        } else if (kind === 'perfect') {
-          this.playSlideTone(520, 1240, 0.22, 'triangle', 0.16);
-        } else if (kind === 'kick') {
-          this.playDrum(125, 0.2, 0.28);
-          this.playSlideTone(580, 180, 0.14, 'sawtooth', 0.1);
-        } else if (kind === 'hurt') {
-          this.playSlideTone(180, 70, 0.25, 'sawtooth', 0.18);
+        if (kind === 'dodge') this.playSlideTone(280, 760, 0.14, 'sine', 0.14);
+        else if (kind === 'perfect') this.playSlideTone(520, 1240, 0.22, 'triangle', 0.16);
+        else if (kind === 'kick') { this.playDrum(125, 0.2, 0.28); this.playSlideTone(580, 180, 0.14, 'sawtooth', 0.1); }
+        else if (kind === 'hurt') this.playSlideTone(180, 70, 0.25, 'sawtooth', 0.18);
+        else if (kind === 'launch_whistle') this.playSlideTone(320, 1450, 0.42, 'sine', 0.15);
+        else if (kind === 'glass_splat') {
+          // Heavy glass thud + high chime crack!
+          this.playDrum(60, 0.35, 0.38);
+          this.playSlideTone(1900, 420, 0.22, 'sawtooth', 0.16);
+          setTimeout(() => this.playSlideTone(780, 460, 0.65, 'sine', 0.08), 320); // Rubber squeak sliding down glass!
         }
       }
     }
     const music = new ComedyMusicEngine();
 
     // =========================================================================
-    // 3. LOAD REAL HAND-PAINTED SPRITES + ILLUSTRATED COMIC SVG SPRITES (ZOMBIES & MUMMIES!)
+    // 4. LOAD HAND-PAINTED SPRITES + GRITTY REALISTIC ANATOMICAL ZOMBIE & MUMMY COMIC SPRITES!
     // =========================================================================
     const ASSETS = {};
-
     function svgToImg(svgStr) {
       const img = new Image();
       img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgStr.trim());
       return img;
     }
 
-    // Real Hand-Painted PNG/JPG Assets
     const FILE_ASSETS = {
       hero_ready: 'sprites/hero_ready.png',
       hero_dodge: 'sprites/hero_dodge.png',
@@ -472,148 +534,211 @@
       ASSETS[k] = im;
     }
 
-    // Illustrated Cel-Shaded 2D Comic SVG Sprites for ZOMBIES & MUMMIES (matching Metal Slug / Capcom ink style!)
+    // -------------------------------------------------------------------------
+    // GRITTY ANATOMICAL REALISTIC-COMIC ZOMBIE SPRITES (Capcom / Resident Evil 2D Ink Style!)
+    // -------------------------------------------------------------------------
     ASSETS.zombie_runner = svgToImg(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 260">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 380">
         <defs>
-          <linearGradient id="zskin" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#a3e635"/><stop offset="100%" stop-color="#4d7c0f"/></linearGradient>
-          <linearGradient id="zsuit" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#475569"/><stop offset="100%" stop-color="#1e293b"/></linearGradient>
+          <linearGradient id="zSkin" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8da170"/><stop offset="55%" stop-color="#5d6e47"/><stop offset="100%" stop-color="#374128"/></linearGradient>
+          <linearGradient id="zCoat" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#334155"/><stop offset="100%" stop-color="#0f172a"/></linearGradient>
+          <linearGradient id="zShirt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#cbd5e1"/><stop offset="100%" stop-color="#64748b"/></linearGradient>
         </defs>
-        <!-- Legs -->
-        <path d="M85,175 L65,245 L88,248 L104,185 Z" fill="#1e293b" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M120,175 L145,242 L168,236 L140,175 Z" fill="#334155" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <!-- Ripped Office Shirt & Jacket -->
-        <path d="M68,95 L152,95 L146,182 L72,182 Z" fill="url(#zsuit)" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M98,96 L122,96 L116,155 L104,155 Z" fill="#e2e8f0" stroke="#09090b" stroke-width="3"/>
-        <!-- Crooked Red Office Tie -->
-        <path d="M107,102 L114,102 L120,152 L110,164 L100,152 Z" fill="#dc2626" stroke="#09090b" stroke-width="3.5"/>
-        <!-- Outstretched Grabbing Zombie Arms -->
-        <path d="M72,108 L22,126 L16,144 L76,132 Z" fill="url(#zskin)" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M148,108 L200,118 L204,136 L146,132 Z" fill="url(#zskin)" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <!-- Expressive Goofy Fierce Zombie Head -->
-        <rect x="74" y="26" width="72" height="72" rx="22" fill="url(#zskin)" stroke="#09090b" stroke-width="5"/>
-        <!-- Messy Hair -->
-        <path d="M74,45 Q90,12 115,24 Q135,10 148,44 Q130,34 110,36 Q90,34 74,45 Z" fill="#18181b" stroke="#09090b" stroke-width="4"/>
-        <!-- Goofy Big & Small Glowing Yellow Eyes -->
-        <circle cx="96" cy="58" r="11" fill="#fef08a" stroke="#09090b" stroke-width="3.5"/>
-        <circle cx="98" cy="58" r="4" fill="#09090b"/>
-        <circle cx="126" cy="56" r="8" fill="#fef08a" stroke="#09090b" stroke-width="3.5"/>
-        <circle cx="125" cy="56" r="3" fill="#09090b"/>
-        <!-- Roaring Toothy Mouth & Tongue -->
-        <path d="M88,74 Q110,96 132,74 Z" fill="#7f1d1d" stroke="#09090b" stroke-width="4"/>
-        <rect x="96" y="74" width="8" height="8" fill="#fff" stroke="#09090b" stroke-width="2"/>
-        <rect x="114" y="74" width="8" height="9" fill="#fff" stroke="#09090b" stroke-width="2"/>
+        <!-- Back Striding Leg & Torn Trousers -->
+        <path d="M126,238 L92,312 L74,358 L106,364 L126,315 L154,250 Z" fill="#1e293b" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M72,354 L46,364 L96,370 L108,360 Z" fill="#09090b"/>
+        <!-- Front Lunging Leg with Torn Knee Showing Bone/Sinew -->
+        <path d="M168,236 L208,302 L232,358 L262,352 L238,292 L196,232 Z" fill="#0f172a" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M204,296 L224,290 L228,312 L208,314 Z" fill="url(#zSkin)" stroke="#09090b" stroke-width="3"/>
+        <path d="M230,354 L274,362 L268,372 L226,366 Z" fill="#18181b" stroke="#09090b" stroke-width="3"/>
+        <!-- Back Reaching Clawed Arm -->
+        <path d="M112,136 L52,162 L24,194 L40,206 L74,182 L124,162 Z" fill="url(#zSkin)" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M24,194 L8,208 L18,216 L34,204 M28,202 L18,224 L28,226 L40,208" fill="#4d5c38" stroke="#09090b" stroke-width="3"/>
+        <!-- Hunched Muscular Torso in Shredded Dark Suit & Bloodstained Shirt -->
+        <path d="M104,116 Q155,96 204,124 L196,244 L118,244 Z" fill="url(#zCoat)" stroke="#09090b" stroke-width="5.5" stroke-linejoin="round"/>
+        <path d="M138,118 L178,124 L168,215 L136,215 Z" fill="url(#zShirt)" stroke="#09090b" stroke-width="3.5"/>
+        <!-- Torn Ribcage / Stain Details & Shredded Red Tie -->
+        <path d="M148,144 Q162,158 156,192 Q144,174 148,144 Z" fill="#7f1d1d" opacity="0.85"/>
+        <path d="M156,124 L168,126 L176,184 L162,202 L150,180 Z" fill="#991b1b" stroke="#09090b" stroke-width="3.5"/>
+        <!-- Exposed Gaunt Neck Tendons -->
+        <path d="M144,90 L180,96 L174,128 L142,124 Z" fill="url(#zSkin)" stroke="#09090b" stroke-width="4"/>
+        <path d="M154,96 L152,122 M166,98 L168,124" stroke="#2c351e" stroke-width="3"/>
+        <!-- Realistic Gaunt Skull-Like Zombie Head (Sunken Cheeks, Glowing Bloodshot Eyes, Jagged Jaw!) -->
+        <path d="M132,42 Q165,16 202,42 Q216,74 202,102 L188,116 L154,114 L138,94 Q126,70 132,42 Z" fill="url(#zSkin)" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
+        <!-- Disheveled Dark Hair Strands -->
+        <path d="M130,52 Q144,16 176,22 Q204,24 208,52 Q188,36 164,40 Q144,38 130,52 Z" fill="#18181b" stroke="#09090b" stroke-width="3.5"/>
+        <!-- Sunken Dark Eye Sockets + Piercing Pale Yellow-Red Eyes -->
+        <path d="M150,58 L174,64 L168,78 L148,74 Z" fill="#18181b"/>
+        <path d="M184,64 L204,58 L202,74 L184,78 Z" fill="#18181b"/>
+        <circle cx="161" cy="68" r="4.5" fill="#facc15"/>
+        <circle cx="193" cy="68" r="4.5" fill="#facc15"/>
+        <!-- Hollow Cheekbone Shading & Snarling Jaw with Sharp Exposed Teeth -->
+        <path d="M144,82 Q156,92 146,102" stroke="#2c351e" stroke-width="3" fill="none"/>
+        <path d="M154,88 L198,86 L194,108 L158,108 Z" fill="#450a0a" stroke="#09090b" stroke-width="4"/>
+        <path d="M158,88 L164,98 L170,88 L176,99 L182,88 L188,98 L194,88" fill="#fef3c7" stroke="#09090b" stroke-width="2"/>
+        <path d="M162,108 L167,100 L173,108 L179,100 L185,108 L190,100" fill="#fef3c7" stroke="#09090b" stroke-width="2"/>
+        <!-- Foreground Muscular Sinewy Arm Lunging Forward! -->
+        <path d="M194,132 L252,148 L294,142 L298,166 L248,176 L186,160 Z" fill="url(#zSkin)" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M214,146 L250,154" stroke="#2c351e" stroke-width="3"/>
+        <path d="M294,142 L314,134 L310,148 L316,156 L304,162 L312,172 L294,166 Z" fill="#6b7c52" stroke="#09090b" stroke-width="3.5"/>
       </svg>
     `);
 
     ASSETS.zombie_brute = svgToImg(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 280">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 390">
         <defs>
-          <linearGradient id="bskin" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#84cc16"/><stop offset="100%" stop-color="#365314"/></linearGradient>
+          <linearGradient id="brSkin" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7c9060"/><stop offset="50%" stop-color="#4d5d38"/><stop offset="100%" stop-color="#28311d"/></linearGradient>
         </defs>
-        <!-- Giant Street STOP Sign Club! -->
-        <rect x="192" y="34" width="12" height="175" rx="4" fill="#94a3b8" stroke="#09090b" stroke-width="4" transform="rotate(14 198 120)"/>
-        <polygon points="182,12 222,12 242,32 242,72 222,92 182,92 162,72 162,32" fill="#dc2626" stroke="#fff" stroke-width="4"/>
-        <text x="202" y="60" font-size="22" font-weight="900" fill="#fff" text-anchor="middle" font-family="Arial">STOP</text>
-        <!-- Hulking Legs -->
-        <rect x="64" y="185" width="44" height="78" rx="12" fill="#1e3a8a" stroke="#09090b" stroke-width="5"/>
-        <rect x="132" y="185" width="44" height="78" rx="12" fill="#1e3a8a" stroke="#09090b" stroke-width="5"/>
-        <!-- Giant Muscular Torso + Torn Orange Construction Vest -->
-        <path d="M44,82 L198,82 L184,195 L58,195 Z" fill="url(#bskin)" stroke="#09090b" stroke-width="6" stroke-linejoin="round"/>
-        <path d="M52,85 L100,85 L92,188 L58,188 Z" fill="#f97316" stroke="#09090b" stroke-width="4"/>
-        <path d="M142,85 L190,85 L184,188 L150,188 Z" fill="#f97316" stroke="#09090b" stroke-width="4"/>
-        <rect x="58" y="140" width="34" height="12" fill="#fef08a"/>
-        <rect x="150" y="140" width="34" height="12" fill="#fef08a"/>
-        <!-- Giant Arms -->
-        <path d="M46,96 L14,175 L46,184 L68,120 Z" fill="url(#bskin)" stroke="#09090b" stroke-width="5"/>
-        <path d="M194,96 L224,168 L192,178 L174,122 Z" fill="url(#bskin)" stroke="#09090b" stroke-width="5"/>
-        <!-- Brute Head -->
-        <rect x="82" y="28" width="78" height="68" rx="18" fill="url(#bskin)" stroke="#09090b" stroke-width="5"/>
-        <circle cx="104" cy="56" r="9" fill="#ef4444" stroke="#09090b" stroke-width="3"/>
-        <circle cx="138" cy="56" r="9" fill="#ef4444" stroke="#09090b" stroke-width="3"/>
-        <path d="M94,76 L148,76 L142,92 L100,92 Z" fill="#450a0a" stroke="#09090b" stroke-width="4"/>
-        <polygon points="102,76 110,88 118,76" fill="#fff"/>
-        <polygon points="124,76 132,88 140,76" fill="#fff"/>
+        <!-- Giant Rusted Steel I-Beam / Bent STOP Sign Weapon -->
+        <g transform="rotate(18 265 160)">
+          <rect x="262" y="42" width="16" height="235" rx="4" fill="#64748b" stroke="#09090b" stroke-width="5"/>
+          <polygon points="244,12 296,12 322,38 322,88 296,114 244,114 218,88 218,38" fill="#991b1b" stroke="#cbd5e1" stroke-width="5"/>
+          <text x="270" y="74" font-size="28" font-weight="900" fill="#f8fafc" text-anchor="middle" font-family="Impact, Arial">STOP</text>
+        </g>
+        <!-- Massive Muscular Legs & Work Boots -->
+        <path d="M102,250 L82,356 L138,360 L152,262 Z" fill="#1e293b" stroke="#09090b" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M188,250 L212,358 L266,352 L242,254 Z" fill="#1e293b" stroke="#09090b" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M74,352 L140,356 L142,376 L64,374 Z" fill="#09090b"/>
+        <path d="M210,354 L276,352 L286,374 L208,376 Z" fill="#09090b"/>
+        <!-- Towering Hulking Mutant Torso (Vein & Pec Shading!) -->
+        <path d="M68,106 Q172,72 270,112 L250,262 L92,262 Z" fill="url(#brSkin)" stroke="#09090b" stroke-width="6.5" stroke-linejoin="round"/>
+        <!-- Muscular Chest Contours & Dark Scar -->
+        <path d="M116,154 Q146,174 170,152 Q196,174 226,154" stroke="#222a18" stroke-width="5" fill="none"/>
+        <path d="M140,184 L204,184 M144,208 L200,208 M172,154 L172,240" stroke="#222a18" stroke-width="4"/>
+        <!-- Shredded High-Vis Construction Vest Strips -->
+        <path d="M76,108 L128,112 L116,252 L92,252 Z" fill="#c2410c" stroke="#09090b" stroke-width="5"/>
+        <path d="M214,112 L264,112 L248,252 L222,252 Z" fill="#c2410c" stroke="#09090b" stroke-width="5"/>
+        <rect x="86" y="180" width="34" height="14" fill="#fde047" stroke="#09090b" stroke-width="2.5"/>
+        <rect x="224" y="180" width="32" height="14" fill="#fde047" stroke="#09090b" stroke-width="2.5"/>
+        <!-- Massive Biceps & Clenched Mutant Fists -->
+        <path d="M76,118 L24,184 L38,246 L76,240 L74,192 L100,152 Z" fill="url(#brSkin)" stroke="#09090b" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M262,118 L314,178 L294,242 L254,234 L268,186 L244,152 Z" fill="url(#brSkin)" stroke="#09090b" stroke-width="6" stroke-linejoin="round"/>
+        <!-- Fierce Heavy-Browed Mutant Boss Head -->
+        <path d="M126,56 Q172,24 218,56 L216,118 L188,134 L156,134 L128,118 Z" fill="url(#brSkin)" stroke="#09090b" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M136,74 L168,84 L140,94 Z" fill="#09090b"/>
+        <path d="M208,74 L176,84 L204,94 Z" fill="#09090b"/>
+        <circle cx="152" cy="85" r="5" fill="#ef4444"/>
+        <circle cx="192" cy="85" r="5" fill="#ef4444"/>
+        <path d="M144,104 L200,104 L194,126 L150,126 Z" fill="#450a0a" stroke="#09090b" stroke-width="4"/>
+        <path d="M150,104 L158,118 L166,104 L174,119 L182,104 L190,118 L196,104" fill="#fef3c7" stroke="#09090b" stroke-width="2.5"/>
       </svg>
     `);
 
     ASSETS.zombie_crow = svgToImg(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160">
-        <!-- Giant Mutant Purple-Black Wings -->
-        <path d="M120,76 L12,24 L42,82 L18,108 L112,96 Z" fill="#581c87" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M120,76 L228,24 L198,82 L222,108 L128,96 Z" fill="#6b21a8" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <ellipse cx="120" cy="84" rx="34" ry="26" fill="#3b0764" stroke="#09090b" stroke-width="5"/>
-        <!-- Glowing Toxic Green Eyes & Sharp Yellow Beak -->
-        <circle cx="106" cy="76" r="8" fill="#84cc16" stroke="#09090b" stroke-width="3"/>
-        <circle cx="134" cy="76" r="8" fill="#84cc16" stroke="#09090b" stroke-width="3"/>
-        <polygon points="108,90 132,90 120,126" fill="#facc15" stroke="#09090b" stroke-width="4"/>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+        <!-- Jagged Decayed Demon Crow Wings -->
+        <path d="M160,92 L12,18 L48,74 L16,102 L68,114 L42,140 L146,118 Z" fill="#1e1b4b" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M160,92 L308,18 L272,74 L304,102 L252,114 L278,140 L174,118 Z" fill="#312e81" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M160,92 L62,48 M160,92 L258,48" stroke="#6d28d9" stroke-width="4"/>
+        <!-- Sinister Body & Talons -->
+        <ellipse cx="160" cy="108" rx="34" ry="42" fill="#0f172a" stroke="#09090b" stroke-width="5"/>
+        <path d="M138,142 L126,174 L144,162 M182,142 L194,174 L176,162" stroke="#facc15" stroke-width="5" stroke-linecap="round"/>
+        <!-- Fierce Glowing Eyes & Hooked Raptor Beak -->
+        <path d="M136,84 L156,94 L138,100 Z" fill="#ef4444"/>
+        <path d="M184,84 L164,94 L182,100 Z" fill="#ef4444"/>
+        <polygon points="146,104 174,104 160,148" fill="#cbd5e1" stroke="#09090b" stroke-width="4.5"/>
       </svg>
     `);
 
+    // -------------------------------------------------------------------------
+    // GRITTY ANATOMICAL REALISTIC-COMIC ANCIENT EGYPTIAN MUMMIES & PHARAOH WARLORD!
+    // -------------------------------------------------------------------------
     ASSETS.mummy_runner = svgToImg(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 260">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 380">
         <defs>
-          <linearGradient id="mlinen" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#d6b482"/></linearGradient>
+          <linearGradient id="mWrap" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3e2bc"/><stop offset="55%" stop-color="#c8a974"/><stop offset="100%" stop-color="#7c5d32"/></linearGradient>
+          <linearGradient id="mDecay" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#451a03"/><stop offset="100%" stop-color="#1c1917"/></linearGradient>
         </defs>
-        <!-- Flying Trailing Bandage Ribbons -->
-        <path d="M148,118 Q195,95 212,115 Q190,132 148,136 Z" fill="#fde68a" stroke="#451a03" stroke-width="4"/>
-        <path d="M68,140 Q22,128 10,152 Q36,162 72,158 Z" fill="#fde68a" stroke="#451a03" stroke-width="4"/>
-        <!-- Bandaged Legs -->
-        <path d="M84,174 L68,244 L92,246 L104,182 Z" fill="url(#mlinen)" stroke="#451a03" stroke-width="5"/>
-        <path d="M118,174 L142,244 L164,238 L138,176 Z" fill="url(#mlinen)" stroke="#451a03" stroke-width="5"/>
-        <!-- Wrapped Torso -->
-        <rect x="70" y="96" width="80" height="86" rx="16" fill="url(#mlinen)" stroke="#451a03" stroke-width="5"/>
-        <path d="M72,114 L148,124 M72,136 L148,128 M72,156 L148,164" stroke="#78350f" stroke-width="4"/>
-        <!-- Outstretched Arms -->
-        <path d="M72,106 L22,120 L20,138 L74,132 Z" fill="url(#mlinen)" stroke="#451a03" stroke-width="5"/>
-        <path d="M148,106 L198,118 L200,136 L146,132 Z" fill="url(#mlinen)" stroke="#451a03" stroke-width="5"/>
-        <!-- Wrapped Head + Dark Eye Slit + Glowing Cyan Eyes! -->
-        <circle cx="110" cy="62" r="36" fill="url(#mlinen)" stroke="#451a03" stroke-width="5"/>
-        <path d="M76,52 L144,44 M78,78 L142,84" stroke="#78350f" stroke-width="4"/>
-        <rect x="82" y="52" width="56" height="20" rx="8" fill="#09090b"/>
-        <circle cx="97" cy="62" r="6" fill="#22d3ee"/>
-        <circle cx="123" cy="62" r="6" fill="#22d3ee"/>
+        <!-- Flowing Shredded Ancient Linen Ribbons -->
+        <path d="M198,136 Q266,94 304,126 Q272,150 202,158 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="4.5"/>
+        <path d="M110,186 Q44,168 14,202 Q58,216 114,206 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="4.5"/>
+        <!-- Sinewy Bandaged Legs Striding Forward -->
+        <path d="M126,232 L90,312 L72,360 L108,364 L130,310 L154,244 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="5.5" stroke-linejoin="round"/>
+        <path d="M168,232 L208,306 L232,360 L264,352 L238,292 L196,230 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="5.5" stroke-linejoin="round"/>
+        <!-- Bandage Cross-Lines on Legs -->
+        <path d="M98,290 L132,302 M86,326 L120,336 M192,286 L230,276 M212,324 L250,314" stroke="#573917" stroke-width="4"/>
+        <!-- Back Reaching Wrapped Arm -->
+        <path d="M114,132 L50,152 L20,188 L38,200 L72,174 L124,158 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="5"/>
+        <!-- Gaunt Muscular Wrapped Torso with Exposed Dark Ribs & Ancient Amulet -->
+        <path d="M106,112 Q158,92 206,120 L194,242 L118,242 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="5.5" stroke-linejoin="round"/>
+        <!-- Exposed Dark Dessicated Ribcage Gap -->
+        <path d="M138,144 L178,148 L172,186 L142,182 Z" fill="url(#mDecay)" stroke="#291506" stroke-width="3"/>
+        <path d="M142,156 L176,160 M144,170 L174,174" stroke="#d6b482" stroke-width="4"/>
+        <!-- Criss-Cross Bandage Straps across Chest -->
+        <path d="M110,126 L202,148 M112,196 L196,184 M116,220 L194,230" stroke="#573917" stroke-width="4.5"/>
+        <!-- Torn Egyptian Gold Waist Sash -->
+        <path d="M116,228 L196,228 L186,282 L156,262 L126,282 Z" fill="#b45309" stroke="#291506" stroke-width="4"/>
+        <!-- Realistic Skull-Wrapped Mummy Head (Sunken Bandage Mask + Glowing Cursed Turquoise Eyes + Skeletal Jaw!) -->
+        <path d="M132,40 Q168,14 202,42 Q216,74 200,104 L186,118 L152,116 L136,96 Q124,68 132,40 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="5.5" stroke-linejoin="round"/>
+        <path d="M134,54 L204,46 M136,88 L202,94" stroke="#573917" stroke-width="4"/>
+        <!-- Deep Shadowed Eye Opening with Piercing Cyan Cursed Glow -->
+        <path d="M146,56 L202,58 L198,80 L146,78 Z" fill="#09090b"/>
+        <polygon points="154,65 170,69 156,74" fill="#22d3ee"/>
+        <polygon points="196,65 180,69 194,74" fill="#22d3ee"/>
+        <!-- Exposed Dessicated Skeletal Grin -->
+        <path d="M156,92 L192,92 L188,112 L160,112 Z" fill="#1c1917" stroke="#291506" stroke-width="3"/>
+        <path d="M162,94 L162,110 M170,94 L170,110 M178,94 L178,110 M186,94 L186,110" stroke="#fef3c7" stroke-width="3.5"/>
+        <!-- Foreground Clawing Wrapped Arm -->
+        <path d="M194,130 L254,144 L296,136 L300,162 L248,174 L186,158 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="5.5" stroke-linejoin="round"/>
+        <path d="M214,136 L220,166 M246,142 L250,172 M274,140 L278,166" stroke="#573917" stroke-width="3.5"/>
+        <path d="M296,136 L316,128 L312,144 L318,154 L306,160 L314,170 L296,162 Z" fill="#7c5d32" stroke="#291506" stroke-width="3.5"/>
       </svg>
     `);
 
     ASSETS.mummy_pharaoh = svgToImg(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 280">
-        <!-- Golden Nemes Pharaoh Headdress (Blue & Gold Stripes!) -->
-        <path d="M54,126 L78,34 Q130,8 182,34 L206,126 L174,134 L164,86 L96,86 L86,134 Z" fill="#f59e0b" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M70,64 L190,64 M64,86 L196,86 M58,108 L202,108" stroke="#1d4ed8" stroke-width="7"/>
-        <!-- Golden Cobra Uraeus Crown -->
-        <circle cx="130" cy="36" r="11" fill="#fde047" stroke="#09090b" stroke-width="3.5"/>
-        <!-- Floating Wrapped Royal Body + Ornate Collar -->
-        <path d="M84,118 L176,118 L164,250 L96,250 Z" fill="#fef3c7" stroke="#451a03" stroke-width="5"/>
-        <path d="M86,154 L172,166 M88,184 L170,196 M92,216 L168,224" stroke="#92400e" stroke-width="4"/>
-        <path d="M76,114 Q130,158 184,114 L172,146 Q130,178 88,146 Z" fill="#0284c7" stroke="#f59e0b" stroke-width="4"/>
-        <!-- Glowing Golden Pharaoh Staff -->
-        <rect x="204" y="48" width="11" height="190" rx="5" fill="#facc15" stroke="#09090b" stroke-width="4"/>
-        <circle cx="210" cy="48" r="18" fill="#22d3ee" stroke="#f59e0b" stroke-width="5"/>
-        <!-- Pharaoh Face Mask -->
-        <rect x="96" y="48" width="68" height="66" rx="22" fill="#fbbf24" stroke="#09090b" stroke-width="5"/>
-        <rect x="104" y="68" width="52" height="16" rx="6" fill="#09090b"/>
-        <circle cx="117" cy="76" r="5.5" fill="#22d3ee"/>
-        <circle cx="143" cy="76" r="5.5" fill="#22d3ee"/>
-        <rect x="122" y="108" width="16" height="24" rx="4" fill="#1d4ed8" stroke="#f59e0b" stroke-width="3"/>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 390">
+        <defs>
+          <linearGradient id="pGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fef08a"/><stop offset="50%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#92400e"/></linearGradient>
+          <linearGradient id="pLinen" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#a16207"/></linearGradient>
+        </defs>
+        <!-- Glowing Cursed Golden Pharaoh Scepter Staff -->
+        <rect x="292" y="42" width="14" height="310" rx="6" fill="url(#pGold)" stroke="#09090b" stroke-width="5"/>
+        <polygon points="299,8 326,48 299,88 272,48" fill="#22d3ee" stroke="#fef08a" stroke-width="5"/>
+        <!-- Flowing Spectral Cape & Ancient Bandages -->
+        <path d="M84,126 L36,344 L112,324 L172,360 L236,326 L284,344 L256,126 Z" fill="#1e3a8a" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
+        <!-- Broad Armored Undead Pharaoh Torso -->
+        <path d="M98,128 L244,128 L224,296 L118,296 Z" fill="url(#pLinen)" stroke="#09090b" stroke-width="6"/>
+        <path d="M106,184 L236,196 M110,224 L230,214 M114,256 L226,268" stroke="#78350f" stroke-width="5"/>
+        <!-- Ornate Jeweled Egyptian Royal Collar & Shoulder Pauldrons -->
+        <path d="M78,122 Q170,186 264,122 L248,166 Q170,214 94,166 Z" fill="url(#pGold)" stroke="#09090b" stroke-width="5"/>
+        <path d="M110,146 Q170,182 232,146" stroke="#0284c7" stroke-width="10" fill="none"/>
+        <!-- Muscular Bandaged Warlord Arms -->
+        <path d="M98,134 L42,196 L64,234 L116,182 Z" fill="url(#pLinen)" stroke="#09090b" stroke-width="5"/>
+        <path d="M244,134 L298,188 L280,226 L226,182 Z" fill="url(#pLinen)" stroke="#09090b" stroke-width="5"/>
+        <!-- Grand Striped Golden Nemes Headdress -->
+        <path d="M76,144 L106,36 Q172,4 238,36 L268,144 L228,154 L216,96 L128,96 L116,154 Z" fill="url(#pGold)" stroke="#09090b" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M96,68 L248,68 M88,92 L256,92 M80,116 L264,116" stroke="#1e3a8a" stroke-width="9"/>
+        <!-- Cobra Crown -->
+        <path d="M172,10 Q192,28 172,48 Q152,28 172,10 Z" fill="#fde047" stroke="#09090b" stroke-width="4"/>
+        <!-- Fierce Undead Skeletal Pharaoh Mask with Glowing Cyan Eyes & Royal Beard -->
+        <path d="M128,54 L216,54 L208,122 L172,144 L136,122 Z" fill="url(#pGold)" stroke="#09090b" stroke-width="5.5"/>
+        <path d="M138,76 L168,84 L142,94 Z" fill="#09090b"/>
+        <path d="M206,76 L176,84 L202,94 Z" fill="#09090b"/>
+        <circle cx="152" cy="85" r="5.5" fill="#22d3ee"/>
+        <circle cx="192" cy="85" r="5.5" fill="#22d3ee"/>
+        <path d="M150,112 L194,112 L188,128 L156,128 Z" fill="#09090b"/>
+        <path d="M158,112 L158,126 M168,112 L168,126 M178,112 L178,126 M186,112 L186,126" stroke="#fef3c7" stroke-width="3.5"/>
+        <rect x="160" y="136" width="24" height="36" rx="4" fill="#1e3a8a" stroke="#f59e0b" stroke-width="4"/>
       </svg>
     `);
 
     ASSETS.mummy_scarab = svgToImg(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 150">
-        <!-- Golden Spread Scarab Wings -->
-        <path d="M110,72 L16,28 L34,92 L106,88 Z" fill="#fbbf24" stroke="#09090b" stroke-width="5"/>
-        <path d="M110,72 L204,28 L186,92 L114,88 Z" fill="#f59e0b" stroke="#09090b" stroke-width="5"/>
-        <!-- Turquoise Jeweled Beetle Body -->
-        <ellipse cx="110" cy="78" rx="34" ry="42" fill="#06b6d4" stroke="#09090b" stroke-width="5"/>
-        <line x1="110" y1="44" x2="110" y2="118" stroke="#09090b" stroke-width="4"/>
-        <circle cx="96" cy="54" r="6" fill="#fef08a"/>
-        <circle cx="124" cy="54" r="6" fill="#fef08a"/>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 180">
+        <!-- Razor Metallic Winged Golden Scarab -->
+        <path d="M150,82 L12,18 L34,98 L142,102 Z" fill="#f59e0b" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M150,82 L288,18 L266,98 L158,102 Z" fill="#d97706" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M142,88 L56,56 M158,88 L244,56" stroke="#fef08a" stroke-width="4"/>
+        <!-- Horned Armored Turquoise Carapace -->
+        <ellipse cx="150" cy="96" rx="44" ry="52" fill="#0e7490" stroke="#09090b" stroke-width="6"/>
+        <path d="M150,48 L150,146" stroke="#09090b" stroke-width="5"/>
+        <path d="M126,56 L112,26 L138,48 M174,56 L188,26 L162,48" fill="#fef08a" stroke="#09090b" stroke-width="4"/>
+        <circle cx="132" cy="68" r="7" fill="#ef4444"/>
+        <circle cx="168" cy="68" r="7" fill="#ef4444"/>
       </svg>
     `);
 
     // =========================================================================
-    // 4. 30 MOVES DOCK RENDERING
+    // 5. 30 MOVES DOCK RENDERING
     // =========================================================================
     let currentFilter = 'all';
     const movesGridEl = document.getElementById('moves-grid');
@@ -624,7 +749,7 @@
           <div class="m-name">${m.name}</div>
           <div class="m-meta">
             <span style="color:${m.kind === 'dodge' ? '#38bdf8' : '#f59e0b'};">${m.cat}</span>
-            <span>${m.kind === 'dodge' ? '无敌闪避' : '威力:' + m.dmg} | ${m.key}</span>
+            <span>${m.kind === 'dodge' ? '纯躲避' : '威力:' + m.dmg} | ${m.key}</span>
           </div>
         </div>
       `).join('');
@@ -641,7 +766,7 @@
     });
 
     // =========================================================================
-    // 5. CORE 3x3 GRID GAME STATE & GEOMETRY
+    // 6. FULL-SCREEN 3x3 GRID GAME STATE & HILARIOUS GLASS-SPLAT GAME OVER ENGINE
     // =========================================================================
     const canvas = document.getElementById('game-canvas');
     const ctx = canvas.getContext('2d');
@@ -650,8 +775,9 @@
     window.addEventListener('resize', resizeCanvas);
 
     const state = {
-      world: 'jurassic',     // 'jurassic' | 'city' | 'desert' | 'studio'
-      faction: 'dinos',      // 'dinos' | 'zombies' | 'mummies' | 'mixed'
+      difficulty: 'medium',
+      world: 'jurassic',
+      faction: 'dinos',
       hp: 150, maxHp: 150,
       qi: 60, maxQi: 100,
       score: 0, kills: 0, perfectDodges: 0, wave: 1,
@@ -662,10 +788,16 @@
       witchTimeTimer: 0,
       shakeTimer: 0,
       shakeIntensity: 0,
-      bannerText: '【九宫格闪身步30招 · 开练！】',
-      bannerSub: 'WASD/点格子移动 · 空格【闪身步】纯躲避回气 · J【浪子踢球】击飞敌人！',
+      bannerText: '【全屏九宫格 · 闪身步30招】',
+      bannerSub: '点屏幕任意格子/WASD移动 · Space【闪身步】纯躲避 · J【浪子踢球】反击！',
       bannerKind: 'dodge',
       bannerTimer: 2.6,
+      // Game Over Comedic Glass-Splat Animation State!
+      isGameOver: false,
+      goTimer: 0,       // 0..0.45s flying into camera -> 0.45s SPLAT on glass -> 0.6s..3.5s slowly sliding down!
+      goSplatPlayed: false,
+      goKillerName: '暴君霸王龙',
+      goSlideY: 0,
       fps: 60,
       framesRendered: 0,
       consoleErrors: 0,
@@ -675,27 +807,24 @@
     window.__OMNIGAME_QA__ = {
       getReport: () => ({
         title: GDD.title,
-        mode: 'v2_3x3_Grid_MultiWorld',
+        mode: 'v2.1_FullScreen_3x3_Grid',
+        difficulty: state.difficulty,
         world: state.world,
         faction: state.faction,
+        hp: state.hp,
+        isGameOver: state.isGameOver,
         framesRendered: state.framesRendered,
         fps: state.fps,
-        hp: state.hp,
-        qi: state.qi,
-        score: state.score,
-        perfectDodges: state.perfectDodges,
-        kills: state.kills,
         consoleErrors: state.consoleErrors,
         visualHealthy: state.framesRendered > 5 && state.consoleErrors === 0,
       })
     };
 
-    // Hero on 3x3 Grid: col (0=左, 1=中, 2=右), row (0=上, 1=中, 2=下)
     const hero = {
       col: 1, row: 1,
-      px: 0, py: 0, // Smooth interpolated screen position
+      px: 0, py: 0,
       facing: 1,
-      pose: 'ready', // 'ready' | 'dodge' | 'kick'
+      pose: 'ready',
       poseTimer: 0,
       iframeTimer: 0,
       afterimages: [],
@@ -705,17 +834,23 @@
     const floatingTexts = [];
     const shockwaves = [];
 
-    // Compute responsive 3x3 Grid bounding rectangle centered in screen with clear top headroom
+    // FULL-SCREEN 3x3 GRID covering ~94% of the screen width and full vertical arena!
     function getGridRect() {
       const w = canvas.width;
       const h = canvas.height;
-      const availH = Math.max(210, h - 270);
-      const availW = Math.max(260, w - 160);
-      const gridW = Math.min(540, availW * 0.72);
-      const gridH = Math.min(330, availH * 0.84);
-      const x = (w - gridW) * 0.5;
-      const y = Math.max(138, (h - 110 - gridH) * 0.58);
-      return { x, y, w: gridW, h: gridH, cellW: gridW / 3, cellH: gridH / 3 };
+      const topMargin = 104;
+      const bottomMargin = 102;
+      const sideMargin = Math.max(18, Math.round(w * 0.03));
+      const gridW = Math.max(280, w - sideMargin * 2);
+      const gridH = Math.max(240, h - topMargin - bottomMargin);
+      return {
+        x: sideMargin,
+        y: topMargin,
+        w: gridW,
+        h: gridH,
+        cellW: gridW / 3,
+        cellH: gridH / 3,
+      };
     }
 
     function cellCenter(col, row) {
@@ -726,28 +861,77 @@
       };
     }
 
-    // Initialize Hero position to center tile (1, 1)
     const initC = cellCenter(1, 1);
     hero.px = initC.x;
     hero.py = initC.y;
 
-    // Move hero on 3x3 grid
+    function triggerHilariousGameOver(killerLabel) {
+      if (state.isGameOver) return;
+      state.isGameOver = true;
+      state.hp = 0;
+      state.goTimer = 0;
+      state.goSlideY = 0;
+      state.goSplatPlayed = false;
+      state.goKillerName = killerLabel || '侏罗纪霸王龙';
+
+      music.playSFX('launch_whistle');
+      const voiceGag = FAIL_VOICES[Math.floor(Math.random() * FAIL_VOICES.length)];
+      speakChineseCallout(voiceGag, true);
+
+      // Update Game Over Card Data
+      const epitaphs = [
+        `被【${state.goKillerName}】一巴掌抽飞，脸歪歪地贴成了练功房玻璃壁画 😂`,
+        `【${state.goKillerName}】表示：你这闪身步核心还不够稳，建议先去热身再战！`,
+        `非遗保护协会温馨提示：盲目原地拧腰急转易闪老腰，快擦擦屏幕玻璃再来一局！`,
+      ];
+      document.getElementById('go-epitaph').textContent = epitaphs[Math.floor(Math.random() * epitaphs.length)];
+      document.getElementById('go-score').textContent = state.score;
+      document.getElementById('go-dodges').textContent = state.perfectDodges + ' 次';
+      document.getElementById('go-kills').textContent = state.kills;
+      document.getElementById('go-diff').textContent = DIFFICULTIES[state.difficulty].label;
+      document.getElementById('touch-overlay').style.display = 'none';
+      document.getElementById('moves-dock').style.display = 'none';
+    }
+
+    function restartGame() {
+      state.isGameOver = false;
+      state.hp = state.maxHp;
+      state.qi = 60;
+      state.score = 0;
+      state.kills = 0;
+      state.perfectDodges = 0;
+      state.wave = 1;
+      state.goTimer = 0;
+      state.goSlideY = 0;
+      state.witchTimeTimer = 0;
+      enemies.length = 0;
+      floatingTexts.length = 0;
+      shockwaves.length = 0;
+      hero.col = 1; hero.row = 1;
+      const c = cellCenter(1, 1);
+      hero.px = c.x; hero.py = c.y;
+      hero.pose = 'ready'; hero.iframeTimer = 0.6;
+      document.getElementById('gameover-overlay').classList.remove('show');
+      document.getElementById('touch-overlay').style.display = 'flex';
+      document.getElementById('moves-dock').style.display = 'block';
+      spawnEnemyWave();
+      speakChineseCallout('擦干玻璃，重新开练！闪身步！');
+    }
+    document.getElementById('btn-restart').addEventListener('click', restartGame);
+
     function moveHeroGrid(dCol, dRow) {
+      if (state.isGameOver) return;
       const nCol = Math.max(0, Math.min(2, hero.col + dCol));
       const nRow = Math.max(0, Math.min(2, hero.row + dRow));
       if (dCol !== 0) hero.facing = dCol > 0 ? 1 : -1;
-      if (nCol !== hero.col || nRow !== hero.row) {
-        hero.col = nCol;
-        hero.row = nRow;
-      }
+      hero.col = nCol;
+      hero.row = nRow;
     }
 
-    // Check if a tile (c, r) currently has a red incoming warning
     function isCellDangerous(c, r) {
       return enemies.some(e => e.alive && !e.kicked && e.targetCells.some(tc => tc.c === c && tc.r === r));
     }
 
-    // Find safest adjacent tile when player presses 闪身步 (Space / Dodge)
     function findSafeTile() {
       const candidates = [];
       for (let r = 0; r < 3; r++) {
@@ -763,7 +947,7 @@
     }
 
     // =========================================================================
-    // 6. SPAWN MULTI-DIRECTIONAL ENEMIES (TOP->DOWN, LEFT->RIGHT, RIGHT->LEFT, AERIAL DIVE)
+    // 7. SPAWN ENEMIES (RESPECTING DIFFICULTY SETTINGS!)
     // =========================================================================
     function pickEnemyTemplate() {
       const factions = state.faction === 'mixed' ? ['dinos', 'zombies', 'mummies'] : [state.faction];
@@ -771,18 +955,18 @@
 
       if (f === 'zombies') {
         const pool = [
-          { sprite: 'zombie_runner', label: '🧟 上班族狂奔丧尸', hp: 120, isAir: false, isBoss: false, scale: 1.0 },
-          { sprite: 'zombie_crow', label: '🦇 变异毒液尸鸦', hp: 100, isAir: true, isBoss: false, scale: 0.95 },
-          { sprite: 'zombie_brute', label: '🚧 路牌铁锤巨丧尸', hp: 320, isAir: false, isBoss: true, scale: 1.3 },
+          { sprite: 'zombie_runner', label: '🧟 狂暴感染丧尸', hp: 120, isAir: false, isBoss: false, scale: 1.05 },
+          { sprite: 'zombie_crow', label: '🦇 变异噬魂尸鸦', hp: 100, isAir: true, isBoss: false, scale: 0.95 },
+          { sprite: 'zombie_brute', label: '🚧 暴君铁锤巨丧尸', hp: 330, isAir: false, isBoss: true, scale: 1.32 },
         ];
-        return pool[Math.random() < 0.18 ? 2 : (Math.random() < 0.45 ? 1 : 0)];
+        return pool[Math.random() < 0.22 ? 2 : (Math.random() < 0.48 ? 1 : 0)];
       } else if (f === 'mummies') {
         const pool = [
-          { sprite: 'mummy_runner', label: '🏺 绷带飞奔木乃伊', hp: 125, isAir: false, isBoss: false, scale: 1.0 },
-          { sprite: 'mummy_scarab', label: '🪲 沙漠飞天圣甲虫', hp: 95, isAir: true, isBoss: false, scale: 0.9 },
-          { sprite: 'mummy_pharaoh', label: '👑 黄金法老王BOSS', hp: 340, isAir: false, isBoss: true, scale: 1.32 },
+          { sprite: 'mummy_runner', label: '🏺 诅咒古墓木乃伊', hp: 125, isAir: false, isBoss: false, scale: 1.05 },
+          { sprite: 'mummy_scarab', label: '🪲 黄金魔甲圣甲虫', hp: 95, isAir: true, isBoss: false, scale: 0.92 },
+          { sprite: 'mummy_pharaoh', label: '👑 亡灵黄金法老王', hp: 350, isAir: false, isBoss: true, scale: 1.35 },
         ];
-        return pool[Math.random() < 0.18 ? 2 : (Math.random() < 0.45 ? 1 : 0)];
+        return pool[Math.random() < 0.22 ? 2 : (Math.random() < 0.48 ? 1 : 0)];
       } else {
         const pool = [
           { sprite: 'dino_raptor', label: '🦎 镰爪迅猛龙', hp: 120, isAir: false, isBoss: false, scale: 1.05 },
@@ -791,24 +975,22 @@
           { sprite: 'dino_trex', label: '🦖 暴君霸王龙BOSS', hp: 360, isAir: false, isBoss: true, scale: 1.38 },
         ];
         const r = Math.random();
-        return r < 0.16 ? pool[3] : (r < 0.44 ? pool[2] : (r < 0.72 ? pool[1] : pool[0]));
+        return r < 0.18 ? pool[3] : (r < 0.46 ? pool[2] : (r < 0.74 ? pool[1] : pool[0]));
       }
     }
 
     function spawnEnemyWave() {
-      // Fairness Guard: always leave safe cells on the 3x3 grid so every attack is dodgeable with Shanshenbu!
+      if (state.isGameOver) return;
+      const diff = DIFFICULTIES[state.difficulty];
       let dangerCount = 0;
       for (let rr = 0; rr < 3; rr++) {
         for (let cc = 0; cc < 3; cc++) {
           if (isCellDangerous(cc, rr)) dangerCount++;
         }
       }
-      if (dangerCount >= 5) return;
+      if (dangerCount >= diff.maxDangerCells) return;
 
-      const g = getGridRect();
       const tpl = pickEnemyTemplate();
-
-      // Choose direction: Top->Down (vertical column), Left->Right (row), Right->Left (row), or Aerial Dive (target tile)!
       const dirs = tpl.isAir ? ['aerial', 'top_down', 'left_right', 'right_left'] : ['top_down', 'top_down', 'left_right', 'right_left'];
       const dir = dirs[Math.floor(Math.random() * dirs.length)];
       const col = Math.floor(Math.random() * 3);
@@ -820,34 +1002,27 @@
       if (dir === 'top_down') {
         const topC = cellCenter(col, 0);
         const botC = cellCenter(col, 2);
-        startX = topC.x;
-        startY = -80;
-        endX = botC.x;
-        endY = canvas.height + 100;
+        startX = topC.x; startY = -90;
+        endX = botC.x; endY = canvas.height + 110;
         facing = col <= 1 ? 1 : -1;
         for (let r = 0; r < 3; r++) targetCells.push({ c: col, r });
       } else if (dir === 'left_right') {
         const leftC = cellCenter(0, row);
-        startX = -110;
-        startY = leftC.y;
-        endX = canvas.width + 110;
-        endY = leftC.y;
+        startX = -120; startY = leftC.y;
+        endX = canvas.width + 120; endY = leftC.y;
         facing = 1;
         for (let c = 0; c < 3; c++) targetCells.push({ c, r: row });
       } else if (dir === 'right_left') {
         const rightC = cellCenter(2, row);
-        startX = canvas.width + 110;
-        startY = rightC.y;
-        endX = -110;
-        endY = rightC.y;
+        startX = canvas.width + 120; startY = rightC.y;
+        endX = -120; endY = rightC.y;
         facing = -1;
         for (let c = 0; c < 3; c++) targetCells.push({ c, r: row });
       } else {
-        // Aerial swoop diagonal toward a specific grid cell!
         const tc = cellCenter(col, row);
         const fromL = Math.random() < 0.5;
         startX = fromL ? -100 : canvas.width + 100;
-        startY = -70;
+        startY = -80;
         endX = fromL ? canvas.width + 100 : -100;
         endY = tc.y + 180;
         facing = fromL ? 1 : -1;
@@ -857,61 +1032,38 @@
       enemies.push({
         ...tpl,
         maxHp: tpl.hp,
-        dir,
-        targetCol: col,
-        targetRow: row,
-        targetCells,
-        x: startX,
-        y: startY,
-        startX, startY, endX, endY,
-        facing,
-        telegraphTimer: 0.95, // 0.95s red grid warning before rushing!
+        dir, targetCol: col, targetRow: row, targetCells,
+        x: startX, y: startY, startX, startY, endX, endY, facing,
+        telegraphTimer: diff.telegraph,
         progress: 0,
-        speed: tpl.isAir ? 0.68 : (tpl.isBoss ? 0.42 : 0.58),
-        alive: true,
-        hitPlayer: false,
-        kicked: false,
-        kickVx: 0, kickVy: 0, rot: 0, vRot: 0,
-        hitFlash: 0,
+        speed: (tpl.isAir ? 0.65 : (tpl.isBoss ? 0.42 : 0.56)) * diff.speedMult,
+        alive: true, hitPlayer: false, kicked: false,
+        kickVx: 0, kickVy: 0, rot: 0, vRot: 0, hitFlash: 0,
       });
     }
 
     // =========================================================================
-    // 7. EXECUTE ANY OF THE 30 MOVES (STRICT PURE DODGE vs COUNTER ATTACK!)
+    // 8. EXECUTE ANY OF THE 30 MOVES (PURE DODGE vs ATTACK)
     // =========================================================================
     function executeMove(moveId) {
+      if (state.isGameOver) return;
       const move = MOVES_30.find(m => m.id === moveId) || MOVES_30[0];
 
-      // Check Qi cost for ultimate attacks
       if (move.qiCost > 0 && state.qi < move.qiCost) {
-        floatingTexts.push({ x: hero.px, y: hero.py - 80, text: `气力不足！(快用【闪身步】躲避回气)`, color: '#38bdf8', life: 1.0 });
+        floatingTexts.push({ x: hero.px, y: hero.py - 80, text: `气力不足！(用【闪身步】纯躲避回气)`, color: '#38bdf8', life: 1.0 });
         return;
       }
       state.qi = Math.max(0, state.qi - move.qiCost);
 
-      // Highlight card
       document.querySelectorAll('.move-card').forEach(c => c.classList.remove('active-move'));
       const card = document.getElementById('move-card-' + move.id);
       if (card) card.classList.add('active-move');
 
-      // -----------------------------------------------------------------------
-      // CASE A: PURE DODGE MOVES (闪身步 / 野鸡溜 / 拔泥步 ... ZERO ATTACK DAMAGE!)
-      // -----------------------------------------------------------------------
       if (move.kind === 'dodge') {
         const wasInDanger = isCellDangerous(hero.col, hero.row);
-
-        // Spawn 3 cyan glowing afterimages at old position before zipping!
         for (let i = 0; i < 3; i++) {
-          hero.afterimages.push({
-            x: hero.px - i * 16 * hero.facing,
-            y: hero.py,
-            facing: hero.facing,
-            pose: 'dodge',
-            life: 0.48 - i * 0.09,
-          });
+          hero.afterimages.push({ x: hero.px - i * 18 * hero.facing, y: hero.py, facing: hero.facing, pose: 'dodge', life: 0.48 - i * 0.09 });
         }
-
-        // Auto-sidestep to the safest adjacent grid tile!
         const safe = findSafeTile();
         if (safe.c !== hero.col) hero.facing = safe.c > hero.col ? 1 : -1;
         hero.col = safe.c;
@@ -919,21 +1071,18 @@
         hero.pose = 'dodge';
         hero.poseTimer = 0.52;
         hero.iframeTimer = Math.max(hero.iframeTimer, move.iframe);
-
-        if (move.id === 22) state.witchTimeTimer = 2.0; // 太极领域缓速
+        if (move.id === 22) state.witchTimeTimer = 2.0;
 
         if (wasInDanger) {
-          // PERFECT DODGE REWARD!
           state.perfectDodges++;
           state.qi = Math.min(state.maxQi, state.qi + 25);
           state.score += 150;
           state.witchTimeTimer = Math.max(state.witchTimeTimer, 0.85);
           music.playSFX('perfect');
-          const taunt = DODGE_TAUNTS[state.perfectDodges % DODGE_TAUNTS.length];
-          speakChineseCallout(move.id === 1 ? taunt : move.voice, true);
+          speakChineseCallout(move.id === 1 ? DODGE_TAUNTS[state.perfectDodges % DODGE_TAUNTS.length] : move.voice, true);
           state.bannerText = `⚡ 极限闪身 · ${move.name}（纯躲避成功！）⚡`;
-          state.bannerSub = `完美避开危险红格！气力 +25 · 得分 +150（闪身步不造成攻击，可趁机接【浪子踢球】反击！）`;
-          floatingTexts.push({ x: hero.px, y: hero.py - 85, text: '⚡ 极限闪身！+25气力', color: '#38bdf8', life: 1.1 });
+          state.bannerSub = `完美避开危险红格！气力 +25 · 得分 +150`;
+          floatingTexts.push({ x: hero.px, y: hero.py - 90, text: '⚡ 极限闪身！+25气力', color: '#38bdf8', life: 1.1 });
         } else {
           music.playSFX('dodge');
           speakChineseCallout(move.voice, false);
@@ -941,24 +1090,18 @@
           state.bannerSub = move.desc;
         }
         state.bannerKind = 'dodge';
-        state.bannerTimer = 1.5;
+        state.bannerTimer = 1.45;
         return; // STRICTLY ZERO DAMAGE!
       }
 
-      // -----------------------------------------------------------------------
-      // CASE B: ATTACK MOVES (浪子踢球 / 狗熊哆嗦毛 / 铁山靠 / 三十路万象归宗)
-      // -----------------------------------------------------------------------
+      // ATTACK MOVES
       hero.pose = 'kick';
       hero.poseTimer = 0.52;
       hero.iframeTimer = Math.max(hero.iframeTimer, move.iframe);
       music.playSFX('kick');
       speakChineseCallout(move.voice, move.id >= 21);
 
-      if (move.id === 20) {
-        state.hp = Math.min(state.maxHp, state.hp + 30);
-      }
-
-      // Move #30 fills ALL 9 Grid tiles with Black Tank-Top Master clones!
+      if (move.id === 20) state.hp = Math.min(state.maxHp, state.hp + 30);
       if (move.id === 30) {
         for (let r = 0; r < 3; r++) {
           for (let c = 0; c < 3; c++) {
@@ -971,39 +1114,32 @@
       state.bannerText = `💥 【${move.name}】`;
       state.bannerSub = move.desc;
       state.bannerKind = 'attack';
-      state.bannerTimer = 1.65;
+      state.bannerTimer = 1.6;
 
-      // Determine which enemies are hit based on move.range ('col', 'row', 'cross', 'all_air', 'all')
       const g = getGridRect();
       let hitCount = 0;
       enemies.forEach(e => {
         if (!e.alive || e.kicked) return;
         let inRange = false;
         const distPx = Math.hypot(e.x - hero.px, e.y - hero.py);
-
         if (move.range === 'all') inRange = true;
-        else if (move.range === 'all_air') inRange = e.isAir || distPx < g.cellW * 1.4;
-        else if (move.range === 'col') inRange = (Math.abs(e.x - hero.px) < g.cellW * 0.95) || distPx < g.cellW * 1.1;
-        else if (move.range === 'row') inRange = (Math.abs(e.y - hero.py) < g.cellH * 0.95) || distPx < g.cellW * 1.1;
-        else inRange = distPx < g.cellW * 1.65; // 'cross'
+        else if (move.range === 'all_air') inRange = e.isAir || distPx < g.cellW * 1.1;
+        else if (move.range === 'col') inRange = (Math.abs(e.x - hero.px) < g.cellW * 0.72);
+        else if (move.range === 'row') inRange = (Math.abs(e.y - hero.py) < g.cellH * 0.72);
+        else inRange = distPx < Math.max(g.cellW, g.cellH) * 1.25;
 
         if (inRange) {
           hitCount++;
           const dmg = Math.round(move.dmg * (0.95 + Math.random() * 0.2));
           e.hp -= dmg;
           e.hitFlash = 0.16;
-          shockwaves.push({ x: e.x, y: e.y, r: 16, maxR: 88, color: '#fef08a' });
-          floatingTexts.push({
-            x: e.x, y: e.y - 55,
-            text: `💥 ${move.voice} -${dmg}`,
-            color: '#fef08a', life: 0.95
-          });
+          shockwaves.push({ x: e.x, y: e.y, r: 18, maxR: 100, color: '#fef08a' });
+          floatingTexts.push({ x: e.x, y: e.y - 60, text: `💥 ${move.voice} -${dmg}`, color: '#fef08a', life: 0.95 });
 
           if (e.hp <= 0) {
-            // Kick the Dinosaur / Zombie / Mummy flying spinning out of the screen like a soccer ball!
             e.kicked = true;
-            e.kickVx = (e.x >= hero.px ? 1 : -1) * (460 + Math.random() * 240);
-            e.kickVy = -580 - Math.random() * 220;
+            e.kickVx = (e.x >= hero.px ? 1 : -1) * (500 + Math.random() * 250);
+            e.kickVy = -620 - Math.random() * 220;
             e.vRot = (Math.random() < 0.5 ? 1 : -1) * 14;
             state.kills++;
             state.score += e.isBoss ? 800 : 250;
@@ -1020,25 +1156,23 @@
     }
 
     // =========================================================================
-    // 8. DIRECT TILE CLICK/TAP, SWIPE & KEYBOARD CONTROLS
+    // 9. CONTROLS & UI SELECTOR BINDINGS
     // =========================================================================
-    // Click/tap directly on any of the 9 Grid Cells to zip there!
     let swipeStartX = 0, swipeStartY = 0;
     canvas.addEventListener('pointerdown', e => {
-      swipeStartX = e.clientX;
-      swipeStartY = e.clientY;
+      if (state.isGameOver) return;
+      swipeStartX = e.clientX; swipeStartY = e.clientY;
       const g = getGridRect();
       if (e.clientX >= g.x && e.clientX <= g.x + g.w && e.clientY >= g.y && e.clientY <= g.y + g.h) {
         const c = Math.min(2, Math.max(0, Math.floor((e.clientX - g.x) / g.cellW)));
         const r = Math.min(2, Math.max(0, Math.floor((e.clientY - g.y) / g.cellH)));
         if (c !== hero.col) hero.facing = c > hero.col ? 1 : -1;
-        hero.col = c;
-        hero.row = r;
+        hero.col = c; hero.row = r;
       }
     });
     canvas.addEventListener('pointerup', e => {
-      const dx = e.clientX - swipeStartX;
-      const dy = e.clientY - swipeStartY;
+      if (state.isGameOver) return;
+      const dx = e.clientX - swipeStartX, dy = e.clientY - swipeStartY;
       if (Math.hypot(dx, dy) > 42) {
         if (Math.abs(dx) > Math.abs(dy)) moveHeroGrid(dx > 0 ? 1 : -1, 0);
         else moveHeroGrid(0, dy > 0 ? 1 : -1);
@@ -1055,7 +1189,15 @@
     document.getElementById('act-kick').addEventListener('pointerdown', e => { e.preventDefault(); executeMove(2); });
     document.getElementById('act-ult').addEventListener('pointerdown', e => { e.preventDefault(); executeMove(30); });
 
-    // World, Faction, Music & Voice Selectors
+    document.getElementById('sel-difficulty').addEventListener('change', e => {
+      state.difficulty = e.target.value;
+      const cfg = DIFFICULTIES[state.difficulty];
+      document.getElementById('diff-badge').textContent = cfg.label;
+      enemies.length = 0;
+      spawnEnemyWave();
+      speakChineseCallout('难度切换为：' + cfg.label.replace(/[^\u4e00-\u9fa5]/g, ''));
+    });
+
     document.getElementById('sel-world').addEventListener('change', e => {
       state.world = e.target.value;
       const autoFaction = { jurassic: 'dinos', city: 'zombies', desert: 'mummies', studio: 'mixed' };
@@ -1064,9 +1206,9 @@
       document.getElementById('sel-faction').value = state.faction;
       document.getElementById('sel-bgm').value = autoBgm[state.world] || 'huagudeng';
       music.setTrack(autoBgm[state.world] || 'huagudeng');
-      enemies.length = 0; // Fresh wave of the new world's enemies!
+      enemies.length = 0;
       spawnEnemyWave();
-      const worldNames = { jurassic: '侏罗纪恐龙世界', city: '现代都市丧尸街道', desert: '古埃及沙漠金字塔', studio: '北舞练功房全明星大乱斗' };
+      const worldNames = { jurassic: '侏罗纪恐龙世界', city: '现代都市丧尸街道', desert: '古埃及沙漠金字塔', studio: '北舞练功房大乱斗' };
       speakChineseCallout('切换场景！' + worldNames[state.world]);
     });
 
@@ -1080,27 +1222,27 @@
       music.setTrack(e.target.value);
       if (!music.isPlaying) {
         music.toggle();
-        document.getElementById('btn-bgm-toggle').textContent = '🎵 播放搞笑配乐: ON';
+        document.getElementById('btn-bgm-toggle').textContent = '🎵 搞笑配乐: ON';
         document.getElementById('btn-bgm-toggle').classList.add('active');
       }
     });
 
     document.getElementById('btn-bgm-toggle').addEventListener('click', e => {
       const on = music.toggle();
-      e.target.textContent = on ? '🎵 播放搞笑配乐: ON' : '🎵 播放搞笑配乐: OFF';
+      e.target.textContent = on ? '🎵 搞笑配乐: ON' : '🎵 搞笑配乐: OFF';
       e.target.classList.toggle('active', on);
     });
 
     document.getElementById('btn-voice').addEventListener('click', e => {
       voiceEnabled = !voiceEnabled;
-      e.target.textContent = voiceEnabled ? '🔊 中文喊招语音: ON' : '🔇 中文喊招语音: OFF';
+      e.target.textContent = voiceEnabled ? '🔊 喊招语音: ON' : '🔇 喊招语音: OFF';
       e.target.classList.toggle('active', voiceEnabled);
       if (voiceEnabled) speakChineseCallout('闪身步语音已开启！');
     });
 
     document.getElementById('btn-autobot').addEventListener('click', e => {
       state.autoBot = !state.autoBot;
-      e.target.textContent = state.autoBot ? '🤖 AI 自动演示: ON' : '🤖 AI 自动演示: OFF';
+      e.target.textContent = state.autoBot ? '🤖 AI演示: ON' : '🤖 AI演示: OFF';
       e.target.classList.toggle('active', state.autoBot);
     });
 
@@ -1127,6 +1269,10 @@
       KeyC: 23, KeyV: 24, KeyB: 25, KeyN: 26, KeyM: 27, KeyT: 28, KeyY: 29, KeyQ: 30, KeyE: 30
     };
     window.addEventListener('keydown', e => {
+      if (state.isGameOver) {
+        if (e.code === 'Enter' || e.code === 'Space') restartGame();
+        return;
+      }
       if (e.code === 'KeyW' || e.code === 'ArrowUp') { e.preventDefault(); moveHeroGrid(0, -1); }
       else if (e.code === 'KeyS' || e.code === 'ArrowDown') { e.preventDefault(); moveHeroGrid(0, 1); }
       else if (e.code === 'KeyA' || e.code === 'ArrowLeft') { e.preventDefault(); moveHeroGrid(-1, 0); }
@@ -1135,62 +1281,48 @@
     });
 
     // =========================================================================
-    // 9. SCROLLING WORLD BACKGROUNDS (JURASSIC / MODERN CITY / DESERT PYRAMID / STUDIO)
+    // 10. RENDERERS: SCROLLING BACKGROUNDS, FULL-SCREEN 3x3 GRID, HERO, ENEMIES
+    //     & HILARIOUS GLASS-SPLAT CROOKED-FACE GAME OVER SCENE!
     // =========================================================================
     function drawScrollingWorld(ctx, w, h, scrollY) {
       if (state.world === 'city') {
-        // Vibrant Illustrated 2D Scrolling Modern City Skyscraper Avenue!
         ctx.fillStyle = '#0f172a';
         ctx.fillRect(0, 0, w, h);
-
-        const roadW = Math.min(680, w * 0.68);
+        const roadW = w * 0.80;
         const roadX = (w - roadW) * 0.5;
-
-        // Sidewalks & Modern Skyscraper Rooftops on Left & Right
         ctx.fillStyle = '#334155';
         ctx.fillRect(0, 0, roadX, h);
         ctx.fillRect(roadX + roadW, 0, w - roadX - roadW, h);
 
-        const blockH = 170;
+        const blockH = 160;
         const offset = scrollY % blockH;
         const neonColors = ['#ec4899', '#38bdf8', '#facc15', '#22c55e'];
-        const signs = ['功夫武馆', '24H 便利店', '花鼓茶楼', '健身中心'];
         for (let y = -blockH + offset; y < h + blockH; y += blockH) {
           const idx = Math.abs(Math.floor((y - offset) / blockH)) % 4;
-          // Left Building Roof
           ctx.fillStyle = idx % 2 === 0 ? '#1e293b' : '#1e1b4b';
-          ctx.strokeStyle = '#475569';
-          ctx.lineWidth = 3;
-          ctx.fillRect(14, y + 10, Math.max(40, roadX - 36), blockH - 22);
-          ctx.strokeRect(14, y + 10, Math.max(40, roadX - 36), blockH - 22);
-          // Glowing Neon Sign overhanging sidewalk
+          ctx.strokeStyle = '#475569'; ctx.lineWidth = 3;
+          ctx.fillRect(8, y + 8, Math.max(24, roadX - 24), blockH - 18);
+          ctx.strokeRect(8, y + 8, Math.max(24, roadX - 24), blockH - 18);
           ctx.fillStyle = neonColors[idx];
-          ctx.fillRect(roadX - 24, y + 48, 22, 54);
+          ctx.fillRect(roadX - 18, y + 44, 16, 48);
 
-          // Right Building Roof
           ctx.fillStyle = idx % 2 === 0 ? '#1e1b4b' : '#1e293b';
-          ctx.fillRect(roadX + roadW + 22, y + 10, Math.max(40, w - roadX - roadW - 36), blockH - 22);
-          ctx.strokeRect(roadX + roadW + 22, y + 10, Math.max(40, w - roadX - roadW - 36), blockH - 22);
+          ctx.fillRect(roadX + roadW + 16, y + 8, Math.max(24, w - roadX - roadW - 24), blockH - 18);
+          ctx.strokeRect(roadX + roadW + 16, y + 8, Math.max(24, w - roadX - roadW - 24), blockH - 18);
           ctx.fillStyle = neonColors[(idx + 2) % 4];
-          ctx.fillRect(roadX + roadW + 2, y + 48, 22, 54);
+          ctx.fillRect(roadX + roadW + 2, y + 44, 16, 48);
         }
 
-        // Asphalt Road Surface
         ctx.fillStyle = '#18181b';
         ctx.fillRect(roadX, 0, roadW, h);
-
-        // Scrolling Yellow Dashed Road Lanes & White Crosswalks
-        ctx.strokeStyle = '#facc15';
-        ctx.lineWidth = 5;
-        ctx.setLineDash([36, 36]);
-        ctx.lineDashOffset = -scrollY;
+        ctx.strokeStyle = '#facc15'; ctx.lineWidth = 5;
+        ctx.setLineDash([42, 42]); ctx.lineDashOffset = -scrollY;
         ctx.beginPath();
-        ctx.moveTo(roadX + roadW * 0.33, 0); ctx.lineTo(roadX + roadW * 0.33, h);
-        ctx.moveTo(roadX + roadW * 0.67, 0); ctx.lineTo(roadX + roadW * 0.67, h);
+        ctx.moveTo(roadX + roadW * 0.333, 0); ctx.lineTo(roadX + roadW * 0.333, h);
+        ctx.moveTo(roadX + roadW * 0.666, 0); ctx.lineTo(roadX + roadW * 0.666, h);
         ctx.stroke();
         ctx.setLineDash([]);
       } else {
-        // Seamless perspective stage background + dynamic downward scrolling speed-streaks (Zero horizontal seam!)
         const bgKey = state.world === 'desert' ? 'bg_desert' : (state.world === 'studio' ? 'bg_studio' : 'bg_jurassic');
         const img = ASSETS[bgKey];
         if (img && img.complete && img.naturalWidth > 0) {
@@ -1200,46 +1332,31 @@
           const dh = img.naturalHeight * scale;
           ctx.drawImage(img, (w - dw) * 0.5, (h - dh) * 0.5, dw, dh);
         } else {
-          ctx.fillStyle = '#1c1917';
-          ctx.fillRect(0, 0, w, h);
+          ctx.fillStyle = '#1c1917'; ctx.fillRect(0, 0, w, h);
         }
-
-        // Animated downward running speed lines along the vertical track to convey continuous sprinting!
+        // Downward running speed lines across full screen
         ctx.save();
-        ctx.strokeStyle = state.world === 'desert' ? 'rgba(254, 240, 138, 0.25)' : 'rgba(255, 255, 255, 0.20)';
+        ctx.strokeStyle = state.world === 'desert' ? 'rgba(254, 240, 138, 0.24)' : 'rgba(255, 255, 255, 0.20)';
         ctx.lineWidth = 3;
-        const laneW = Math.min(580, w * 0.65);
-        const laneX = (w - laneW) * 0.5;
-        for (let i = 0; i < 6; i++) {
-          const lx = laneX + ((i + 0.5) / 6) * laneW;
-          const ly = ((scrollY * 1.45 + i * 170) % (h + 120)) - 60;
-          ctx.beginPath();
-          ctx.moveTo(lx, ly);
-          ctx.lineTo(lx, ly + 46);
-          ctx.stroke();
+        for (let i = 0; i < 9; i++) {
+          const lx = (w * 0.08) + (i / 8) * (w * 0.84);
+          const ly = ((scrollY * 1.55 + i * 160) % (h + 120)) - 60;
+          ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(lx, ly + 52); ctx.stroke();
         }
         ctx.restore();
-
-        // Subtle vignette so the 3x3 grid and characters pop with ultra clarity
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
         ctx.fillRect(0, 0, w, h);
       }
     }
 
-    // =========================================================================
-    // 10. DRAW THE 3x3 OBLIQUE GRID WITH RED DANGER TELEGRAPH & ARROWS
-    // =========================================================================
-    function draw3x3Grid(ctx, t) {
+    function drawFullScreen3x3Grid(ctx, t) {
       const g = getGridRect();
-
-      // Outer 3x3 Arena Glow Border
       ctx.save();
-      ctx.fillStyle = 'rgba(9, 13, 24, 0.42)';
-      ctx.strokeStyle = 'rgba(245, 158, 11, 0.68)';
-      ctx.lineWidth = 3;
+      // Subtle translucent full-screen 3x3 grid dividers so the background art shines through!
+      ctx.strokeStyle = 'rgba(245, 158, 11, 0.45)';
+      ctx.lineWidth = 2.5;
       ctx.beginPath();
-      ctx.roundRect(g.x - 8, g.y - 8, g.w + 16, g.h + 16, 16);
-      ctx.fill();
+      ctx.roundRect(g.x, g.y, g.w, g.h, 14);
       ctx.stroke();
 
       const rowLabels = ['上排', '中排', '下排'];
@@ -1250,81 +1367,68 @@
           const cx = g.x + c * g.cellW;
           const cy = g.y + r * g.cellH;
           const isHeroCell = (hero.col === c && hero.row === r);
-
-          // Check incoming enemies targeting this cell
           const threats = enemies.filter(e => e.alive && !e.kicked && e.targetCells.some(tc => tc.c === c && tc.r === r));
           const isDanger = threats.length > 0;
 
           if (isDanger) {
-            const pulse = 0.28 + Math.abs(Math.sin(t * 14)) * 0.34;
+            const pulse = 0.22 + Math.abs(Math.sin(t * 14)) * 0.30;
             ctx.fillStyle = `rgba(239, 68, 68, ${pulse})`;
-            ctx.strokeStyle = '#ef4444';
+            ctx.strokeStyle = 'rgba(239, 68, 68, 0.92)';
             ctx.lineWidth = 3;
           } else if (isHeroCell) {
-            ctx.fillStyle = hero.iframeTimer > 0 ? 'rgba(56, 189, 248, 0.32)' : 'rgba(245, 158, 11, 0.22)';
-            ctx.strokeStyle = hero.iframeTimer > 0 ? '#38bdf8' : '#f59e0b';
+            ctx.fillStyle = hero.iframeTimer > 0 ? 'rgba(56, 189, 248, 0.22)' : 'rgba(245, 158, 11, 0.14)';
+            ctx.strokeStyle = hero.iframeTimer > 0 ? '#38bdf8' : 'rgba(245, 158, 11, 0.85)';
             ctx.lineWidth = 3;
           } else {
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.24)';
+            ctx.fillStyle = 'rgba(9, 13, 24, 0.12)';
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.22)';
             ctx.lineWidth = 1.5;
           }
 
           ctx.beginPath();
-          ctx.roundRect(cx + 4, cy + 4, g.cellW - 8, g.cellH - 8, 10);
+          ctx.roundRect(cx + 5, cy + 5, g.cellW - 10, g.cellH - 10, 12);
           ctx.fill();
           ctx.stroke();
 
-          // Coordinate tag
-          ctx.font = 'bold 10px "Microsoft YaHei"';
-          ctx.fillStyle = 'rgba(255,255,255,0.45)';
+          ctx.font = 'bold 11px "Microsoft YaHei"';
+          ctx.fillStyle = 'rgba(255,255,255,0.48)';
           ctx.textAlign = 'left';
-          ctx.fillText(`${rowLabels[r]}·${colLabels[c]}`, cx + 10, cy + 18);
+          ctx.fillText(`${rowLabels[r]}·${colLabels[c]}`, cx + 14, cy + 22);
 
-          // Directional Warning Icon on Dangerous Tiles!
           if (isDanger) {
             const dirIcon = threats[0].dir === 'top_down' ? '⬇' : (threats[0].dir === 'left_right' ? '➡' : (threats[0].dir === 'right_left' ? '⬅' : '🎯'));
-            ctx.font = '900 24px "Segoe UI Emoji", sans-serif';
+            ctx.font = '900 32px "Segoe UI Emoji", sans-serif';
             ctx.fillStyle = '#fef08a';
             ctx.textAlign = 'center';
-            ctx.fillText(dirIcon, cx + g.cellW * 0.5, cy + g.cellH * 0.56);
+            ctx.fillText(dirIcon, cx + g.cellW * 0.5, cy + g.cellH * 0.58);
           }
         }
       }
       ctx.restore();
     }
 
-    // =========================================================================
-    // 11. DRAW HERO (RUNNING IN PLACE ON GRID TILE) & ENEMIES
-    // =========================================================================
     function drawHero(ctx, x, y, facing, pose, alpha = 1.0, isGhost = false, t = 0) {
       const img = pose === 'kick' ? ASSETS.hero_kick : (pose === 'dodge' ? ASSETS.hero_dodge : ASSETS.hero_ready);
       if (!img || !img.complete || img.naturalWidth === 0) return;
-
       const g = getGridRect();
-      const drawH = Math.min(148, g.cellH * 1.28);
+      const drawH = Math.min(185, g.cellH * 1.05);
       const drawW = (img.naturalWidth / img.naturalHeight) * drawH;
 
-      // Continuous lively "running in place" bobbing & tilt when in ready stance!
-      const runBob = pose === 'ready' ? Math.abs(Math.sin(t * 14)) * 10 : 0;
+      const runBob = pose === 'ready' ? Math.abs(Math.sin(t * 14)) * 11 : 0;
       const runTilt = pose === 'ready' ? Math.sin(t * 14) * 0.06 : 0;
 
       ctx.save();
       ctx.globalAlpha = alpha;
-      ctx.translate(x, y + g.cellH * 0.36);
+      ctx.translate(x, y + g.cellH * 0.38);
 
-      // Running Dust Puffs beneath shoes!
       if (!isGhost) {
         ctx.fillStyle = 'rgba(0,0,0,0.48)';
-        ctx.beginPath();
-        ctx.ellipse(0, 0, drawW * 0.36, 10, 0, 0, Math.PI * 2);
-        ctx.fill();
-
+        ctx.beginPath(); ctx.ellipse(0, 0, drawW * 0.38, 12, 0, 0, Math.PI * 2); ctx.fill();
         if (pose === 'ready') {
-          ctx.fillStyle = 'rgba(254, 243, 199, 0.35)';
-          const dOff = (t * 80) % 24;
-          ctx.beginPath(); ctx.arc(-14, 4 + dOff * 0.5, 5, 0, Math.PI * 2); ctx.fill();
-          ctx.beginPath(); ctx.arc(14, 12 - dOff * 0.4, 4, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = 'rgba(254, 243, 199, 0.36)';
+          const dOff = (t * 85) % 26;
+          ctx.beginPath(); ctx.arc(-16, 4 + dOff * 0.5, 5.5, 0, Math.PI * 2); ctx.fill();
+          ctx.beginPath(); ctx.arc(16, 12 - dOff * 0.4, 4.5, 0, Math.PI * 2); ctx.fill();
         }
       }
 
@@ -1336,7 +1440,6 @@
       ctx.drawImage(img, -drawW * 0.5, -drawH + 6, drawW, drawH);
       ctx.filter = 'none';
 
-      // Custom Uploaded Head Photo
       if (state.customHeadImg && !isGhost) {
         const headY = pose === 'kick' ? -drawH * 0.74 : -drawH * 0.78;
         const headR = drawH * 0.14;
@@ -1346,58 +1449,247 @@
         ctx.restore();
       }
 
-      // Golden Crescent Arc on Attack Moves
       if (!isGhost && pose === 'kick') {
-        ctx.strokeStyle = '#fef08a';
-        ctx.lineWidth = 6;
-        ctx.shadowColor = '#f59e0b';
-        ctx.shadowBlur = 16;
-        ctx.beginPath();
-        ctx.arc(drawW * 0.15, -drawH * 0.55, drawH * 0.5, -1.2, 0.6);
-        ctx.stroke();
+        ctx.strokeStyle = '#fef08a'; ctx.lineWidth = 7;
+        ctx.shadowColor = '#f59e0b'; ctx.shadowBlur = 18;
+        ctx.beginPath(); ctx.arc(drawW * 0.15, -drawH * 0.55, drawH * 0.5, -1.2, 0.6); ctx.stroke();
         ctx.shadowBlur = 0;
       }
-
       ctx.restore();
     }
 
     function drawEnemy(ctx, e, t) {
       const img = ASSETS[e.sprite];
       if (!img || !img.complete || img.naturalWidth === 0) return;
-
       const g = getGridRect();
-      const baseH = Math.min(138, g.cellH * 1.15) * e.scale;
+      const baseH = Math.min(175, g.cellH * 0.96) * e.scale;
       const drawW = (img.naturalWidth / img.naturalHeight) * baseH;
       const drawH = baseH;
 
       ctx.save();
       ctx.translate(e.x, e.y);
-
       if (e.rot !== 0) ctx.rotate(e.rot);
-      const bob = Math.abs(Math.sin(t * 11)) * 7;
+      const bob = Math.abs(Math.sin(t * 11)) * 8;
       ctx.translate(0, -bob);
       ctx.scale(e.facing, 1);
-
       if (e.hitFlash > 0) ctx.filter = 'brightness(2.5) contrast(1.4)';
-      ctx.drawImage(img, -drawW * 0.5, -drawH * 0.65, drawW, drawH);
+      ctx.drawImage(img, -drawW * 0.5, -drawH * 0.62, drawW, drawH);
       ctx.filter = 'none';
       ctx.restore();
 
-      // Enemy Name & HP Bar
       if (!e.kicked) {
-        const bw = e.isBoss ? 92 : 58;
-        const by = e.y - drawH * 0.68 - 10;
-        ctx.fillStyle = 'rgba(0,0,0,0.75)';
-        ctx.fillRect(e.x - bw * 0.5, by, bw, 6);
+        const bw = e.isBoss ? 104 : 66;
+        const by = e.y - drawH * 0.66 - 10;
+        ctx.fillStyle = 'rgba(0,0,0,0.78)';
+        ctx.fillRect(e.x - bw * 0.5, by, bw, 7);
         ctx.fillStyle = e.isBoss ? '#ef4444' : '#22c55e';
-        ctx.fillRect(e.x - bw * 0.5, by, bw * Math.max(0, e.hp / e.maxHp), 6);
-        ctx.font = 'bold 10.5px "Microsoft YaHei"';
+        ctx.fillRect(e.x - bw * 0.5, by, bw * Math.max(0, e.hp / e.maxHp), 7);
+        ctx.font = 'bold 11.5px "Microsoft YaHei"';
         ctx.textAlign = 'center';
-        ctx.strokeStyle = '#000'; ctx.lineWidth = 3;
+        ctx.strokeStyle = '#000'; ctx.lineWidth = 3.5;
         ctx.strokeText(e.label, e.x, by - 4);
         ctx.fillStyle = e.isBoss ? '#fca5a5' : '#fef08a';
         ctx.fillText(e.label, e.x, by - 4);
       }
+    }
+
+    // =========================================================================
+    // 11. HILARIOUS GAME-OVER GLASS-SPLAT SCENE ("主角飞向屏幕 -> 脸歪歪撞在玻璃上 -> 慢慢滑下去!")
+    // =========================================================================
+    function drawHilariousGameOverSplat(ctx, w, h, goTimer, t) {
+      const cx = w * 0.5;
+      const cy = h * 0.44;
+
+      if (goTimer < 0.42) {
+        // PHASE 1: Hero spinning and flying straight AT THE CAMERA!
+        const p = goTimer / 0.42;
+        const img = ASSETS.hero_dodge;
+        if (img && img.complete) {
+          const s = 0.6 + p * p * 3.8;
+          ctx.save();
+          ctx.translate(hero.px + (cx - hero.px) * p, hero.py + (cy - hero.py) * p);
+          ctx.rotate(p * Math.PI * 5.2);
+          const sz = 160 * s;
+          ctx.drawImage(img, -sz * 0.5, -sz * 0.5, sz, sz);
+          ctx.restore();
+        }
+        return;
+      }
+
+      // Trigger SPLAT impact sound & shake once at t = 0.42s!
+      if (!state.goSplatPlayed) {
+        state.goSplatPlayed = true;
+        state.shakeTimer = 0.35;
+        state.shakeIntensity = 24;
+        music.playSFX('glass_splat');
+        setTimeout(() => document.getElementById('gameover-overlay').classList.add('show'), 480);
+      }
+
+      // PHASE 2 & 3: SPLAT! Cracked Glass + Squished Crooked Face Slowly Sliding Down!
+      const slideTime = Math.max(0, goTimer - 0.55);
+      const slideY = Math.min(h * 0.24, slideTime * 46); // Squeaky slow slide down the camera glass!
+
+      // Dark dramatic spotlight tint
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.46)';
+      ctx.fillRect(0, 0, w, h);
+
+      // Foggy vertical streak left behind on the glass as his face & palms slide down!
+      if (slideY > 4) {
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.14)';
+        ctx.beginPath();
+        ctx.roundRect(cx - 120, cy - 115, 240, slideY + 120, 90);
+        ctx.fill();
+      }
+
+      // Spiderweb Glass Crack Radiating from Impact Point!
+      ctx.save();
+      ctx.translate(cx, cy - 15);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.78)';
+      ctx.lineWidth = 3;
+      for (let a = 0; a < 12; a++) {
+        const ang = (a / 12) * Math.PI * 2 + 0.15;
+        const len = 155 + (a % 3) * 75;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(Math.cos(ang) * len * 0.5, Math.sin(ang) * len * 0.5);
+        ctx.lineTo(Math.cos(ang + 0.08) * len, Math.sin(ang + 0.08) * len);
+        ctx.stroke();
+      }
+      [55, 115, 175].forEach(rad => {
+        ctx.beginPath(); ctx.arc(0, 0, rad, 0, Math.PI * 2); ctx.lineWidth = 1.6; ctx.stroke();
+      });
+      ctx.restore();
+
+      // SQUISHED COMIC HERO PRESSED FLAT AGAINST THE GLASS!
+      ctx.save();
+      ctx.translate(cx, cy + slideY);
+
+      // Giant Squished Palms Pressed Against Glass (左右两只紧贴玻璃的巴掌!)
+      [-175, 175].forEach((px, idx) => {
+        ctx.save();
+        ctx.translate(px, 24 + (idx === 0 ? -10 : 12));
+        ctx.rotate(idx === 0 ? -0.35 : 0.35);
+        ctx.fillStyle = '#e8a274';
+        ctx.strokeStyle = '#18181b';
+        ctx.lineWidth = 5;
+        // Palm
+        ctx.beginPath(); ctx.ellipse(0, 12, 42, 48, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        // 5 Splayed Fingers Pressed Flat!
+        [-28, -12, 4, 20, 34].forEach((fx, fi) => {
+          ctx.beginPath(); ctx.roundRect(fx - 8, -56 + Math.abs(fi - 2) * 8, 16, 48, 8); ctx.fill(); ctx.stroke();
+        });
+        ctx.restore();
+      });
+
+      // Black Tank Top Shoulders Pressed Flat Behind Face
+      ctx.fillStyle = '#18181b';
+      ctx.strokeStyle = '#09090b';
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.ellipse(0, 150, 145, 95, 0, 0, Math.PI * 2);
+      ctx.fill(); ctx.stroke();
+      // Red Waist Sash Peek
+      ctx.fillStyle = '#dc2626';
+      ctx.fillRect(-100, 195, 200, 26);
+
+      // GIANT CROOKED SQUISHED FACE PRESSED FLAT AGAINST SCREEN GLASS!
+      ctx.save();
+      ctx.scale(1.18, 0.90); // Flattened horizontally against the glass!
+      ctx.rotate(-0.14);     // Crooked tilted face ("脸歪歪地撞到屏幕上")!
+
+      if (state.customHeadImg) {
+        // If user uploaded their own face photo, squish & tilt THEIR photo against the cracked glass!!
+        ctx.save();
+        ctx.beginPath(); ctx.ellipse(0, 0, 112, 120, 0, 0, Math.PI * 2); ctx.clip();
+        ctx.drawImage(state.customHeadImg, -118, -126, 236, 252);
+        ctx.restore();
+        ctx.strokeStyle = '#18181b'; ctx.lineWidth = 7;
+        ctx.beginPath(); ctx.ellipse(0, 0, 112, 120, 0, 0, Math.PI * 2); ctx.stroke();
+      } else {
+        // Squished Black-Tank-Top Master Face Close-Up!
+        ctx.fillStyle = '#f3b282';
+        ctx.strokeStyle = '#18181b';
+        ctx.lineWidth = 7;
+        ctx.beginPath();
+        // Lumpy squished cheek outline
+        ctx.moveTo(-98, -28);
+        ctx.quadraticCurveTo(-116, 60, -68, 108);
+        ctx.quadraticCurveTo(10, 126, 84, 96);
+        ctx.quadraticCurveTo(118, 34, 96, -42);
+        ctx.quadraticCurveTo(64, -122, -6, -120);
+        ctx.quadraticCurveTo(-84, -118, -98, -28);
+        ctx.closePath();
+        ctx.fill(); ctx.stroke();
+
+        // Buzz-cut Black Hair
+        ctx.fillStyle = '#18181b';
+        ctx.beginPath();
+        ctx.ellipse(-2, -88, 92, 42, -0.05, Math.PI, Math.PI * 2);
+        ctx.fill();
+
+        // Squished Flat Reddish Nose Smushed Sideways Against Glass!
+        ctx.fillStyle = '#e07a5f';
+        ctx.strokeStyle = '#7c2d12';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.ellipse(8, 10, 26, 17, 0.25, 0, Math.PI * 2);
+        ctx.fill(); ctx.stroke();
+
+        // Hilarious Crooked Eyes: One Big Dizzy Spiral Eye + One Tightly Squinted "><" Eye!
+        // Left Eye: Spiral Dizzy
+        ctx.fillStyle = '#ffffff';
+        ctx.strokeStyle = '#09090b'; ctx.lineWidth = 5;
+        ctx.beginPath(); ctx.arc(-44, -26, 24, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.strokeStyle = '#09090b'; ctx.lineWidth = 4;
+        ctx.beginPath();
+        for (let a = 0; a < 14; a++) {
+          const rad = a * 1.4;
+          const sx = -44 + Math.cos(a + t * 8) * rad;
+          const sy = -26 + Math.sin(a + t * 8) * rad;
+          if (a === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+        }
+        ctx.stroke();
+
+        // Right Eye: Squinted Tightly Shut (><)
+        ctx.strokeStyle = '#09090b'; ctx.lineWidth = 7; ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(22, -38); ctx.lineTo(56, -24); ctx.lineTo(24, -10);
+        ctx.stroke();
+
+        // Hilarious Crooked Smushed Wavy Mouth Pressed Against Glass + Little Tongue Sticking Out!
+        ctx.fillStyle = '#7f1d1d';
+        ctx.strokeStyle = '#09090b'; ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.ellipse(18, 62, 46, 20, -0.18, 0, Math.PI * 2);
+        ctx.fill(); ctx.stroke();
+        // Pink tongue squished sideways
+        ctx.fillStyle = '#fb7185';
+        ctx.beginPath(); ctx.ellipse(42, 74, 18, 13, 0.3, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      }
+      ctx.restore(); // End squished face
+
+      // Orbiting Dizzy Golden Stars & Sweat Drops Around Head!
+      for (let s = 0; s < 5; s++) {
+        const ang = t * 4.5 + (s / 5) * Math.PI * 2;
+        const sx = Math.cos(ang) * 140;
+        const sy = -132 + Math.sin(ang) * 26;
+        ctx.font = 'bold 28px "Segoe UI Emoji"';
+        ctx.textAlign = 'center';
+        ctx.fillText(s % 2 === 0 ? '⭐' : '💫', sx, sy);
+      }
+
+      // Comic "啪叽！SPLAT!" Impact Sound Word!
+      ctx.save();
+      ctx.translate(155, -105);
+      ctx.rotate(0.18);
+      ctx.font = '900 42px "Microsoft YaHei"';
+      ctx.strokeStyle = '#09090b'; ctx.lineWidth = 8;
+      ctx.strokeText('啪叽!!', 0, 0);
+      ctx.fillStyle = '#fef08a';
+      ctx.fillText('啪叽!!', 0, 0);
+      ctx.restore();
+
+      ctx.restore();
     }
 
     // =========================================================================
@@ -1428,90 +1720,95 @@
         return;
       }
 
-      if (state.witchTimeTimer > 0) state.witchTimeTimer = Math.max(0, state.witchTimeTimer - rawDt);
       const dt = rawDt;
-      const enemyDt = state.witchTimeTimer > 0 ? rawDt * 0.3 : rawDt;
+      const diff = DIFFICULTIES[state.difficulty];
 
-      // Scroll background continuously downward to create "Running In Place" sensation!
-      state.scrollY += 220 * dt;
+      if (state.isGameOver) {
+        state.goTimer += dt;
+      } else {
+        if (state.witchTimeTimer > 0) state.witchTimeTimer = Math.max(0, state.witchTimeTimer - rawDt);
+        const enemyDt = state.witchTimeTimer > 0 ? rawDt * 0.3 : rawDt;
 
-      // Smooth Hero interpolation to current 3x3 grid tile
-      const targetPt = cellCenter(hero.col, hero.row);
-      hero.px += (targetPt.x - hero.px) * Math.min(1, dt * 18);
-      hero.py += (targetPt.y - hero.py) * Math.min(1, dt * 18);
+        state.scrollY += 235 * dt * (diff.speedMult * 0.85 + 0.15);
 
-      if (hero.poseTimer > 0) {
-        hero.poseTimer -= dt;
-        if (hero.poseTimer <= 0) hero.pose = 'ready';
-      }
-      if (hero.iframeTimer > 0) hero.iframeTimer -= dt;
+        const targetPt = cellCenter(hero.col, hero.row);
+        hero.px += (targetPt.x - hero.px) * Math.min(1, dt * 18);
+        hero.py += (targetPt.y - hero.py) * Math.min(1, dt * 18);
 
-      // Optional AI Demo Mode
-      if (state.autoBot) {
-        aiCooldown -= dt;
-        if (aiCooldown <= 0) {
-          if (isCellDangerous(hero.col, hero.row)) {
-            executeMove(1); // Pure Shanshenbu Dodge!
-            aiCooldown = 0.65;
-          } else if (enemies.some(e => e.alive && !e.kicked && e.telegraphTimer <= 0)) {
-            executeMove(Math.random() < 0.65 ? 2 : 3); // Counter-attack Langzi Tiqiu!
-            aiCooldown = 0.95;
+        if (hero.poseTimer > 0) {
+          hero.poseTimer -= dt;
+          if (hero.poseTimer <= 0) hero.pose = 'ready';
+        }
+        if (hero.iframeTimer > 0) hero.iframeTimer -= dt;
+
+        if (state.autoBot) {
+          aiCooldown -= dt;
+          if (aiCooldown <= 0) {
+            if (isCellDangerous(hero.col, hero.row)) {
+              executeMove(1);
+              aiCooldown = 0.62;
+            } else if (enemies.some(e => e.alive && !e.kicked && e.telegraphTimer <= 0)) {
+              executeMove(Math.random() < 0.65 ? 2 : 3);
+              aiCooldown = 0.92;
+            }
           }
         }
-      }
 
-      // Spawn Waves
-      spawnTimer -= enemyDt;
-      if (spawnTimer <= 0) {
-        spawnEnemyWave();
-        if (Math.random() < 0.35) spawnEnemyWave();
-        spawnTimer = Math.max(0.85, 1.85 - state.wave * 0.06);
-      }
+        spawnTimer -= enemyDt;
+        if (spawnTimer <= 0) {
+          spawnEnemyWave();
+          if (Math.random() < diff.doubleSpawnChance) spawnEnemyWave();
+          spawnTimer = diff.spawnSec;
+        }
 
-      // Update Enemies
-      const g = getGridRect();
-      for (let i = enemies.length - 1; i >= 0; i--) {
-        const e = enemies[i];
-        if (e.hitFlash > 0) e.hitFlash -= dt;
+        const g = getGridRect();
+        for (let i = enemies.length - 1; i >= 0; i--) {
+          const e = enemies[i];
+          if (e.hitFlash > 0) e.hitFlash -= dt;
 
-        if (e.kicked) {
-          e.x += e.kickVx * dt;
-          e.y += e.kickVy * dt;
-          e.kickVy += 920 * dt;
-          e.rot += e.vRot * dt;
-          if (e.x < -250 || e.x > canvas.width + 250 || e.y > canvas.height + 250 || e.y < -350) {
+          if (e.kicked) {
+            e.x += e.kickVx * dt;
+            e.y += e.kickVy * dt;
+            e.kickVy += 920 * dt;
+            e.rot += e.vRot * dt;
+            if (e.x < -280 || e.x > canvas.width + 280 || e.y > canvas.height + 280 || e.y < -380) {
+              enemies.splice(i, 1);
+            }
+            continue;
+          }
+
+          if (e.telegraphTimer > 0) {
+            e.telegraphTimer -= enemyDt;
+            continue;
+          }
+
+          e.progress += e.speed * enemyDt;
+          e.x = e.startX + (e.endX - e.startX) * e.progress;
+          e.y = e.startY + (e.endY - e.startY) * e.progress;
+
+          if (!e.hitPlayer && Math.hypot(e.x - hero.px, e.y - hero.py) < Math.min(g.cellW, g.cellH) * 0.48) {
+            if (hero.iframeTimer > 0) {
+              e.hitPlayer = true;
+            } else {
+              e.hitPlayer = true;
+              const dmgTaken = e.isBoss ? diff.dmgBoss : diff.dmgNormal;
+              // REAL HP REDUCTION ALL THE WAY TO 0!
+              state.hp = Math.max(0, state.hp - dmgTaken);
+              state.shakeTimer = 0.24;
+              state.shakeIntensity = 12;
+              music.playSFX('hurt');
+              floatingTexts.push({ x: hero.px, y: hero.py - 85, text: `💢 -${dmgTaken} HP！快按【闪身步】！`, color: '#ef4444', life: 0.95 });
+
+              if (state.hp <= 0) {
+                triggerHilariousGameOver(e.label);
+              }
+            }
+          }
+
+          if (e.progress >= 1.06) {
             enemies.splice(i, 1);
+            state.score += 30;
           }
-          continue;
-        }
-
-        if (e.telegraphTimer > 0) {
-          e.telegraphTimer -= enemyDt;
-          continue;
-        }
-
-        e.progress += e.speed * enemyDt;
-        e.x = e.startX + (e.endX - e.startX) * e.progress;
-        e.y = e.startY + (e.endY - e.startY) * e.progress;
-
-        // Check Collision with Hero on 3x3 Grid
-        if (!e.hitPlayer && Math.hypot(e.x - hero.px, e.y - hero.py) < Math.min(g.cellW, g.cellH) * 0.56) {
-          if (hero.iframeTimer > 0) {
-            // Successfully dodged right through attack with Shanshenbu I-frames!
-            e.hitPlayer = true;
-          } else {
-            e.hitPlayer = true;
-            state.hp = Math.max(15, state.hp - (e.isBoss ? 20 : 12));
-            state.shakeTimer = 0.22;
-            state.shakeIntensity = 11;
-            music.playSFX('hurt');
-            floatingTexts.push({ x: hero.px, y: hero.py - 80, text: '💢 被撞到！快按【闪身步】躲避！', color: '#ef4444', life: 0.95 });
-          }
-        }
-
-        if (e.progress >= 1.05) {
-          enemies.splice(i, 1);
-          state.score += 30;
         }
       }
 
@@ -1525,14 +1822,13 @@
       }
 
       drawScrollingWorld(ctx, canvas.width, canvas.height, state.scrollY);
-      draw3x3Grid(ctx, t);
+      drawFullScreen3x3Grid(ctx, t);
 
-      if (state.witchTimeTimer > 0) {
+      if (state.witchTimeTimer > 0 && !state.isGameOver) {
         ctx.fillStyle = 'rgba(30, 27, 75, 0.26)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      // Afterimages
       for (let i = hero.afterimages.length - 1; i >= 0; i--) {
         const a = hero.afterimages[i];
         a.life -= dt;
@@ -1540,30 +1836,25 @@
         drawHero(ctx, a.x, a.y, a.facing, a.pose, a.life * 0.72, true, t);
       }
 
-      // Depth-sorted Hero + Enemies by Y
       const drawables = [
-        { y: hero.py, fn: () => drawHero(ctx, hero.px, hero.py, hero.facing, hero.pose, 1.0, false, t) },
+        ...(state.isGameOver ? [] : [{ y: hero.py, fn: () => drawHero(ctx, hero.px, hero.py, hero.facing, hero.pose, 1.0, false, t) }]),
         ...enemies.filter(e => e.telegraphTimer <= 0 || e.kicked).map(e => ({ y: e.y, fn: () => drawEnemy(ctx, e, t) }))
       ].sort((a, b) => a.y - b.y);
       drawables.forEach(d => d.fn());
 
-      // Shockwaves
       for (let i = shockwaves.length - 1; i >= 0; i--) {
         const s = shockwaves[i];
         s.r += dt * 360;
         if (s.r >= s.maxR) { shockwaves.splice(i, 1); continue; }
-        ctx.strokeStyle = s.color;
-        ctx.lineWidth = 4.5;
+        ctx.strokeStyle = s.color; ctx.lineWidth = 4.5;
         ctx.globalAlpha = 1 - s.r / s.maxR;
         ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.stroke();
         ctx.globalAlpha = 1;
       }
 
-      // Floating Texts
       for (let i = floatingTexts.length - 1; i >= 0; i--) {
         const ft = floatingTexts[i];
-        ft.life -= dt;
-        ft.y -= 44 * dt;
+        ft.life -= dt; ft.y -= 44 * dt;
         if (ft.life <= 0) { floatingTexts.splice(i, 1); continue; }
         ctx.save();
         ctx.globalAlpha = Math.min(1, ft.life * 1.5);
@@ -1576,16 +1867,14 @@
         ctx.restore();
       }
 
-      // Giant Chinese Move Banner positioned cleanly at top center between the two HUD cards (never covers hero!)
-      if (state.bannerTimer > 0) {
+      if (state.bannerTimer > 0 && !state.isGameOver) {
         state.bannerTimer -= dt;
-        const by = 46;
+        const by = 44;
         ctx.save();
         ctx.globalAlpha = Math.min(1, state.bannerTimer * 2.2);
         ctx.font = 'bold 11px "Microsoft YaHei"';
         const sw = ctx.measureText(state.bannerSub).width;
-        const bw = Math.min(canvas.width - 610, Math.max(320, sw + 34));
-        const safeBw = Math.max(300, bw);
+        const safeBw = Math.max(300, Math.min(canvas.width - 610, Math.max(320, sw + 34)));
         ctx.fillStyle = state.bannerKind === 'dodge' ? 'rgba(3, 105, 161, 0.90)' : 'rgba(154, 52, 18, 0.90)';
         ctx.strokeStyle = state.bannerKind === 'dodge' ? '#38bdf8' : '#f59e0b';
         ctx.lineWidth = 2.5;
@@ -1594,14 +1883,18 @@
         ctx.fill(); ctx.stroke();
 
         ctx.font = '900 16.5px "Microsoft YaHei"';
-        ctx.fillStyle = '#fef08a';
-        ctx.textAlign = 'center';
+        ctx.fillStyle = '#fef08a'; ctx.textAlign = 'center';
         ctx.fillText(state.bannerText, canvas.width * 0.5, by - 3);
 
         ctx.font = 'bold 10.5px "Microsoft YaHei"';
         ctx.fillStyle = '#f0f9ff';
         ctx.fillText(state.bannerSub.slice(0, 44), canvas.width * 0.5, by + 15);
         ctx.restore();
+      }
+
+      // Render Hilarious Game Over Glass-Splat Scene on Top of Everything!
+      if (state.isGameOver) {
+        drawHilariousGameOverSplat(ctx, canvas.width, canvas.height, state.goTimer, t);
       }
 
       ctx.restore();
