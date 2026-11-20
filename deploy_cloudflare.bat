@@ -1,5 +1,10 @@
-@echo off
+﻿@echo off
 chcp 65001 >nul
-echo 正在通过 Cloudflare Pages (Wrangler) 部署《闪身步30招：智斗侏罗纪》...
-npx wrangler pages deploy web --project-name=shanshenbu-30-jurassic
+cd /d "%~dp0"
+echo [1/2] Pushing latest changes to GitHub...
+git add .
+git commit -m "Update Shanshenbu 30"
+git push origin main --tags
+echo [2/2] Deploying to Cloudflare...
+npx -y wrangler deploy
 pause
