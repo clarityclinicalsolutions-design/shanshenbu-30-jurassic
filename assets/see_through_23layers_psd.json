@@ -1,0 +1,10 @@
+{
+  "character": "练功房黑背心宗师（赵老师同款身段 / 支持自定义换装与上传照片贴脸）",
+  "costume_presets": [
+    "black_tank_top_master",
+    "golden_martial_god",
+    "cyber_neon_dancer",
+    "custom_uploaded_photo"
+  ],
+  "moves_rigged": 30
+}

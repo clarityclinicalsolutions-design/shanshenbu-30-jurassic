@@ -1,0 +1,401 @@
+{
+  "slug": "shanshenbu-30-jurassic",
+  "title": "闪身步30招：智斗侏罗纪 (2D 街机精绘精灵版)",
+  "prompt": "2D手绘街机精绘版《闪身步30招：智斗侏罗纪》，采用AI手绘透明精灵人物（黑背心白条练功裤宗师：待机/闪身步/浪子踢球三态）+ 4类手绘恐龙精灵（霸王龙/迅猛龙/三角龙/翼龙）+ 侏罗纪火山丛林与北舞练功房时空裂缝双场景",
+  "tagline": "《恐龙快打》级别 2D 手绘街机画面 × 安徽花鼓灯 30 路闪身步法与浪子踢球",
+  "genre": "2D 横版街机手绘动作 / 极限闪避反击 (2D Illustrated Arcade Brawler)",
+  "reference_skeleton": "Cadillacs and Dinosaurs (恐龙快打) + Street Fighter III 2D Sprite Art + Night-Patrol",
+  "hero_name": "2D手绘黑背心白条练功裤宗师（待机/闪身步/浪子踢球三态精灵 + 支持上传真人照片贴头）",
+  "enemy_label": "2D手绘恐龙大军（暴君霸王龙T-Rex、镰爪迅猛龙、重甲三角龙、苍穹无齿翼龙）",
+  "primary_action": "01.闪身步（手绘拧腰架掌残影平移+子弹时间） + 02.浪子踢球（手绘后仰高勾腿+金色半月脚风踢飞恐龙）",
+  "special_action": "30.终极奥义·三十路闪身万象归宗（全屏召唤黑背心宗师残影分身合击）",
+  "visual_preset": "2D Hand-Painted Arcade (侏罗纪火山丛林 / 北舞练功房大镜子时空裂缝 双背景一键切换)",
+  "music_preset": "安徽花鼓灯锣鼓点 + 侏罗纪五声音阶战歌 (136 BPM)",
+  "created_at": "2026-11-20 15:08:30",
+  "moves_30": [
+    {
+      "id": 1,
+      "name": "01. 闪身步",
+      "cat": "步法闪避",
+      "key": "Space/右键",
+      "dmg": 55,
+      "iframe": 0.6,
+      "pose": "dodge",
+      "fx": "sidestep",
+      "desc": "腰腹猛拧横向残影平移急停！恐龙扑咬瞬间施展触发【极限闪身·子弹时间】"
+    },
+    {
+      "id": 2,
+      "name": "02. 浪子踢球",
+      "cat": "主力反击",
+      "key": "J/左键",
+      "dmg": 135,
+      "iframe": 0.28,
+      "pose": "kick",
+      "fx": "crescent_kick",
+      "desc": "上身反方向顿挫后仰闪躲，单脚高勾将扑来的恐龙当皮球踢飞上天！"
+    },
+    {
+      "id": 3,
+      "name": "03. 狗熊哆嗦毛",
+      "cat": "范围震退",
+      "key": "K",
+      "dmg": 110,
+      "iframe": 0.45,
+      "pose": "dodge",
+      "fx": "shake_burst",
+      "desc": "全身核心肌群高频爆发抖动，产生360度气浪震飞周围恐龙！"
+    },
+    {
+      "id": 4,
+      "name": "04. 拔泥步",
+      "cat": "踏地减速",
+      "key": "1",
+      "dmg": 90,
+      "iframe": 0.25,
+      "pose": "dodge",
+      "fx": "stomp",
+      "desc": "高抬大腿重踏地面，震起泥浆冲击波令前方恐龙震晕减速！"
+    },
+    {
+      "id": 5,
+      "name": "05. 野鸡溜",
+      "cat": "贴地滑步",
+      "key": "2",
+      "dmg": 85,
+      "iframe": 0.55,
+      "pose": "dodge",
+      "fx": "low_slide",
+      "desc": "超低身位贴地疾滑，完美钻过翼龙俯冲与霸王龙高段咬击！"
+    },
+    {
+      "id": 6,
+      "name": "06. 游场碎步",
+      "cat": "残影迷踪",
+      "key": "3",
+      "dmg": 75,
+      "iframe": 0.5,
+      "pose": "dodge",
+      "fx": "sidestep",
+      "desc": "高频碎步左右穿插，留下多道黑背心练功残影迷惑恐龙！"
+    },
+    {
+      "id": 7,
+      "name": "07. 矮子步",
+      "cat": "下盘潜行",
+      "key": "4",
+      "dmg": 100,
+      "iframe": 0.45,
+      "pose": "dodge",
+      "fx": "low_slide",
+      "desc": "极限深蹲拧胯蟹行，滑入三角龙肚皮下方痛击弱点！"
+    },
+    {
+      "id": 8,
+      "name": "08. 车水步",
+      "cat": "后撤飞石",
+      "key": "5",
+      "dmg": 115,
+      "iframe": 0.35,
+      "pose": "kick",
+      "fx": "crescent_kick",
+      "desc": "连续后撤步拉开身位，脚尖挑起碎石飞弹击退追击恐龙！"
+    },
+    {
+      "id": 9,
+      "name": "09. 走梗平衡步",
+      "cat": "残影穿刺",
+      "key": "6",
+      "dmg": 125,
+      "iframe": 0.4,
+      "pose": "dodge",
+      "fx": "sidestep",
+      "desc": "极速直线残影穿刺，从恐龙群中一闪而过造成罡风割裂！"
+    },
+    {
+      "id": 10,
+      "name": "10. 盘根拧腰步",
+      "cat": "螺旋卸力",
+      "key": "7",
+      "dmg": 140,
+      "iframe": 0.48,
+      "pose": "dodge",
+      "fx": "spin",
+      "desc": "360度拧腰卸力，将冲锋的三角龙借力甩飞撞向后方兽群！"
+    },
+    {
+      "id": 11,
+      "name": "11. 猴子扳桩",
+      "cat": "擒拿重摔",
+      "key": "8",
+      "dmg": 195,
+      "iframe": 0.38,
+      "pose": "kick",
+      "fx": "jump_slam",
+      "desc": "腾空跃起扳住恐龙脑袋猛烈砸向地面，引发裂地冲击波！"
+    },
+    {
+      "id": 12,
+      "name": "12. 扁担闪·横扫",
+      "cat": "双臂横扫",
+      "key": "9",
+      "dmg": 160,
+      "iframe": 0.3,
+      "pose": "dodge",
+      "fx": "spin",
+      "desc": "双臂如铁扁担平举拧腰大回环横扫，同时击飞左右恐龙！"
+    },
+    {
+      "id": 13,
+      "name": "13. 十字靠身(铁山靠)",
+      "cat": "沉肩破甲",
+      "key": "L",
+      "dmg": 235,
+      "iframe": 0.4,
+      "pose": "dodge",
+      "fx": "charge",
+      "desc": "拧腰沉肩猛烈铁山靠撞击，直接把霸王龙撞出硬直顿帧！"
+    },
+    {
+      "id": 14,
+      "name": "14. 蛤蟆洼·震地",
+      "cat": "蛙跃震晕",
+      "key": "U",
+      "dmg": 175,
+      "iframe": 0.35,
+      "pose": "dodge",
+      "fx": "jump_slam",
+      "desc": "深蹲蓄力后蛙跃重踏地面，将周围恐龙全部震翻在地！"
+    },
+    {
+      "id": 15,
+      "name": "15. 小儿骑竹马",
+      "cat": "踏背二段",
+      "key": "I",
+      "dmg": 155,
+      "iframe": 0.42,
+      "pose": "kick",
+      "fx": "jump_slam",
+      "desc": "跨步腾跃踩踏恐龙脊背借力升空，发动凌空高劈腿！"
+    },
+    {
+      "id": 16,
+      "name": "16. 燕子三抄水",
+      "cat": "三连飞踢",
+      "key": "O",
+      "dmg": 210,
+      "iframe": 0.4,
+      "pose": "kick",
+      "fx": "crescent_kick",
+      "desc": "连续三次贴地掠袭飞踢，每一脚暴击威力递增50%！"
+    },
+    {
+      "id": 17,
+      "name": "17. 喜鹊登枝",
+      "cat": "点鼻登空",
+      "key": "P",
+      "dmg": 170,
+      "iframe": 0.38,
+      "pose": "kick",
+      "fx": "jump_slam",
+      "desc": "单脚精准点踢霸王龙鼻尖借力升空，触发空中连环暴雨踢！"
+    },
+    {
+      "id": 18,
+      "name": "18. 拐子步·侧踹",
+      "cat": "破甲重踹",
+      "key": "F",
+      "dmg": 190,
+      "iframe": 0.3,
+      "pose": "kick",
+      "fx": "crescent_kick",
+      "desc": "假动作晃开防御后突发重侧踹，一脚踹穿三角龙骨盾！"
+    },
+    {
+      "id": 19,
+      "name": "19. 磨盘转·旋风",
+      "cat": "旋风扫腿",
+      "key": "G",
+      "dmg": 225,
+      "iframe": 0.45,
+      "pose": "kick",
+      "fx": "spin",
+      "desc": "以腰腹核心为轴高速旋转扫腿，卷起金色旋风气浪！"
+    },
+    {
+      "id": 20,
+      "name": "20. 鲤鱼打挺·反击",
+      "cat": "回血震飞",
+      "key": "R",
+      "dmg": 165,
+      "iframe": 0.55,
+      "pose": "kick",
+      "fx": "shake_burst",
+      "desc": "猛烈挺腹弹射起身，震飞身边全部恐龙并回复25点生命值！"
+    },
+    {
+      "id": 21,
+      "name": "21. 大鹏展翅·掠空",
+      "cat": "展翅冲击",
+      "key": "Z",
+      "dmg": 250,
+      "iframe": 0.48,
+      "pose": "dodge",
+      "fx": "jump_slam",
+      "desc": "双臂大开如大鹏滑翔俯冲，引发横贯战场的音爆冲击波！"
+    },
+    {
+      "id": 22,
+      "name": "22. 旱船晃·太极领域",
+      "cat": "全场慢放",
+      "key": "X",
+      "dmg": 195,
+      "iframe": 0.55,
+      "pose": "dodge",
+      "fx": "shake_burst",
+      "desc": "左右摇晃身段展开太极残影领域，所有恐龙动作放慢70%！"
+    },
+    {
+      "id": 23,
+      "name": "23. 大花场·八连浪子踢",
+      "cat": "高速连踢",
+      "key": "C",
+      "dmg": 340,
+      "iframe": 0.5,
+      "pose": "kick",
+      "fx": "crescent_kick",
+      "desc": "连续8脚浪子踢球高速机关枪连发，把整群恐龙踢成空中流星！"
+    },
+    {
+      "id": 24,
+      "name": "24. 仙人指路·点穴破甲",
+      "cat": "剑气贯穿",
+      "key": "V",
+      "dmg": 285,
+      "iframe": 0.35,
+      "pose": "dodge",
+      "fx": "beam",
+      "desc": "单指罡气横贯全屏，贯穿直线所有恐龙弱点必定暴击！"
+    },
+    {
+      "id": 25,
+      "name": "25. 叶底藏花·回马枪",
+      "cat": "回头重踢",
+      "key": "B",
+      "dmg": 310,
+      "iframe": 0.48,
+      "pose": "kick",
+      "fx": "crescent_kick",
+      "desc": "背身假装败退，在霸王龙张嘴瞬间猛然拧身回头重踢下颚！"
+    },
+    {
+      "id": 26,
+      "name": "26. 白鹤亮翅·罡风障",
+      "cat": "金钟护体",
+      "key": "N",
+      "dmg": 210,
+      "iframe": 0.85,
+      "pose": "dodge",
+      "fx": "shake_burst",
+      "desc": "双臂振开金光护体罡风，获得无敌护盾并弹飞靠近恐龙！"
+    },
+    {
+      "id": 27,
+      "name": "27. 黑虎掏心·寸劲",
+      "cat": "寸劲秒杀",
+      "key": "M",
+      "dmg": 410,
+      "iframe": 0.4,
+      "pose": "dodge",
+      "fx": "charge",
+      "desc": "零距离贴身爆发核心寸劲，造成重度顿帧与毁灭打击！"
+    },
+    {
+      "id": 28,
+      "name": "28. 金鸡独立·千斤坠",
+      "cat": "裂地火山",
+      "key": "T",
+      "dmg": 360,
+      "iframe": 0.5,
+      "pose": "kick",
+      "fx": "jump_slam",
+      "desc": "单腿独立高举过顶，随后千斤坠踏裂地面喷发金色气柱！"
+    },
+    {
+      "id": 29,
+      "name": "29. 乌龙绞柱·地堂风暴",
+      "cat": "螺旋卷空",
+      "key": "Y",
+      "dmg": 380,
+      "iframe": 0.55,
+      "pose": "kick",
+      "fx": "spin",
+      "desc": "倒地双腿螺旋绞杀，形成巨型龙卷风将霸王龙卷上高空！"
+    },
+    {
+      "id": 30,
+      "name": "30. 终极奥义·三十路闪身万象归宗",
+      "cat": "全屏必杀",
+      "key": "Q/E",
+      "dmg": 720,
+      "iframe": 1.3,
+      "pose": "kick",
+      "fx": "ultimate",
+      "desc": "全屏召唤黑背心练功宗师残影分身，同时施展闪身步+浪子踢球将满屏恐龙踢飞！"
+    }
+  ],
+  "infinite_build_pipeline": [
+    {
+      "step": 1,
+      "name": "Concept & Skeleton",
+      "status": "DONE",
+      "detail": "采用 2D 横版《恐龙快打》街机视角，调度9名AI原画师并行绘制手绘精灵与场景"
+    },
+    {
+      "step": 2,
+      "name": "Vertical Slice",
+      "status": "DONE",
+      "detail": "完成去绿幕透明PNG精绘人物三态精灵（待机/闪身步/浪子踢球）与4大侏罗纪恐龙手绘精灵"
+    },
+    {
+      "step": 3,
+      "name": "Game Feel & Juice",
+      "status": "DONE",
+      "detail": "加入浪子踢球金色半月脚风、击中闪白顿帧、恐龙720度空中旋飞与练功房镜面实时倒影"
+    },
+    {
+      "step": 4,
+      "name": "Standing Orders (Visual QA)",
+      "status": "PASS",
+      "detail": "2D 精绘精灵 60 FPS 满帧运行，电脑键鼠与手机左手虚拟摇杆+右手功夫圆钮双适配"
+    },
+    {
+      "step": 5,
+      "name": "Infinite Evolution & Pack",
+      "status": "READY",
+      "detail": "已接入 Cloudflare Pages 一键部署，手机/电脑点开公开链接即可畅玩"
+    }
+  ],
+  "active_subagents": [
+    {
+      "tier": "Tier 1: Director",
+      "id": "art-director",
+      "task": "统筹9名AI原画师并行绘制Street Fighter/恐龙快打风格2D精绘精灵与双场景原画"
+    },
+    {
+      "tier": "Tier 2: Lead",
+      "id": "technical-artist",
+      "task": "编写边界BFS洪泛绿幕抠图与去绿边溢色算法，完美保留绿色迅猛龙鳞片细节"
+    },
+    {
+      "tier": "Tier 2: Lead",
+      "id": "gameplay-programmer",
+      "task": "整合30招动作逻辑、残影分身、极限闪身子弹时间与手机触屏虚拟摇杆"
+    },
+    {
+      "tier": "Tier 2: Lead",
+      "id": "release-manager",
+      "task": "配置 Cloudflare Pages / Workers 一键部署，生成手机电脑通用分享链接"
+    }
+  ]
+}

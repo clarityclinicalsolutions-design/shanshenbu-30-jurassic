@@ -1,0 +1,4 @@
+config_version=5
+[application]
+config/name="闪身步30招：智斗侏罗纪 (Shanshenbu 30 vs Dinosaurs)"
+run/main_scene="res://Main.tscn"

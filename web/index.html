@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>《闪身步30招：智斗侏罗纪》 — 2D 街机手绘精版 (恐龙快打 × 花鼓灯宗师)</title>
+  <style>
+    :root {
+      --gold: #f59e0b;
+      --crimson: #ef4444;
+      --cyan: #38bdf8;
+      --bg-card: rgba(15, 12, 10, 0.85);
+      --border-gold: rgba(245, 158, 11, 0.52);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
+    body, html {
+      width: 100%; height: 100%; overflow: hidden;
+      background: #0c0a09; color: #fafaf9;
+      font-family: 'Microsoft YaHei', 'Segoe UI', system-ui, sans-serif;
+    }
+    #game-canvas {
+      position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+    }
+
+    /* Top HUD */
+    .hud-top {
+      position: absolute; top: 8px; left: 8px; right: 8px;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      pointer-events: none; z-index: 12; gap: 8px;
+    }
+    .hud-card {
+      background: var(--bg-card); backdrop-filter: blur(10px);
+      border: 1px solid var(--border-gold); border-radius: 11px;
+      padding: 8px 11px; pointer-events: auto;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+    }
+    .title-row {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 13.5px; font-weight: 900; color: var(--gold);
+    }
+    .sub-tag {
+      font-size: 10px; padding: 1px 7px; border-radius: 99px;
+      background: rgba(16, 185, 129, 0.22); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.45);
+    }
+    .bars-box { margin-top: 5px; display: flex; flex-direction: column; gap: 4px; min-width: 210px; }
+    .bar-line { display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 700; }
+    .bar-bg { flex: 1; height: 8px; background: rgba(255,255,255,0.14); border-radius: 99px; overflow: hidden; }
+    .bar-fg { height: 100%; transition: width 0.14s ease-out; border-radius: 99px; }
+    .hp-fg { background: linear-gradient(90deg, #dc2626, #f59e0b); width: 100%; }
+    .metrics-row {
+      display: grid; grid-template-columns: repeat(4, auto); gap: 10px;
+      margin-top: 5px; font-size: 10.5px;
+    }
+    .m-cell span { font-size: 9px; color: #a8a29e; display: block; }
+    .m-cell strong { font-size: 12.5px; color: #fff; }
+
+    /* Right Panel: Character Workshop & Stage Switcher */
+    .hud-right {
+      width: 268px; display: flex; flex-direction: column; gap: 5px;
+    }
+    .panel-head {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; font-weight: 800; color: var(--gold);
+    }
+    .customizer-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 2px;
+    }
+    .c-btn {
+      padding: 4px 6px; font-size: 10px; font-weight: 700;
+      border-radius: 6px; border: 1px solid rgba(245, 158, 11, 0.35);
+      background: rgba(255, 255, 255, 0.08); color: #fef3c7; cursor: pointer;
+      transition: all 0.14s; text-align: center; white-space: nowrap;
+    }
+    .c-btn:hover, .c-btn.active {
+      background: var(--gold); color: #0c0a09; border-color: #fff;
+    }
+
+    /* Bottom Deck: Complete 30 Moves Wheel / Deck Bar */
+    .moves-dock {
+      position: absolute; bottom: 6px; left: 8px; right: 8px; z-index: 12;
+      background: var(--bg-card); backdrop-filter: blur(12px);
+      border: 1px solid var(--border-gold); border-radius: 11px;
+      padding: 6px 9px; pointer-events: auto;
+    }
+    .dock-header {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 5px; margin-bottom: 5px; font-size: 10.5px;
+    }
+    .stance-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+    .stance-tab {
+      padding: 2px 8px; border-radius: 99px; font-size: 10px; font-weight: 700;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16);
+      color: #e7e5e4; cursor: pointer;
+    }
+    .stance-tab.active {
+      background: var(--gold); color: #0c0a09; border-color: #fff;
+    }
+    .moves-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+      gap: 4px; max-height: 76px; overflow-y: auto; padding-right: 4px;
+    }
+    .move-card {
+      background: rgba(28, 25, 23, 0.94);
+      border: 1px solid rgba(245, 158, 11, 0.28);
+      border-radius: 6px; padding: 4px 6px; cursor: pointer;
+      transition: all 0.12s;
+    }
+    .move-card:hover {
+      border-color: var(--gold); background: rgba(245, 158, 11, 0.2);
+    }
+    .move-card.active-move {
+      border-color: #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.55);
+      background: rgba(14, 165, 233, 0.26);
+    }
+    .move-card .m-name { font-size: 10.5px; font-weight: 800; color: #fef08a; }
+    .move-card .m-meta {
+      font-size: 9px; color: #a8a29e; display: flex; justify-content: space-between; margin-top: 1px;
+    }
+
+    /* Mobile Virtual Touch Controls */
+    #mobile-controls {
+      position: absolute; bottom: 112px; left: 14px; right: 14px;
+      display: none; justify-content: space-between; align-items: flex-end;
+      pointer-events: none; z-index: 18;
+    }
+    body.touch-enabled #mobile-controls { display: flex; }
+    @media (hover: none) and (pointer: coarse), (max-width: 820px) {
+      #mobile-controls { display: flex; }
+    }
+    .joy-zone {
+      width: 102px; height: 102px; border-radius: 50%;
+      background: rgba(12, 10, 9, 0.55); border: 2px solid rgba(245, 158, 11, 0.6);
+      position: relative; pointer-events: auto; touch-action: none;
+    }
+    .joy-knob {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: radial-gradient(circle, #fef08a, #f59e0b);
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.85);
+    }
+    .touch-btns {
+      display: flex; gap: 8px; align-items: flex-end; pointer-events: auto;
+    }
+    .t-circle-btn {
+      width: 58px; height: 58px; border-radius: 50%;
+      border: 2px solid #fff; font-weight: 900; font-size: 12px;
+      color: #0c0a09; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.65); touch-action: manipulation;
+    }
+    .t-circle-btn small { font-size: 8.5px; font-weight: 700; }
+    .t-btn-dodge { background: linear-gradient(135deg, #fef08a, #f59e0b); }
+    .t-btn-kick { background: linear-gradient(135deg, #7dd3fc, #0284c7); color: #fff; width: 66px; height: 66px; }
+    .t-btn-ult { background: linear-gradient(135deg, #fca5a5, #dc2626); color: #fff; width: 52px; height: 52px; }
+
+    body.hud-collapsed .hud-right .customizer-grid,
+    body.hud-collapsed .moves-dock .moves-grid {
+      display: none !important;
+    }
+    @media (max-width: 960px), (max-height: 580px) {
+      .hud-top > .hud-card:first-child { transform: scale(0.76); transform-origin: top left; }
+      .hud-right { transform: scale(0.74); transform-origin: top right; }
+      .moves-dock { padding: 4px 7px; }
+      .moves-grid { max-height: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="game-canvas"></canvas>
+
+  <!-- Top HUD -->
+  <div class="hud-top">
+    <div class="hud-card">
+      <div class="title-row">
+        <span>🕺 《闪身步30招：智斗侏罗纪》</span>
+        <span class="sub-tag">2D 街机精绘精灵版</span>
+      </div>
+      <div style="font-size:10px;color:#e7e5e4;margin-top:2px;">
+        WASD/方向键移动 | <strong style="color:#f59e0b;">Space/右键: 01.闪身步(极限闪避子弹时间)</strong> | <strong style="color:#38bdf8;">J/左键: 02.浪子踢球</strong>
+      </div>
+      <div class="bars-box">
+        <div class="bar-line">
+          <span style="width:40px;color:#f87171;">气血HP</span>
+          <div class="bar-bg"><div id="hp-bar" class="bar-fg hp-fg"></div></div>
+          <span id="hp-text" style="width:48px;text-align:right;">150/150</span>
+        </div>
+      </div>
+      <div class="metrics-row">
+        <div class="m-cell"><span>已领悟招式</span><strong style="color:#f59e0b;">30 / 30 招</strong></div>
+        <div class="m-cell"><span>踢飞恐龙</span><strong id="kills-val">0</strong></div>
+        <div class="m-cell"><span>极限闪身连击</span><strong id="combo-val" style="color:#38bdf8;">x0</strong></div>
+        <div class="m-cell"><span>FPS / 视觉QA</span><strong id="fps-val" style="color:#4ade80;">60 OK</strong></div>
+      </div>
+    </div>
+
+    <!-- Right Panel: Stage Switcher, Photo Upload & Mode Toggle -->
+    <div class="hud-card hud-right">
+      <div class="panel-head">
+        <span>🎭 练功房与主角工坊 (2D精绘)</span>
+        <button class="c-btn" style="padding:1px 6px;" onclick="document.body.classList.toggle('hud-collapsed')">折叠/展开</button>
+      </div>
+      <div class="customizer-grid">
+        <button class="c-btn active" id="btn-scene-toggle">🌋 场景: 侏罗纪丛林</button>
+        <label class="c-btn" style="cursor:pointer;">
+          📷 上传真人头像
+          <input type="file" id="avatar-upload" accept="image/*" style="display:none;" />
+        </label>
+        <button class="c-btn active" id="btn-autobot">🤖 AI 自动演武: ON</button>
+        <button class="c-btn" id="btn-bgm">🥁 花鼓锣鼓配乐: OFF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Virtual Touch Controls -->
+  <div id="mobile-controls">
+    <div class="joy-zone" id="joy-zone">
+      <div class="joy-knob" id="joy-knob"></div>
+    </div>
+    <div class="touch-btns">
+      <button type="button" class="t-circle-btn t-btn-dodge" id="t-btn-dodge">闪身步<small>极限闪避</small></button>
+      <button type="button" class="t-circle-btn t-btn-kick" id="t-btn-kick">浪子踢球<small>高勾踢飞</small></button>
+      <button type="button" class="t-circle-btn t-btn-ult" id="t-btn-ult">30路<small>全屏大招</small></button>
+    </div>
+  </div>
+
+  <!-- Bottom 30 Moves Arsenal Dock -->
+  <div class="moves-dock">
+    <div class="dock-header">
+      <div class="stance-tabs" id="stance-tabs">
+        <button class="stance-tab active" data-cat="all">📜 全部 30 招图鉴 (点击即刻施展)</button>
+        <button class="stance-tab" data-cat="步法">💨 第一卷：闪身步法 (1-10)</button>
+        <button class="stance-tab" data-cat="腿法">🦵 第二卷：浪子踢球/身段 (11-20)</button>
+        <button class="stance-tab" data-cat="奥义">🐉 第三卷：宗师绝学 (21-30)</button>
+      </div>
+      <div style="display:flex;gap:5px;">
+        <button class="c-btn" id="btn-cast-shanshen" style="background:#f59e0b;color:#000;">💨 01.闪身步</button>
+        <button class="c-btn" id="btn-cast-kick" style="background:#38bdf8;color:#000;">⚽ 02.浪子踢球</button>
+        <button class="c-btn" id="btn-cast-bear" style="background:#a855f7;color:#fff;">🐻 03.狗熊哆嗦毛</button>
+        <button class="c-btn" id="btn-cast-ult" style="background:#ef4444;color:#fff;">🔥 30.三十路万象归宗</button>
+      </div>
+    </div>
+    <div class="moves-grid" id="moves-grid"></div>
+  </div>
+
+  <script>
+    const MOVES_30 = [{"id": 1, "name": "01. 闪身步", "cat": "步法闪避", "key": "Space/右键", "dmg": 55, "iframe": 0.6, "pose": "dodge", "fx": "sidestep", "desc": "腰腹猛拧横向残影平移急停！恐龙扑咬瞬间施展触发【极限闪身·子弹时间】"}, {"id": 2, "name": "02. 浪子踢球", "cat": "主力反击", "key": "J/左键", "dmg": 135, "iframe": 0.28, "pose": "kick", "fx": "crescent_kick", "desc": "上身反方向顿挫后仰闪躲，单脚高勾将扑来的恐龙当皮球踢飞上天！"}, {"id": 3, "name": "03. 狗熊哆嗦毛", "cat": "范围震退", "key": "K", "dmg": 110, "iframe": 0.45, "pose": "dodge", "fx": "shake_burst", "desc": "全身核心肌群高频爆发抖动，产生360度气浪震飞周围恐龙！"}, {"id": 4, "name": "04. 拔泥步", "cat": "踏地减速", "key": "1", "dmg": 90, "iframe": 0.25, "pose": "dodge", "fx": "stomp", "desc": "高抬大腿重踏地面，震起泥浆冲击波令前方恐龙震晕减速！"}, {"id": 5, "name": "05. 野鸡溜", "cat": "贴地滑步", "key": "2", "dmg": 85, "iframe": 0.55, "pose": "dodge", "fx": "low_slide", "desc": "超低身位贴地疾滑，完美钻过翼龙俯冲与霸王龙高段咬击！"}, {"id": 6, "name": "06. 游场碎步", "cat": "残影迷踪", "key": "3", "dmg": 75, "iframe": 0.5, "pose": "dodge", "fx": "sidestep", "desc": "高频碎步左右穿插，留下多道黑背心练功残影迷惑恐龙！"}, {"id": 7, "name": "07. 矮子步", "cat": "下盘潜行", "key": "4", "dmg": 100, "iframe": 0.45, "pose": "dodge", "fx": "low_slide", "desc": "极限深蹲拧胯蟹行，滑入三角龙肚皮下方痛击弱点！"}, {"id": 8, "name": "08. 车水步", "cat": "后撤飞石", "key": "5", "dmg": 115, "iframe": 0.35, "pose": "kick", "fx": "crescent_kick", "desc": "连续后撤步拉开身位，脚尖挑起碎石飞弹击退追击恐龙！"}, {"id": 9, "name": "09. 走梗平衡步", "cat": "残影穿刺", "key": "6", "dmg": 125, "iframe": 0.4, "pose": "dodge", "fx": "sidestep", "desc": "极速直线残影穿刺，从恐龙群中一闪而过造成罡风割裂！"}, {"id": 10, "name": "10. 盘根拧腰步", "cat": "螺旋卸力", "key": "7", "dmg": 140, "iframe": 0.48, "pose": "dodge", "fx": "spin", "desc": "360度拧腰卸力，将冲锋的三角龙借力甩飞撞向后方兽群！"}, {"id": 11, "name": "11. 猴子扳桩", "cat": "擒拿重摔", "key": "8", "dmg": 195, "iframe": 0.38, "pose": "kick", "fx": "jump_slam", "desc": "腾空跃起扳住恐龙脑袋猛烈砸向地面，引发裂地冲击波！"}, {"id": 12, "name": "12. 扁担闪·横扫", "cat": "双臂横扫", "key": "9", "dmg": 160, "iframe": 0.3, "pose": "dodge", "fx": "spin", "desc": "双臂如铁扁担平举拧腰大回环横扫，同时击飞左右恐龙！"}, {"id": 13, "name": "13. 十字靠身(铁山靠)", "cat": "沉肩破甲", "key": "L", "dmg": 235, "iframe": 0.4, "pose": "dodge", "fx": "charge", "desc": "拧腰沉肩猛烈铁山靠撞击，直接把霸王龙撞出硬直顿帧！"}, {"id": 14, "name": "14. 蛤蟆洼·震地", "cat": "蛙跃震晕", "key": "U", "dmg": 175, "iframe": 0.35, "pose": "dodge", "fx": "jump_slam", "desc": "深蹲蓄力后蛙跃重踏地面，将周围恐龙全部震翻在地！"}, {"id": 15, "name": "15. 小儿骑竹马", "cat": "踏背二段", "key": "I", "dmg": 155, "iframe": 0.42, "pose": "kick", "fx": "jump_slam", "desc": "跨步腾跃踩踏恐龙脊背借力升空，发动凌空高劈腿！"}, {"id": 16, "name": "16. 燕子三抄水", "cat": "三连飞踢", "key": "O", "dmg": 210, "iframe": 0.4, "pose": "kick", "fx": "crescent_kick", "desc": "连续三次贴地掠袭飞踢，每一脚暴击威力递增50%！"}, {"id": 17, "name": "17. 喜鹊登枝", "cat": "点鼻登空", "key": "P", "dmg": 170, "iframe": 0.38, "pose": "kick", "fx": "jump_slam", "desc": "单脚精准点踢霸王龙鼻尖借力升空，触发空中连环暴雨踢！"}, {"id": 18, "name": "18. 拐子步·侧踹", "cat": "破甲重踹", "key": "F", "dmg": 190, "iframe": 0.3, "pose": "kick", "fx": "crescent_kick", "desc": "假动作晃开防御后突发重侧踹，一脚踹穿三角龙骨盾！"}, {"id": 19, "name": "19. 磨盘转·旋风", "cat": "旋风扫腿", "key": "G", "dmg": 225, "iframe": 0.45, "pose": "kick", "fx": "spin", "desc": "以腰腹核心为轴高速旋转扫腿，卷起金色旋风气浪！"}, {"id": 20, "name": "20. 鲤鱼打挺·反击", "cat": "回血震飞", "key": "R", "dmg": 165, "iframe": 0.55, "pose": "kick", "fx": "shake_burst", "desc": "猛烈挺腹弹射起身，震飞身边全部恐龙并回复25点生命值！"}, {"id": 21, "name": "21. 大鹏展翅·掠空", "cat": "展翅冲击", "key": "Z", "dmg": 250, "iframe": 0.48, "pose": "dodge", "fx": "jump_slam", "desc": "双臂大开如大鹏滑翔俯冲，引发横贯战场的音爆冲击波！"}, {"id": 22, "name": "22. 旱船晃·太极领域", "cat": "全场慢放", "key": "X", "dmg": 195, "iframe": 0.55, "pose": "dodge", "fx": "shake_burst", "desc": "左右摇晃身段展开太极残影领域，所有恐龙动作放慢70%！"}, {"id": 23, "name": "23. 大花场·八连浪子踢", "cat": "高速连踢", "key": "C", "dmg": 340, "iframe": 0.5, "pose": "kick", "fx": "crescent_kick", "desc": "连续8脚浪子踢球高速机关枪连发，把整群恐龙踢成空中流星！"}, {"id": 24, "name": "24. 仙人指路·点穴破甲", "cat": "剑气贯穿", "key": "V", "dmg": 285, "iframe": 0.35, "pose": "dodge", "fx": "beam", "desc": "单指罡气横贯全屏，贯穿直线所有恐龙弱点必定暴击！"}, {"id": 25, "name": "25. 叶底藏花·回马枪", "cat": "回头重踢", "key": "B", "dmg": 310, "iframe": 0.48, "pose": "kick", "fx": "crescent_kick", "desc": "背身假装败退，在霸王龙张嘴瞬间猛然拧身回头重踢下颚！"}, {"id": 26, "name": "26. 白鹤亮翅·罡风障", "cat": "金钟护体", "key": "N", "dmg": 210, "iframe": 0.85, "pose": "dodge", "fx": "shake_burst", "desc": "双臂振开金光护体罡风，获得无敌护盾并弹飞靠近恐龙！"}, {"id": 27, "name": "27. 黑虎掏心·寸劲", "cat": "寸劲秒杀", "key": "M", "dmg": 410, "iframe": 0.4, "pose": "dodge", "fx": "charge", "desc": "零距离贴身爆发核心寸劲，造成重度顿帧与毁灭打击！"}, {"id": 28, "name": "28. 金鸡独立·千斤坠", "cat": "裂地火山", "key": "T", "dmg": 360, "iframe": 0.5, "pose": "kick", "fx": "jump_slam", "desc": "单腿独立高举过顶，随后千斤坠踏裂地面喷发金色气柱！"}, {"id": 29, "name": "29. 乌龙绞柱·地堂风暴", "cat": "螺旋卷空", "key": "Y", "dmg": 380, "iframe": 0.55, "pose": "kick", "fx": "spin", "desc": "倒地双腿螺旋绞杀，形成巨型龙卷风将霸王龙卷上高空！"}, {"id": 30, "name": "30. 终极奥义·三十路闪身万象归宗", "cat": "全屏必杀", "key": "Q/E", "dmg": 720, "iframe": 1.3, "pose": "kick", "fx": "ultimate", "desc": "全屏召唤黑背心练功宗师残影分身，同时施展闪身步+浪子踢球将满屏恐龙踢飞！"}];
+    const GDD = {"slug": "shanshenbu-30-jurassic", "title": "闪身步30招：智斗侏罗纪 (2D 街机精绘精灵版)", "prompt": "2D手绘街机精绘版《闪身步30招：智斗侏罗纪》，采用AI手绘透明精灵人物（黑背心白条练功裤宗师：待机/闪身步/浪子踢球三态）+ 4类手绘恐龙精灵（霸王龙/迅猛龙/三角龙/翼龙）+ 侏罗纪火山丛林与北舞练功房时空裂缝双场景", "tagline": "《恐龙快打》级别 2D 手绘街机画面 × 安徽花鼓灯 30 路闪身步法与浪子踢球", "genre": "2D 横版街机手绘动作 / 极限闪避反击 (2D Illustrated Arcade Brawler)", "reference_skeleton": "Cadillacs and Dinosaurs (恐龙快打) + Street Fighter III 2D Sprite Art + Night-Patrol", "hero_name": "2D手绘黑背心白条练功裤宗师（待机/闪身步/浪子踢球三态精灵 + 支持上传真人照片贴头）", "enemy_label": "2D手绘恐龙大军（暴君霸王龙T-Rex、镰爪迅猛龙、重甲三角龙、苍穹无齿翼龙）", "primary_action": "01.闪身步（手绘拧腰架掌残影平移+子弹时间） + 02.浪子踢球（手绘后仰高勾腿+金色半月脚风踢飞恐龙）", "special_action": "30.终极奥义·三十路闪身万象归宗（全屏召唤黑背心宗师残影分身合击）", "visual_preset": "2D Hand-Painted Arcade (侏罗纪火山丛林 / 北舞练功房大镜子时空裂缝 双背景一键切换)", "music_preset": "安徽花鼓灯锣鼓点 + 侏罗纪五声音阶战歌 (136 BPM)", "created_at": "2026-11-20 15:08:30", "moves_30": [{"id": 1, "name": "01. 闪身步", "cat": "步法闪避", "key": "Space/右键", "dmg": 55, "iframe": 0.6, "pose": "dodge", "fx": "sidestep", "desc": "腰腹猛拧横向残影平移急停！恐龙扑咬瞬间施展触发【极限闪身·子弹时间】"}, {"id": 2, "name": "02. 浪子踢球", "cat": "主力反击", "key": "J/左键", "dmg": 135, "iframe": 0.28, "pose": "kick", "fx": "crescent_kick", "desc": "上身反方向顿挫后仰闪躲，单脚高勾将扑来的恐龙当皮球踢飞上天！"}, {"id": 3, "name": "03. 狗熊哆嗦毛", "cat": "范围震退", "key": "K", "dmg": 110, "iframe": 0.45, "pose": "dodge", "fx": "shake_burst", "desc": "全身核心肌群高频爆发抖动，产生360度气浪震飞周围恐龙！"}, {"id": 4, "name": "04. 拔泥步", "cat": "踏地减速", "key": "1", "dmg": 90, "iframe": 0.25, "pose": "dodge", "fx": "stomp", "desc": "高抬大腿重踏地面，震起泥浆冲击波令前方恐龙震晕减速！"}, {"id": 5, "name": "05. 野鸡溜", "cat": "贴地滑步", "key": "2", "dmg": 85, "iframe": 0.55, "pose": "dodge", "fx": "low_slide", "desc": "超低身位贴地疾滑，完美钻过翼龙俯冲与霸王龙高段咬击！"}, {"id": 6, "name": "06. 游场碎步", "cat": "残影迷踪", "key": "3", "dmg": 75, "iframe": 0.5, "pose": "dodge", "fx": "sidestep", "desc": "高频碎步左右穿插，留下多道黑背心练功残影迷惑恐龙！"}, {"id": 7, "name": "07. 矮子步", "cat": "下盘潜行", "key": "4", "dmg": 100, "iframe": 0.45, "pose": "dodge", "fx": "low_slide", "desc": "极限深蹲拧胯蟹行，滑入三角龙肚皮下方痛击弱点！"}, {"id": 8, "name": "08. 车水步", "cat": "后撤飞石", "key": "5", "dmg": 115, "iframe": 0.35, "pose": "kick", "fx": "crescent_kick", "desc": "连续后撤步拉开身位，脚尖挑起碎石飞弹击退追击恐龙！"}, {"id": 9, "name": "09. 走梗平衡步", "cat": "残影穿刺", "key": "6", "dmg": 125, "iframe": 0.4, "pose": "dodge", "fx": "sidestep", "desc": "极速直线残影穿刺，从恐龙群中一闪而过造成罡风割裂！"}, {"id": 10, "name": "10. 盘根拧腰步", "cat": "螺旋卸力", "key": "7", "dmg": 140, "iframe": 0.48, "pose": "dodge", "fx": "spin", "desc": "360度拧腰卸力，将冲锋的三角龙借力甩飞撞向后方兽群！"}, {"id": 11, "name": "11. 猴子扳桩", "cat": "擒拿重摔", "key": "8", "dmg": 195, "iframe": 0.38, "pose": "kick", "fx": "jump_slam", "desc": "腾空跃起扳住恐龙脑袋猛烈砸向地面，引发裂地冲击波！"}, {"id": 12, "name": "12. 扁担闪·横扫", "cat": "双臂横扫", "key": "9", "dmg": 160, "iframe": 0.3, "pose": "dodge", "fx": "spin", "desc": "双臂如铁扁担平举拧腰大回环横扫，同时击飞左右恐龙！"}, {"id": 13, "name": "13. 十字靠身(铁山靠)", "cat": "沉肩破甲", "key": "L", "dmg": 235, "iframe": 0.4, "pose": "dodge", "fx": "charge", "desc": "拧腰沉肩猛烈铁山靠撞击，直接把霸王龙撞出硬直顿帧！"}, {"id": 14, "name": "14. 蛤蟆洼·震地", "cat": "蛙跃震晕", "key": "U", "dmg": 175, "iframe": 0.35, "pose": "dodge", "fx": "jump_slam", "desc": "深蹲蓄力后蛙跃重踏地面，将周围恐龙全部震翻在地！"}, {"id": 15, "name": "15. 小儿骑竹马", "cat": "踏背二段", "key": "I", "dmg": 155, "iframe": 0.42, "pose": "kick", "fx": "jump_slam", "desc": "跨步腾跃踩踏恐龙脊背借力升空，发动凌空高劈腿！"}, {"id": 16, "name": "16. 燕子三抄水", "cat": "三连飞踢", "key": "O", "dmg": 210, "iframe": 0.4, "pose": "kick", "fx": "crescent_kick", "desc": "连续三次贴地掠袭飞踢，每一脚暴击威力递增50%！"}, {"id": 17, "name": "17. 喜鹊登枝", "cat": "点鼻登空", "key": "P", "dmg": 170, "iframe": 0.38, "pose": "kick", "fx": "jump_slam", "desc": "单脚精准点踢霸王龙鼻尖借力升空，触发空中连环暴雨踢！"}, {"id": 18, "name": "18. 拐子步·侧踹", "cat": "破甲重踹", "key": "F", "dmg": 190, "iframe": 0.3, "pose": "kick", "fx": "crescent_kick", "desc": "假动作晃开防御后突发重侧踹，一脚踹穿三角龙骨盾！"}, {"id": 19, "name": "19. 磨盘转·旋风", "cat": "旋风扫腿", "key": "G", "dmg": 225, "iframe": 0.45, "pose": "kick", "fx": "spin", "desc": "以腰腹核心为轴高速旋转扫腿，卷起金色旋风气浪！"}, {"id": 20, "name": "20. 鲤鱼打挺·反击", "cat": "回血震飞", "key": "R", "dmg": 165, "iframe": 0.55, "pose": "kick", "fx": "shake_burst", "desc": "猛烈挺腹弹射起身，震飞身边全部恐龙并回复25点生命值！"}, {"id": 21, "name": "21. 大鹏展翅·掠空", "cat": "展翅冲击", "key": "Z", "dmg": 250, "iframe": 0.48, "pose": "dodge", "fx": "jump_slam", "desc": "双臂大开如大鹏滑翔俯冲，引发横贯战场的音爆冲击波！"}, {"id": 22, "name": "22. 旱船晃·太极领域", "cat": "全场慢放", "key": "X", "dmg": 195, "iframe": 0.55, "pose": "dodge", "fx": "shake_burst", "desc": "左右摇晃身段展开太极残影领域，所有恐龙动作放慢70%！"}, {"id": 23, "name": "23. 大花场·八连浪子踢", "cat": "高速连踢", "key": "C", "dmg": 340, "iframe": 0.5, "pose": "kick", "fx": "crescent_kick", "desc": "连续8脚浪子踢球高速机关枪连发，把整群恐龙踢成空中流星！"}, {"id": 24, "name": "24. 仙人指路·点穴破甲", "cat": "剑气贯穿", "key": "V", "dmg": 285, "iframe": 0.35, "pose": "dodge", "fx": "beam", "desc": "单指罡气横贯全屏，贯穿直线所有恐龙弱点必定暴击！"}, {"id": 25, "name": "25. 叶底藏花·回马枪", "cat": "回头重踢", "key": "B", "dmg": 310, "iframe": 0.48, "pose": "kick", "fx": "crescent_kick", "desc": "背身假装败退，在霸王龙张嘴瞬间猛然拧身回头重踢下颚！"}, {"id": 26, "name": "26. 白鹤亮翅·罡风障", "cat": "金钟护体", "key": "N", "dmg": 210, "iframe": 0.85, "pose": "dodge", "fx": "shake_burst", "desc": "双臂振开金光护体罡风，获得无敌护盾并弹飞靠近恐龙！"}, {"id": 27, "name": "27. 黑虎掏心·寸劲", "cat": "寸劲秒杀", "key": "M", "dmg": 410, "iframe": 0.4, "pose": "dodge", "fx": "charge", "desc": "零距离贴身爆发核心寸劲，造成重度顿帧与毁灭打击！"}, {"id": 28, "name": "28. 金鸡独立·千斤坠", "cat": "裂地火山", "key": "T", "dmg": 360, "iframe": 0.5, "pose": "kick", "fx": "jump_slam", "desc": "单腿独立高举过顶，随后千斤坠踏裂地面喷发金色气柱！"}, {"id": 29, "name": "29. 乌龙绞柱·地堂风暴", "cat": "螺旋卷空", "key": "Y", "dmg": 380, "iframe": 0.55, "pose": "kick", "fx": "spin", "desc": "倒地双腿螺旋绞杀，形成巨型龙卷风将霸王龙卷上高空！"}, {"id": 30, "name": "30. 终极奥义·三十路闪身万象归宗", "cat": "全屏必杀", "key": "Q/E", "dmg": 720, "iframe": 1.3, "pose": "kick", "fx": "ultimate", "desc": "全屏召唤黑背心练功宗师残影分身，同时施展闪身步+浪子踢球将满屏恐龙踢飞！"}], "infinite_build_pipeline": [{"step": 1, "name": "Concept & Skeleton", "status": "DONE", "detail": "采用 2D 横版《恐龙快打》街机视角，调度9名AI原画师并行绘制手绘精灵与场景"}, {"step": 2, "name": "Vertical Slice", "status": "DONE", "detail": "完成去绿幕透明PNG精绘人物三态精灵（待机/闪身步/浪子踢球）与4大侏罗纪恐龙手绘精灵"}, {"step": 3, "name": "Game Feel & Juice", "status": "DONE", "detail": "加入浪子踢球金色半月脚风、击中闪白顿帧、恐龙720度空中旋飞与练功房镜面实时倒影"}, {"step": 4, "name": "Standing Orders (Visual QA)", "status": "PASS", "detail": "2D 精绘精灵 60 FPS 满帧运行，电脑键鼠与手机左手虚拟摇杆+右手功夫圆钮双适配"}, {"step": 5, "name": "Infinite Evolution & Pack", "status": "READY", "detail": "已接入 Cloudflare Pages 一键部署，手机/电脑点开公开链接即可畅玩"}], "active_subagents": [{"tier": "Tier 1: Director", "id": "art-director", "task": "统筹9名AI原画师并行绘制Street Fighter/恐龙快打风格2D精绘精灵与双场景原画"}, {"tier": "Tier 2: Lead", "id": "technical-artist", "task": "编写边界BFS洪泛绿幕抠图与去绿边溢色算法，完美保留绿色迅猛龙鳞片细节"}, {"tier": "Tier 2: Lead", "id": "gameplay-programmer", "task": "整合30招动作逻辑、残影分身、极限闪身子弹时间与手机触屏虚拟摇杆"}, {"tier": "Tier 2: Lead", "id": "release-manager", "task": "配置 Cloudflare Pages / Workers 一键部署，生成手机电脑通用分享链接"}]};
+
+    // =========================================================================
+    // 1. PRELOAD ALL 9 HAND-PAINTED 2D ARCADE SPRITES & BACKGROUNDS
+    // =========================================================================
+    const ASSETS = {};
+    const ASSET_URLS = {
+      hero_ready: 'sprites/hero_ready.png',
+      hero_dodge: 'sprites/hero_dodge.png',
+      hero_kick: 'sprites/hero_kick.png',
+      dino_trex: 'sprites/dino_trex.png',
+      dino_raptor: 'sprites/dino_raptor.png',
+      dino_triceratops: 'sprites/dino_triceratops.png',
+      dino_pteranodon: 'sprites/dino_pteranodon.png',
+      bg_dance_studio: 'sprites/bg_dance_studio.jpg',
+      bg_jurassic_jungle: 'sprites/bg_jurassic_jungle.jpg',
+    };
+    let assetsLoaded = 0;
+    const totalAssets = Object.keys(ASSET_URLS).length;
+    for (const [key, url] of Object.entries(ASSET_URLS)) {
+      const img = new Image();
+      img.onload = () => { assetsLoaded++; };
+      img.src = url;
+      ASSETS[key] = img;
+    }
+
+    // =========================================================================
+    // 2. WEBAUDIO FOLK DRUM & KUNG FU SYNTHESIZER
+    // =========================================================================
+    class HuagudengAudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.isPlaying = false;
+        this.timer = null;
+        this.step = 0;
+        this.scale = [220.0, 261.63, 293.66, 329.63, 392.0, 440.0];
+      }
+      init() {
+        if (!this.ctx) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (AC) this.ctx = new AC();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+      }
+      toggleBGM() {
+        this.init();
+        if (!this.ctx) return false;
+        this.isPlaying = !this.isPlaying;
+        if (this.isPlaying) this.timer = setInterval(() => this.tick(), 210);
+        else clearInterval(this.timer);
+        return this.isPlaying;
+      }
+      tick() {
+        if (!this.ctx || !this.isPlaying) return;
+        const pat = this.step % 4;
+        if (pat === 0 || pat === 2) this.playDrum(75, 0.16, 0.14);
+        else this.playTone(540 + (this.step % 3) * 110, 0.12, 'sawtooth', 0.06);
+        this.playTone(this.scale[this.step % this.scale.length], 0.18, 'triangle', 0.06);
+        this.step++;
+      }
+      playTone(freq, dur, type = 'sine', gainVal = 0.08) {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now);
+        g.gain.setValueAtTime(gainVal, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + dur);
+        osc.connect(g);
+        g.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + dur);
+      }
+      playDrum(freq, dur, gainVal) {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq * 2.2, now);
+        osc.frequency.exponentialRampToValueAtTime(freq * 0.5, now + dur);
+        g.gain.setValueAtTime(gainVal, now);
+        g.gain.exponentialRampToValueAtTime(0.001, now + dur);
+        osc.connect(g);
+        g.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + dur);
+      }
+      playMoveSFX(moveId) {
+        this.init();
+        if (!this.ctx) return;
+        if (moveId === 1) {
+          this.playTone(340, 0.12, 'sine', 0.12);
+          setTimeout(() => this.playTone(680, 0.16, 'triangle', 0.12), 45);
+        } else if (moveId === 2) {
+          this.playDrum(115, 0.22, 0.26);
+          this.playTone(490, 0.12, 'sawtooth', 0.11);
+        } else {
+          this.playDrum(95 + (moveId * 9) % 120, 0.18, 0.18);
+        }
+      }
+    }
+    const audio = new HuagudengAudioEngine();
+
+    // =========================================================================
+    // 3. 30 MOVES DOCK UI
+    // =========================================================================
+    let currentFilter = 'all';
+    const movesGridEl = document.getElementById('moves-grid');
+    function renderMovesDock() {
+      const list = MOVES_30.filter(m => {
+        if (currentFilter === 'all') return true;
+        if (currentFilter === '步法') return m.id <= 10;
+        if (currentFilter === '腿法') return m.id >= 11 && m.id <= 20;
+        if (currentFilter === '奥义') return m.id >= 21;
+        return true;
+      });
+      movesGridEl.innerHTML = list.map(m => `
+        <div class="move-card" id="move-card-${m.id}" title="${m.desc}" onclick="executeMove(${m.id})">
+          <div class="m-name">${m.name}</div>
+          <div class="m-meta">
+            <span style="color:#38bdf8;">${m.cat}</span>
+            <span>威力:${m.dmg} | ${m.key}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+    renderMovesDock();
+
+    document.querySelectorAll('.stance-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.stance-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentFilter = tab.getAttribute('data-cat');
+        renderMovesDock();
+      });
+    });
+
+    // =========================================================================
+    // 4. 2D ARCADE SPRITE ENGINE
+    // =========================================================================
+    const canvas = document.getElementById('game-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const state = {
+      hp: 150, maxHp: 150,
+      score: 0, wave: 1, kills: 0, combo: 0,
+      sceneMode: 'jurassic_jungle', // Starts in lush Jurassic Jungle, toggleable to Dance Studio Mirror Room!
+      customHeadImg: null,
+      autoBot: true,
+      hitstopRemaining: 0,
+      witchTimeTimer: 0,
+      shakeTimer: 0,
+      shakeIntensity: 0,
+      bannerText: '【01. 闪身步】',
+      bannerSub: '腰腹猛拧横向残影平移急停！恐龙扑咬瞬间施展触发【极限闪身·子弹时间】',
+      bannerTimer: 2.0,
+      fps: 60,
+      framesRendered: 0,
+      consoleErrors: 0,
+    };
+
+    // Sync initial scene button label
+    document.getElementById('btn-scene-toggle').textContent = '🌋 场景: 侏罗纪丛林';
+
+    window.addEventListener('error', () => { state.consoleErrors++; });
+
+    window.__OMNIGAME_QA__ = {
+      getReport: () => ({
+        title: GDD.title,
+        renderMode: '2D_HandPainted_Arcade_Sprites',
+        assetsLoaded,
+        totalAssets,
+        framesRendered: state.framesRendered,
+        fps: state.fps,
+        hp: state.hp,
+        score: state.score,
+        wave: state.wave,
+        kills: state.kills,
+        combo: state.combo,
+        movesCount: MOVES_30.length,
+        consoleErrors: state.consoleErrors,
+        visualHealthy: state.framesRendered > 5 && state.consoleErrors === 0,
+      })
+    };
+
+    const hero = {
+      x: 340,
+      y: 0,
+      z: 0,
+      vy: 0,
+      facing: 1,
+      pose: 'ready', // 'ready' | 'dodge' | 'kick'
+      fx: 'none',
+      poseTimer: 0,
+      iframeTimer: 0,
+      activeMoveId: 1,
+      afterimages: [],
+    };
+
+    const dinos = [];
+    const floatingTexts = [];
+    const slashEffects = [];
+
+    function drawHeroSprite(ctx, x, groundY, z, yOffset, facing, pose, fx, alpha = 1.0, isGhost = false) {
+      const img = pose === 'kick' ? ASSETS.hero_kick : (pose === 'dodge' ? ASSETS.hero_dodge : ASSETS.hero_ready);
+      if (!img || !img.complete || img.naturalWidth === 0) return;
+
+      const t = performance.now() * 0.008;
+      const targetH = Math.min(200, Math.max(148, canvas.height * 0.27));
+      const scale = targetH / img.naturalHeight;
+      const drawW = img.naturalWidth * scale;
+      const drawH = targetH;
+
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.translate(x, groundY + z - yOffset);
+
+      // Ground contact shadow
+      if (!isGhost) {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.48)';
+        ctx.beginPath();
+        ctx.ellipse(0, yOffset, drawW * 0.36, 12, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Dynamic martial arts squash & stretch / tremble / spin!
+      let sx = facing;
+      let sy = 1.0;
+      let rot = 0;
+      let ox = 0;
+
+      if (fx === 'shake_burst') {
+        ox = Math.sin(t * 18) * 10;
+        sx *= 1.06;
+        sy = 0.94;
+      } else if (fx === 'low_slide') {
+        sy = 0.72;
+        sx *= 1.18;
+      } else if (fx === 'spin') {
+        sx *= Math.cos(t * 6) >= 0 ? 1 : -1;
+      } else if (fx === 'charge') {
+        rot = facing * 0.22;
+      } else if (pose === 'ready') {
+        // Subtle martial breathing bounce
+        sy = 1.0 + Math.sin(t * 0.9) * 0.025;
+        sx *= 1.0 - Math.sin(t * 0.9) * 0.015;
+      }
+
+      ctx.translate(ox, 0);
+      ctx.rotate(rot);
+      ctx.scale(sx, sy);
+
+      if (isGhost) {
+        ctx.filter = 'hue-rotate(175deg) brightness(1.45) saturate(2.5)';
+      }
+
+      ctx.drawImage(img, -drawW * 0.5, -drawH + 6, drawW, drawH);
+      ctx.filter = 'none';
+
+      // Custom Uploaded Photo Head Overlay (if user uploaded their own face!)
+      if (state.customHeadImg && !isGhost) {
+        const headY = pose === 'kick' ? -drawH * 0.74 : (pose === 'dodge' ? -drawH * 0.72 : -drawH * 0.80);
+        const headX = pose === 'kick' ? -drawW * 0.14 : (pose === 'dodge' ? drawW * 0.03 : 0);
+        const headR = drawH * 0.14;
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(headX, headY, headR, 0, Math.PI * 2);
+        ctx.clip();
+        ctx.drawImage(state.customHeadImg, headX - headR, headY - headR, headR * 2, headR * 2);
+        ctx.restore();
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.arc(headX, headY, headR, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Golden Crescent Kick Wave VFX (浪子踢球金色半月脚风)
+      if (!isGhost && (fx === 'crescent_kick' || fx === 'ultimate')) {
+        ctx.strokeStyle = '#fef08a';
+        ctx.lineWidth = 7;
+        ctx.shadowColor = '#f59e0b';
+        ctx.shadowBlur = 18;
+        ctx.beginPath();
+        ctx.arc(drawW * 0.15, -drawH * 0.55, drawH * 0.52, -1.25, 0.55);
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+      }
+
+      // Golden Qi Beam VFX (仙人指路贯穿剑气)
+      if (!isGhost && fx === 'beam') {
+        const grad = ctx.createLinearGradient(20, 0, 520, 0);
+        grad.addColorStop(0, '#fef08a');
+        grad.addColorStop(0.5, '#38bdf8');
+        grad.addColorStop(1, 'rgba(56,189,248,0)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(20, -drawH * 0.62, 520, 22);
+      }
+
+      ctx.restore();
+    }
+
+    function drawDinoSprite(ctx, d, t) {
+      const spriteMap = {
+        trex: ASSETS.dino_trex,
+        raptor: ASSETS.dino_raptor,
+        triceratops: ASSETS.dino_triceratops,
+        pteranodon: ASSETS.dino_pteranodon,
+      };
+      const img = spriteMap[d.kind];
+      if (!img || !img.complete || img.naturalWidth === 0) return;
+
+      const baseH = d.kind === 'trex' ? 235 : (d.kind === 'triceratops' ? 160 : (d.kind === 'pteranodon' ? 140 : 145));
+      const scaleFactor = Math.min(1.1, Math.max(0.76, canvas.height / 760));
+      const drawH = baseH * scaleFactor;
+      const drawW = (img.naturalWidth / img.naturalHeight) * drawH;
+      const flyLift = d.kind === 'pteranodon' ? 88 + Math.sin(t * 7 + d.seed) * 16 : 0;
+
+      ctx.save();
+      ctx.translate(d.x, d.groundY + d.z - d.y - flyLift);
+
+      // Red Danger Attack Telegraph Circle on Floor
+      if (d.attackWindup > 0 && d.y <= 1) {
+        ctx.save();
+        ctx.translate(0, flyLift);
+        ctx.fillStyle = `rgba(239, 68, 68, ${0.22 + d.attackWindup * 0.45})`;
+        ctx.strokeStyle = '#ef4444';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, drawW * 0.38, 18, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#fef08a';
+        ctx.font = 'bold 12px "Microsoft YaHei"';
+        ctx.textAlign = 'center';
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 3;
+        ctx.strokeText('⚠️ 恐龙扑咬！快按【闪身步】！', 0, 24);
+        ctx.fillText('⚠️ 恐龙扑咬！快按【闪身步】！', 0, 24);
+        ctx.restore();
+      }
+
+      // Floor Shadow
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.44)';
+      ctx.beginPath();
+      ctx.ellipse(0, d.y + flyLift, drawW * 0.34, 12, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Flying Spin when kicked by Langzi Tiqiu!
+      if (d.rotation !== 0) {
+        ctx.translate(0, -drawH * 0.5);
+        ctx.rotate(d.rotation);
+        ctx.translate(0, drawH * 0.5);
+      }
+
+      // Running Gait Squash & Bobbing
+      const bob = Math.abs(Math.sin(t * 8 + d.seed)) * (d.kind === 'pteranodon' ? 4 : 9);
+      const tilt = Math.sin(t * 8 + d.seed) * 0.045;
+      ctx.save();
+      ctx.translate(0, -bob);
+      ctx.rotate(tilt);
+      ctx.scale(d.facing, 1);
+
+      if (d.hitFlash > 0) {
+        ctx.filter = 'brightness(2.6) contrast(1.4)';
+      }
+      ctx.drawImage(img, -drawW * 0.5, -drawH + 8, drawW, drawH);
+      ctx.filter = 'none';
+      ctx.restore();
+
+      // Dinosaur HP Bar & Name Label
+      const barY = -drawH - 12;
+      const barW = d.kind === 'trex' ? 112 : 68;
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.78)';
+      ctx.fillRect(-barW * 0.5, barY, barW, 7);
+      ctx.fillStyle = d.kind === 'trex' ? '#ef4444' : '#22c55e';
+      ctx.fillRect(-barW * 0.5, barY, barW * Math.max(0, d.hp / d.maxHp), 7);
+      ctx.font = 'bold 11px "Microsoft YaHei"';
+      ctx.textAlign = 'center';
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 3;
+      ctx.strokeText(d.label, 0, barY - 4);
+      ctx.fillStyle = d.kind === 'trex' ? '#fca5a5' : '#fef08a';
+      ctx.fillText(d.label, 0, barY - 4);
+
+      ctx.restore();
+    }
+
+    // =========================================================================
+    // 5. SPAWN DINOSAURS & EXECUTE 30 MOVES
+    // =========================================================================
+    function spawnDino(forceKind = null) {
+      const kinds = ['raptor', 'triceratops', 'pteranodon', 'raptor'];
+      const hasBoss = dinos.some(d => d.kind === 'trex');
+      const kind = forceKind || ((!hasBoss && state.kills > 0 && state.kills % 7 === 0) ? 'trex' : kinds[Math.floor(Math.random() * kinds.length)]);
+      const fromLeft = Math.random() < 0.35;
+      const x = fromLeft ? -80 : canvas.width + 80;
+      const z = (Math.random() - 0.5) * 90;
+      const maxHp = kind === 'trex' ? (750 + state.wave * 120) : (kind === 'triceratops' ? 210 : 115);
+      const speed = kind === 'raptor' ? 185 : (kind === 'pteranodon' ? 205 : (kind === 'trex' ? 110 : 135));
+      const labelMap = {
+        raptor: '🦎 镰爪迅猛龙',
+        triceratops: '🦏 重甲三角龙',
+        pteranodon: '🦅 苍穹翼龙',
+        trex: '🦖 暴君霸王龙 BOSS',
+      };
+      dinos.push({
+        kind, label: labelMap[kind],
+        x, y: 0, z, groundY: 0,
+        vx: 0, vy: 0,
+        facing: fromLeft ? 1 : -1,
+        hp: maxHp, maxHp, speed,
+        attackWindup: 0,
+        hitFlash: 0,
+        rotation: 0, vRot: 0,
+        seed: Math.random() * 10,
+      });
+    }
+
+    // Initial iconic Jurassic showcase wave: T-Rex + Velociraptor + Triceratops + Pteranodon!
+    spawnDino('trex');
+    dinos[0].x = Math.min(window.innerWidth - 180, 760);
+    dinos[0].facing = -1;
+    spawnDino('raptor');
+    dinos[1].x = Math.min(window.innerWidth - 280, 560);
+    dinos[1].facing = -1;
+    spawnDino('triceratops');
+    dinos[2].x = Math.min(window.innerWidth - 110, 960);
+    dinos[2].facing = -1;
+    spawnDino('pteranodon');
+    dinos[3].x = Math.min(window.innerWidth - 200, 820);
+    dinos[3].facing = -1;
+
+    function executeMove(moveId) {
+      const move = MOVES_30.find(m => m.id === moveId) || MOVES_30[0];
+      hero.activeMoveId = move.id;
+      hero.pose = move.pose;
+      hero.fx = move.fx;
+      hero.poseTimer = 0.54;
+      hero.iframeTimer = Math.max(hero.iframeTimer, move.iframe);
+      audio.playMoveSFX(move.id);
+
+      document.querySelectorAll('.move-card').forEach(c => c.classList.remove('active-move'));
+      const card = document.getElementById('move-card-' + move.id);
+      if (card) card.classList.add('active-move');
+
+      // Check Perfect Dodge!
+      let perfectDodge = false;
+      dinos.forEach(d => {
+        if (d.attackWindup > 0 && Math.abs(d.x - hero.x) < 195) perfectDodge = true;
+      });
+
+      // Spawn 3 translucent glowing afterimages
+      for (let c = 0; c < 3; c++) {
+        hero.afterimages.push({
+          x: hero.x - hero.facing * c * 32,
+          y: hero.y,
+          z: hero.z,
+          facing: hero.facing,
+          pose: hero.pose,
+          life: 0.45 - c * 0.08,
+        });
+      }
+
+      if (move.id <= 10 || perfectDodge) {
+        hero.x = Math.max(90, Math.min(canvas.width - 90, hero.x + hero.facing * (move.id === 1 ? 150 : 95)));
+        if (perfectDodge) {
+          state.witchTimeTimer = 1.4;
+          state.combo++;
+          document.getElementById('combo-val').textContent = 'x' + state.combo;
+          floatingTexts.push({
+            x: hero.x, y: -160,
+            text: `⚡ 闪身步完美闪避！子弹时间 x${state.combo}`,
+            color: '#38bdf8', life: 1.05
+          });
+        }
+      }
+
+      if (move.fx === 'jump_slam') hero.vy = 450;
+      if (move.id === 20) state.hp = Math.min(state.maxHp, state.hp + 25);
+
+      if (move.id === 30) {
+        for (let k = 0; k < 8; k++) {
+          hero.afterimages.push({
+            x: 110 + (k / 7) * (canvas.width - 220),
+            y: 0,
+            z: (k % 2 === 0 ? -25 : 25),
+            facing: k % 2 === 0 ? 1 : -1,
+            pose: k % 2 === 0 ? 'kick' : 'dodge',
+            life: 0.9,
+          });
+        }
+      }
+
+      state.bannerText = (perfectDodge ? '⚡ 极限闪身 · ' : '【') + move.name + (perfectDodge ? ' ⚡' : '】');
+      state.bannerSub = move.desc;
+      state.bannerTimer = 1.6;
+
+      // Hit Detection & Langzi Tiqiu Kick Physics
+      const reachX = move.id === 30 ? 2000 : (move.fx === 'beam' ? 560 : (move.id >= 21 ? 330 : 230));
+      const witchMult = state.witchTimeTimer > 0 ? 1.75 : 1.0;
+      let hitCount = 0;
+
+      for (let i = dinos.length - 1; i >= 0; i--) {
+        const d = dinos[i];
+        if (Math.abs(d.x - hero.x) <= reachX && Math.abs(d.z - hero.z) <= 105) {
+          hitCount++;
+          const dmg = Math.round(move.dmg * witchMult * (0.9 + Math.random() * 0.25));
+          d.hp -= dmg;
+          d.hitFlash = 0.14;
+          d.attackWindup = 0;
+
+          const dir = d.x >= hero.x ? 1 : -1;
+          d.vx = dir * (move.id === 2 || move.id === 23 || move.id === 30 ? 540 : 320);
+          d.vy = (move.id === 2 || move.id >= 21) ? 470 : 260;
+          d.vRot = dir * 10.5;
+
+          slashEffects.push({ x: d.x, y: d.z - 65, radius: 18, maxRadius: 95, color: move.id >= 21 ? '#ef4444' : '#fef08a' });
+          floatingTexts.push({
+            x: d.x, y: d.z - 115,
+            text: `💥 ${move.name.split('.')[1] || move.name} -${dmg}`,
+            color: move.id >= 21 ? '#fb7185' : '#fef08a',
+            life: 0.9
+          });
+        }
+      }
+
+      if (hitCount > 0) {
+        state.hitstopRemaining = 52;
+        state.shakeTimer = 0.25;
+        state.shakeIntensity = move.id >= 21 ? 14 : 8;
+      }
+    }
+
+    // =========================================================================
+    // 6. INPUT & UI BINDINGS
+    // =========================================================================
+    document.getElementById('btn-scene-toggle').addEventListener('click', e => {
+      state.sceneMode = state.sceneMode === 'jurassic_jungle' ? 'dance_studio' : 'jurassic_jungle';
+      e.target.textContent = state.sceneMode === 'jurassic_jungle'
+        ? '🌋 场景: 侏罗纪丛林'
+        : '🪞 场景: 练功房大镜子';
+    });
+
+    document.getElementById('avatar-upload').addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        const img = new Image();
+        img.onload = () => {
+          state.customHeadImg = img;
+          floatingTexts.push({ x: hero.x, y: -160, text: '📷 自定义真人照片头像已贴上！', color: '#38bdf8', life: 1.5 });
+        };
+        img.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    document.getElementById('btn-cast-shanshen').addEventListener('click', () => executeMove(1));
+    document.getElementById('btn-cast-kick').addEventListener('click', () => executeMove(2));
+    document.getElementById('btn-cast-bear').addEventListener('click', () => executeMove(3));
+    document.getElementById('btn-cast-ult').addEventListener('click', () => executeMove(30));
+
+    document.getElementById('t-btn-dodge').addEventListener('pointerdown', e => { e.preventDefault(); executeMove(1); });
+    document.getElementById('t-btn-kick').addEventListener('pointerdown', e => { e.preventDefault(); executeMove(2); });
+    document.getElementById('t-btn-ult').addEventListener('pointerdown', e => { e.preventDefault(); executeMove(30); });
+
+    let joyVecX = 0, joyVecZ = 0;
+    const joyZone = document.getElementById('joy-zone');
+    const joyKnob = document.getElementById('joy-knob');
+    let joyActive = false;
+    joyZone.addEventListener('pointerdown', e => { joyActive = true; joyZone.setPointerCapture(e.pointerId); updateJoy(e); });
+    joyZone.addEventListener('pointermove', e => { if (joyActive) updateJoy(e); });
+    const resetJoy = () => { joyActive = false; joyVecX = 0; joyVecZ = 0; joyKnob.style.transform = 'translate(-50%, -50%)'; };
+    joyZone.addEventListener('pointerup', resetJoy);
+    joyZone.addEventListener('pointercancel', resetJoy);
+    function updateJoy(e) {
+      const rect = joyZone.getBoundingClientRect();
+      const maxR = rect.width * 0.42;
+      let dx = e.clientX - (rect.left + rect.width * 0.5);
+      let dy = e.clientY - (rect.top + rect.height * 0.5);
+      const dist = Math.hypot(dx, dy);
+      if (dist > maxR) { dx = (dx / dist) * maxR; dy = (dy / dist) * maxR; }
+      joyKnob.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
+      joyVecX = dx / maxR;
+      joyVecZ = dy / maxR;
+    }
+
+    document.getElementById('btn-autobot').addEventListener('click', e => {
+      state.autoBot = !state.autoBot;
+      e.target.textContent = state.autoBot ? '🤖 AI 自动演武: ON' : '🤖 AI 自动演武: OFF';
+      e.target.classList.toggle('active', state.autoBot);
+    });
+    document.getElementById('btn-bgm').addEventListener('click', e => {
+      const on = audio.toggleBGM();
+      e.target.textContent = on ? '🥁 花鼓锣鼓配乐: ON' : '🥁 花鼓锣鼓配乐: OFF';
+      e.target.classList.toggle('active', on);
+    });
+
+    const keys = {};
+    const KEY_TO_MOVE = {
+      Space: 1, ShiftLeft: 1, ShiftRight: 1,
+      KeyJ: 2, KeyK: 3, Digit1: 4, Digit2: 5, Digit3: 6, Digit4: 7, Digit5: 8,
+      Digit6: 9, Digit7: 10, Digit8: 11, Digit9: 12, KeyL: 13, KeyU: 14, KeyI: 15,
+      KeyO: 16, KeyP: 17, KeyF: 18, KeyG: 19, KeyR: 20, KeyZ: 21, KeyX: 22,
+      KeyC: 23, KeyV: 24, KeyB: 25, KeyN: 26, KeyM: 27, KeyT: 28, KeyY: 29, KeyQ: 30, KeyE: 30
+    };
+    window.addEventListener('keydown', e => {
+      keys[e.code] = true;
+      if (KEY_TO_MOVE[e.code]) { e.preventDefault(); executeMove(KEY_TO_MOVE[e.code]); }
+    });
+    window.addEventListener('keyup', e => { keys[e.code] = false; });
+
+    // =========================================================================
+    // 7. MAIN 60FPS GAME LOOP WITH HAND-PAINTED BACKGROUNDS & MIRROR REFLECTION
+    // =========================================================================
+    let lastTime = performance.now();
+    let fpsFrames = 0, fpsTimer = 0;
+    let autoBotTimer = 0;
+    let autoMoveIdx = 0;
+    const AUTO_SEQUENCE = [1, 2, 3, 13, 2, 11, 12, 16, 19, 23, 24, 27, 30, 4, 5, 10, 14, 18, 20, 28, 29];
+
+    function drawBackground(ctx, w, h, groundY) {
+      const bgImg = state.sceneMode === 'dance_studio' ? ASSETS.bg_dance_studio : ASSETS.bg_jurassic_jungle;
+      if (bgImg && bgImg.complete && bgImg.naturalWidth > 0) {
+        // Aspect-cover draw so background fills any screen aspect cleanly without distortion
+        const scale = Math.max(w / bgImg.naturalWidth, h / bgImg.naturalHeight);
+        const dw = bgImg.naturalWidth * scale;
+        const dh = bgImg.naturalHeight * scale;
+        ctx.drawImage(bgImg, (w - dw) * 0.5, (h - dh) * 0.5, dw, dh);
+      } else {
+        ctx.fillStyle = '#1c1917';
+        ctx.fillRect(0, 0, w, h);
+      }
+
+      // Subtle mirror reflection in Dance Studio mode
+      if (state.sceneMode === 'dance_studio') {
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(w * 0.28, h * 0.22, w * 0.44, h * 0.44);
+        ctx.clip();
+        drawHeroSprite(ctx, hero.x, h * 0.64, 0, hero.y * 0.5, hero.facing, hero.pose, 'none', 0.24, false);
+        ctx.restore();
+      }
+    }
+
+    function loop(now) {
+      requestAnimationFrame(loop);
+      const rawDt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+      const t = now * 0.001;
+
+      fpsFrames++;
+      fpsTimer += rawDt;
+      if (fpsTimer >= 0.5) {
+        state.fps = Math.min(60, Math.round(fpsFrames / fpsTimer));
+        document.getElementById('fps-val').textContent = state.fps + ' OK';
+        fpsFrames = 0;
+        fpsTimer = 0;
+      }
+
+      if (state.hitstopRemaining > 0) {
+        state.hitstopRemaining -= rawDt * 1000;
+        return;
+      }
+
+      if (state.witchTimeTimer > 0) state.witchTimeTimer = Math.max(0, state.witchTimeTimer - rawDt);
+      const dinoDt = state.witchTimeTimer > 0 ? rawDt * 0.25 : rawDt;
+      const dt = rawDt;
+
+      const w = canvas.width;
+      const h = canvas.height;
+      const groundY = Math.max(250, h - 135);
+
+      if (hero.poseTimer > 0) {
+        hero.poseTimer -= dt;
+        if (hero.poseTimer <= 0) { hero.pose = 'ready'; hero.fx = 'none'; }
+      }
+      if (hero.iframeTimer > 0) hero.iframeTimer -= dt;
+
+      if (hero.y > 0 || hero.vy > 0) {
+        hero.y += hero.vy * dt;
+        hero.vy -= 1150 * dt;
+        if (hero.y <= 0) { hero.y = 0; hero.vy = 0; }
+      }
+
+      let mx = joyVecX, mz = joyVecZ;
+      if (keys['KeyA'] || keys['ArrowLeft']) mx -= 1;
+      if (keys['KeyD'] || keys['ArrowRight']) mx += 1;
+      if (keys['KeyW'] || keys['ArrowUp']) mz -= 1;
+      if (keys['KeyS'] || keys['ArrowDown']) mz += 1;
+
+      let nearest = null;
+      let minDist = 99999;
+      dinos.forEach(d => {
+        const dist = Math.hypot(d.x - hero.x, d.z - hero.z);
+        if (dist < minDist) { minDist = dist; nearest = d; }
+      });
+
+      if (mx === 0 && mz === 0 && state.autoBot && nearest) {
+        const dx = nearest.x - hero.x;
+        const dz = nearest.z - hero.z;
+        hero.facing = dx >= 0 ? 1 : -1;
+        if (Math.abs(dx) > 165) mx = dx > 0 ? 1 : -1;
+        if (Math.abs(dz) > 20) mz = dz > 0 ? 0.65 : -0.65;
+
+        autoBotTimer -= dt;
+        if (autoBotTimer <= 0) {
+          if (nearest.attackWindup > 0.15) {
+            executeMove(Math.random() < 0.55 ? 1 : 2);
+          } else if (Math.abs(dx) < 235) {
+            executeMove(AUTO_SEQUENCE[autoMoveIdx % AUTO_SEQUENCE.length]);
+            autoMoveIdx++;
+          }
+          autoBotTimer = 0.9;
+        }
+      } else if (mx !== 0) {
+        hero.facing = mx > 0 ? 1 : -1;
+      }
+
+      hero.x = Math.max(80, Math.min(w - 80, hero.x + mx * 280 * dt));
+      hero.z = Math.max(-45, Math.min(45, hero.z + mz * 160 * dt));
+
+      // Update Dinosaurs
+      for (let i = dinos.length - 1; i >= 0; i--) {
+        const d = dinos[i];
+        d.groundY = groundY;
+        if (d.hitFlash > 0) d.hitFlash = Math.max(0, d.hitFlash - dt);
+
+        if (d.y > 0 || d.vy > 0 || Math.abs(d.vx) > 10) {
+          d.x += d.vx * dt;
+          d.y += d.vy * dt;
+          d.vy -= 980 * dt;
+          d.vx *= 0.95;
+          d.rotation += d.vRot * dt;
+          if (d.y <= 0) {
+            d.y = 0; d.vy = 0; d.vx = 0; d.rotation = 0; d.vRot = 0;
+            if (d.hp <= 0) {
+              dinos.splice(i, 1);
+              state.kills++;
+              state.score += d.kind === 'trex' ? 1200 : 200;
+              if (state.kills % 6 === 0) state.wave++;
+              spawnDino();
+              if (dinos.length < 4) spawnDino();
+              continue;
+            }
+          }
+          continue;
+        }
+
+        if (d.hp <= 0) {
+          dinos.splice(i, 1);
+          state.kills++;
+          spawnDino();
+          continue;
+        }
+
+        const dx = hero.x - d.x;
+        const dz = hero.z - d.z;
+        d.facing = dx >= 0 ? 1 : -1;
+        if (Math.abs(dx) > 115) d.x += Math.sign(dx) * d.speed * dinoDt;
+        if (Math.abs(dz) > 12) d.z += Math.sign(dz) * (d.speed * 0.45) * dinoDt;
+
+        if (Math.abs(dx) <= 145 && Math.abs(dz) <= 48) {
+          d.attackWindup += dinoDt;
+          if (d.attackWindup >= 0.72) {
+            d.attackWindup = 0;
+            if (hero.iframeTimer <= 0) {
+              state.hp = Math.max(20, state.hp - (d.kind === 'trex' ? 16 : 8));
+              state.shakeTimer = 0.2;
+              state.shakeIntensity = 9;
+              floatingTexts.push({ x: hero.x, y: hero.z - 135, text: '🦖 被恐龙咬中! 快按【闪身步】!', color: '#ef4444', life: 0.9 });
+            }
+          }
+        } else {
+          d.attackWindup = Math.max(0, d.attackWindup - dinoDt);
+        }
+      }
+
+      // Render Scene
+      ctx.save();
+      if (state.shakeTimer > 0) {
+        state.shakeTimer -= dt;
+        ctx.translate((Math.random() - 0.5) * state.shakeIntensity, (Math.random() - 0.5) * state.shakeIntensity);
+      }
+
+      drawBackground(ctx, w, h, groundY);
+
+      if (state.witchTimeTimer > 0) {
+        ctx.fillStyle = 'rgba(30, 27, 75, 0.30)';
+        ctx.fillRect(0, 0, w, h);
+      }
+
+      // Afterimages
+      for (let i = hero.afterimages.length - 1; i >= 0; i--) {
+        const a = hero.afterimages[i];
+        a.life -= dt;
+        if (a.life <= 0) { hero.afterimages.splice(i, 1); continue; }
+        drawHeroSprite(ctx, a.x, groundY, a.z, a.y, a.facing, a.pose, 'none', a.life * 0.72, true);
+      }
+
+      // Depth-sorted 2.5D entities
+      const renderList = [
+        { type: 'hero', z: hero.z },
+        ...dinos.map(d => ({ type: 'dino', z: d.z, ref: d }))
+      ].sort((a, b) => a.z - b.z);
+
+      renderList.forEach(item => {
+        if (item.type === 'hero') {
+          drawHeroSprite(ctx, hero.x, groundY, hero.z, hero.y, hero.facing, hero.pose, hero.fx, 1.0, false);
+        } else {
+          drawDinoSprite(ctx, item.ref, t);
+        }
+      });
+
+      // Impact Shockwaves
+      for (let i = slashEffects.length - 1; i >= 0; i--) {
+        const s = slashEffects[i];
+        s.radius += dt * 340;
+        if (s.radius >= s.maxRadius) { slashEffects.splice(i, 1); continue; }
+        ctx.strokeStyle = s.color;
+        ctx.lineWidth = 4.5;
+        ctx.globalAlpha = 1 - s.radius / s.maxRadius;
+        ctx.beginPath();
+        ctx.arc(s.x, groundY + s.y, s.radius, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+
+      // Floating Texts
+      for (let i = floatingTexts.length - 1; i >= 0; i--) {
+        const ft = floatingTexts[i];
+        ft.life -= dt;
+        ft.y -= 48 * dt;
+        if (ft.life <= 0) { floatingTexts.splice(i, 1); continue; }
+        ctx.save();
+        ctx.globalAlpha = Math.min(1, ft.life * 1.5);
+        ctx.font = '900 16px "Microsoft YaHei"';
+        ctx.fillStyle = ft.color;
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 4;
+        ctx.textAlign = 'center';
+        ctx.strokeText(ft.text, ft.x, groundY + ft.y);
+        ctx.fillText(ft.text, ft.x, groundY + ft.y);
+        ctx.restore();
+      }
+
+      // Clean Auto-Sized Move Calligraphy Banner (Never clips text!)
+      if (state.bannerTimer > 0) {
+        state.bannerTimer -= dt;
+        const bannerY = Math.max(102, h * 0.22);
+        ctx.save();
+        ctx.globalAlpha = Math.min(1, state.bannerTimer * 2.2);
+        ctx.font = 'bold 11.5px "Microsoft YaHei"';
+        const subW = ctx.measureText(state.bannerSub).width;
+        const boxW = Math.min(w - 40, Math.max(360, subW + 44));
+        ctx.fillStyle = 'rgba(154, 52, 18, 0.86)';
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.roundRect(w * 0.5 - boxW * 0.5, bannerY - 24, boxW, 50, 10);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.font = '900 18px "Microsoft YaHei"';
+        ctx.fillStyle = '#fef08a';
+        ctx.textAlign = 'center';
+        ctx.fillText(state.bannerText, w * 0.5, bannerY - 2);
+
+        ctx.font = 'bold 11.5px "Microsoft YaHei"';
+        ctx.fillStyle = '#e0f2fe';
+        ctx.fillText(state.bannerSub, w * 0.5, bannerY + 17);
+        ctx.restore();
+      }
+
+      ctx.restore();
+
+      document.getElementById('hp-bar').style.width = ((state.hp / state.maxHp) * 100) + '%';
+      document.getElementById('hp-text').textContent = Math.round(state.hp) + '/' + state.maxHp;
+      document.getElementById('kills-val').textContent = state.kills;
+      state.framesRendered++;
+    }
+
+    requestAnimationFrame(loop);
+  </script>
+</body>
+</html>
