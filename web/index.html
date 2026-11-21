@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <title>《闪身步30招：全屏九宫格大乱斗》 — 恐龙 / 拟真丧尸 / 拟真木乃伊 + 搞笑撞屏结局</title>
   <style>
@@ -196,12 +196,80 @@
     body.hud-collapsed .hud-right .btn-grid-2,
     body.hud-collapsed .moves-dock .moves-grid { display: none !important; }
 
-    @media (max-width: 960px), (max-height: 600px) {
-      .hud-top > .hud-card:first-child { transform: scale(0.76); transform-origin: top left; }
-      .hud-right { transform: scale(0.74); transform-origin: top right; }
-      .moves-grid { max-height: 44px; }
-      .dpad-grid { transform: scale(0.84); transform-origin: bottom left; }
-      .action-circles { transform: scale(0.84); transform-origin: bottom right; }
+    .settings-fab, .dock-toggle { display: none; }
+    #game-canvas { top: 0; left: 0; }
+
+    /* ===== PHONE LAYOUT (portrait + landscape): everything fits, nothing clipped ===== */
+    @media (max-width: 819px), (max-height: 519px) {
+      html, body { position: fixed; inset: 0; width: 100%; height: 100%; overflow: hidden; }
+      .hud-top { top: calc(4px + env(safe-area-inset-top)); left: 4px; right: 50px; gap: 4px; }
+      .hud-top > .hud-card:first-child { padding: 4px 7px; width: 100%; max-width: 100%; border-radius: 9px; }
+      .hud-top > .hud-card:first-child > div:nth-child(2) { display: none; }
+      .title-line { font-size: 11px; flex-wrap: wrap; gap: 3px; }
+      .badge-v2 { font-size: 9px; padding: 0 5px; }
+      .bars-box { min-width: 0; margin-top: 2px; gap: 2px; }
+      .bar-row { font-size: 9px; }
+      .bar-row > span:first-child { width: 34px !important; }
+      .bar-row > span:last-child { width: 44px !important; }
+      .stats-row { grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 2px; }
+      .st-cell span { font-size: 8px; }
+      .st-cell strong { font-size: 10px; }
+
+      .settings-fab {
+        display: flex; align-items: center; justify-content: center;
+        position: absolute; top: calc(4px + env(safe-area-inset-top)); right: 4px; z-index: 30;
+        width: 42px; height: 42px; border-radius: 12px; font-size: 20px;
+        background: var(--bg-card); border: 1px solid var(--border-gold); color: #fff; cursor: pointer;
+      }
+      .hud-top > .hud-right {
+        display: none; position: fixed; z-index: 29;
+        top: calc(52px + env(safe-area-inset-top)); left: 6px; right: 6px; width: auto;
+        max-height: calc(100% - 120px); overflow-y: auto; -webkit-overflow-scrolling: touch;
+        transform: none; padding: 8px 10px;
+      }
+      body.settings-open .hud-top > .hud-right { display: flex; }
+      body.hud-collapsed .hud-right .ctrl-row, body.hud-collapsed .hud-right .btn-grid-2 { display: flex !important; }
+      body.hud-collapsed .hud-right .btn-grid-2 { display: grid !important; }
+      .ctrl-row label { width: 56px; font-size: 11px; }
+      .ctrl-select { font-size: 13px; padding: 5px 6px; }
+      .c-btn { font-size: 12px; padding: 7px 6px; }
+
+      /* Bottom dock collapses to ONE button; tap to open scrollable 30-move sheet */
+      .moves-dock {
+        left: 4px; right: 4px; bottom: calc(4px + env(safe-area-inset-bottom));
+        padding: 4px; z-index: 31;
+      }
+      .dock-toggle {
+        display: flex; width: 100%; font-size: 13px; padding: 9px 6px;
+        background: linear-gradient(135deg, #f59e0b, #dc2626); color: #fff; border-color: #fef08a;
+      }
+      .dock-header, .moves-grid { display: none !important; }
+      body.moves-open .dock-header { display: flex !important; margin: 6px 0 4px; }
+      body.moves-open .dock-header > div:last-child { display: none; }
+      body.moves-open .moves-grid {
+        display: grid !important; grid-template-columns: repeat(2, 1fr);
+        max-height: 46vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      }
+      body.moves-open .move-card { padding: 7px 8px; }
+      body.moves-open .move-card .m-name { font-size: 12px; }
+      body.moves-open .move-card .m-meta { font-size: 10px; }
+      body.moves-open .touch-overlay { display: none !important; }
+
+      .touch-overlay { bottom: calc(58px + env(safe-area-inset-bottom)); left: 6px; right: 6px; }
+      .dpad-grid { grid-template-columns: repeat(3, 38px); grid-template-rows: repeat(3, 38px); gap: 3px; }
+      .action-circles { gap: 5px; }
+      .act-btn { width: 56px; height: 56px; font-size: 10.5px; }
+      .act-dodge { width: 64px; height: 64px; }
+      .act-ult { width: 50px; height: 50px; }
+
+      #gameover-overlay { min-width: 0; width: 94vw; padding: 12px 14px; bottom: 14px; }
+      .go-stamp { font-size: 20px; }
+      .go-stats { gap: 10px; padding: 6px 8px; }
+    }
+    @media (max-height: 519px) {
+      .touch-overlay { bottom: calc(46px + env(safe-area-inset-bottom)); }
+      .dock-toggle { padding: 6px; font-size: 12px; }
+      .hud-top > .hud-card:first-child .stats-row { display: none; }
     }
   </style>
 </head>
@@ -324,7 +392,9 @@
   </div>
 
   <!-- Bottom 30 Moves Dock -->
+  <button type="button" class="settings-fab" id="btn-settings" aria-label="设置">⚙️</button>
   <div class="moves-dock" id="moves-dock">
+    <button type="button" class="c-btn dock-toggle" id="btn-dock-toggle">📜 选招式 · 全部30招 ▲</button>
     <div class="dock-header">
       <div class="stance-tabs" id="stance-tabs">
         <button class="stance-tab active" data-cat="all">📜 全部 30 招</button>
@@ -356,7 +426,7 @@
 
   <script>
     const MOVES_30 = [{"id": 1, "name": "01. 闪身步", "voice": "闪身步！", "kind": "dodge", "cat": "纯闪避", "key": "Space", "dmg": 0, "qiCost": 0, "iframe": 0.65, "desc": "【纯闪避·无攻击】腰腹猛拧瞬间闪去安全格！躲开红格必触发极限闪身+25气力！"}, {"id": 4, "name": "04. 拔泥步", "voice": "拔泥步！", "kind": "dodge", "cat": "纯闪避", "key": "1", "dmg": 0, "qiCost": 0, "iframe": 0.6, "desc": "【纯闪避·无攻击】高抬大腿稳健换格，免疫地面减速陷阱并躲避冲撞！"}, {"id": 5, "name": "05. 野鸡溜", "voice": "野鸡溜！", "kind": "dodge", "cat": "纯闪避", "key": "2", "dmg": 0, "qiCost": 0, "iframe": 0.72, "desc": "【纯闪避·无攻击】贴地超低身位疾滑换格，专躲空中翼龙/尸鸦/圣甲虫俯冲！"}, {"id": 6, "name": "06. 游场碎步", "voice": "游场碎步！", "kind": "dodge", "cat": "纯闪避", "key": "3", "dmg": 0, "qiCost": 0, "iframe": 0.75, "desc": "【纯闪避·无攻击】高频碎步闪避并留下一串残影分身，大幅延长无敌时间！"}, {"id": 7, "name": "07. 矮子步", "voice": "矮子步！", "kind": "dodge", "cat": "纯闪避", "key": "4", "dmg": 0, "qiCost": 0, "iframe": 0.68, "desc": "【纯闪避·无攻击】极限深蹲蟹行切格，轻松躲过横穿整排的冲锋巨兽！"}, {"id": 8, "name": "08. 车水步", "voice": "车水步！", "kind": "dodge", "cat": "纯闪避", "key": "5", "dmg": 0, "qiCost": 0, "iframe": 0.62, "desc": "【纯闪避·无攻击】连续后撤踏板步退至后排安全格，躲开正上方竖列俯冲！"}, {"id": 9, "name": "09. 走梗平衡步", "voice": "走梗步！", "kind": "dodge", "cat": "纯闪避", "key": "6", "dmg": 0, "qiCost": 0, "iframe": 0.7, "desc": "【纯闪避·无攻击】在九宫格边缘极速穿行，灵巧穿梭于两只敌人缝隙之间！"}, {"id": 10, "name": "10. 盘根拧腰步", "voice": "盘根拧腰！", "kind": "dodge", "cat": "纯闪避", "key": "7", "dmg": 0, "qiCost": 0, "iframe": 0.8, "desc": "【纯闪避·无攻击】原地360度螺旋拧腰化劲，直接闪避当前格内所有冲击！"}, {"id": 22, "name": "22. 旱船晃·太极闪", "voice": "旱船晃！", "kind": "dodge", "cat": "纯闪避", "key": "X", "dmg": 0, "qiCost": 10, "iframe": 0.9, "desc": "【纯闪避·缓速】左右摇晃身段进入太极领域，令全场敌人减速65%并安全躲避！"}, {"id": 26, "name": "26. 白鹤亮翅·金钟闪", "voice": "白鹤亮翅！", "kind": "dodge", "cat": "纯闪避", "key": "N", "dmg": 0, "qiCost": 15, "iframe": 1.15, "desc": "【纯闪避·无敌】双臂振开金光护体，获得超长1.15秒绝对闪避无敌！"}, {"id": 2, "name": "02. 浪子踢球", "voice": "浪子踢球！", "kind": "attack", "cat": "主力攻击", "key": "J", "dmg": 140, "qiCost": 0, "iframe": 0.2, "range": "col", "desc": "【攻击招式】后仰顿挫高勾腿，将当前竖列扑来的敌人当皮球一脚踢飞上天！"}, {"id": 3, "name": "03. 狗熊哆嗦毛", "voice": "狗熊哆嗦毛！", "kind": "attack", "cat": "周围震飞", "key": "K", "dmg": 120, "qiCost": 10, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】核心肌群高频抖动，震飞自身十字相邻5格内的全部敌人！"}, {"id": 11, "name": "11. 猴子扳桩", "voice": "猴子扳桩！", "kind": "attack", "cat": "单体擒摔", "key": "8", "dmg": 200, "qiCost": 15, "iframe": 0.25, "range": "col", "desc": "【攻击招式】跃起扳住前方敌人猛烈砸向九宫格地面，重创Boss！"}, {"id": 12, "name": "12. 扁担闪·横扫", "voice": "扁担闪！", "kind": "attack", "cat": "整排横扫", "key": "9", "dmg": 165, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】双臂如铁扁担平举横扫，清空整条横排3格所有敌人！"}, {"id": 13, "name": "13. 十字靠身(铁山靠)", "voice": "铁山靠！", "kind": "attack", "cat": "十字撞击", "key": "L", "dmg": 240, "qiCost": 20, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】拧腰沉肩猛烈铁山靠，将十字范围内重甲Boss撞出硬直！"}, {"id": 14, "name": "14. 蛤蟆洼·震地", "voice": "蛤蟆洼！", "kind": "attack", "cat": "范围震晕", "key": "U", "dmg": 180, "qiCost": 18, "iframe": 0.25, "range": "cross", "desc": "【攻击招式】深蹲蛙跃重踏九宫格，震飞周围全部恐龙/丧尸/木乃伊！"}, {"id": 15, "name": "15. 小儿骑竹马", "voice": "小儿骑竹马！", "kind": "attack", "cat": "竖列踏击", "key": "I", "dmg": 160, "qiCost": 12, "iframe": 0.28, "range": "col", "desc": "【攻击招式】跨步腾跃踩踏前方敌人脊背借力二段劈踢！"}, {"id": 16, "name": "16. 燕子三抄水", "voice": "燕子三抄水！", "kind": "attack", "cat": "三连飞踢", "key": "O", "dmg": 215, "qiCost": 20, "iframe": 0.28, "range": "col", "desc": "【攻击招式】连续三次掠格飞踢，专斩高速冲锋敌人！"}, {"id": 17, "name": "17. 喜鹊登枝", "voice": "喜鹊登枝！", "kind": "attack", "cat": "防空神踢", "key": "P", "dmg": 185, "qiCost": 15, "iframe": 0.25, "range": "all_air", "desc": "【攻击招式】凌空蹬踏高空踢击，专打天上飞来的翼龙/尸鸦/圣甲虫！"}, {"id": 18, "name": "18. 拐子步·侧踹", "voice": "拐子侧踹！", "kind": "attack", "cat": "横排破甲", "key": "F", "dmg": 195, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】怪异折线变向后重侧踹，踹穿整排重甲防线！"}, {"id": 19, "name": "19. 磨盘转·旋风", "voice": "磨盘旋风腿！", "kind": "attack", "cat": "九宫旋风", "key": "G", "dmg": 230, "qiCost": 25, "iframe": 0.35, "range": "cross", "desc": "【攻击招式】高速旋转扫腿，卷起金色旋风清空十字五格！"}, {"id": 20, "name": "20. 鲤鱼打挺·回春", "voice": "鲤鱼打挺！", "kind": "attack", "cat": "反击回血", "key": "R", "dmg": 150, "qiCost": 25, "iframe": 0.4, "range": "cross", "desc": "【攻击+回血】猛烈挺腹弹射震飞周围敌人，并回复30点生命值！"}, {"id": 21, "name": "21. 大鹏展翅·掠空", "voice": "大鹏展翅！", "kind": "attack", "cat": "整排音爆", "key": "Z", "dmg": 260, "qiCost": 25, "iframe": 0.35, "range": "row", "desc": "【绝学攻击】双臂展开掀起整排音爆冲击，横扫所有横向敌人！"}, {"id": 23, "name": "23. 大花场·八连踢", "voice": "大花场八连踢！", "kind": "attack", "cat": "机关连踢", "key": "C", "dmg": 340, "qiCost": 35, "iframe": 0.4, "range": "col", "desc": "【绝学攻击】连续8脚浪子踢球高速连发，瞬间融化竖列Boss！"}, {"id": 24, "name": "24. 仙人指路·点穴", "voice": "仙人指路！", "kind": "attack", "cat": "贯穿激光", "key": "V", "dmg": 295, "qiCost": 30, "iframe": 0.28, "range": "col", "desc": "【绝学攻击】单指罡气贯穿整条竖列，100%触发暴击秒杀！"}, {"id": 25, "name": "25. 叶底藏花·回马枪", "voice": "叶底藏花！", "kind": "attack", "cat": "致命反踢", "key": "B", "dmg": 310, "qiCost": 30, "iframe": 0.35, "range": "cross", "desc": "【绝学攻击】假意退让瞬间拧腰回头重踢，专克偷袭敌人！"}, {"id": 27, "name": "27. 黑虎掏心·寸劲", "voice": "黑虎掏心！", "kind": "attack", "cat": "单体秒杀", "key": "M", "dmg": 420, "qiCost": 35, "iframe": 0.3, "range": "col", "desc": "【绝学攻击】贴身核心寸劲爆发，对霸王龙/巨型丧尸/法老王造成毁灭伤害！"}, {"id": 28, "name": "28. 金鸡独立·千斤坠", "voice": "金鸡独立千斤坠！", "kind": "attack", "cat": "全图震爆", "key": "T", "dmg": 360, "qiCost": 45, "iframe": 0.45, "range": "all", "desc": "【全屏绝学】单腿独立蓄力后千斤坠踏裂九宫格，震飞全屏敌人！"}, {"id": 29, "name": "29. 乌龙绞柱·风暴", "voice": "乌龙绞柱！", "kind": "attack", "cat": "全图龙卷", "key": "Y", "dmg": 390, "qiCost": 50, "iframe": 0.5, "range": "all", "desc": "【全屏绝学】双腿螺旋绞杀卷起全屏龙卷风，把九宫格所有敌人卷上天空！"}, {"id": 30, "name": "30. 三十路闪身万象归宗", "voice": "终极奥义！三十路闪身万象归宗！", "kind": "attack", "cat": "终极奥义", "key": "Q/E", "dmg": 780, "qiCost": 60, "iframe": 1.2, "range": "all", "desc": "【终极必杀】九宫格9个格子同时召唤黑背心宗师分身，齐声施展浪子踢球清空全屏！"}];
-    const GDD = {"slug": "shanshenbu-30-jurassic", "title": "闪身步30招：全屏九宫格多世界大乱斗 v2.1", "prompt": "v2.1 全屏九宫格覆盖整个画面 + 拟真写实漫画风丧尸与木乃伊 + 简单/中等/困难/地狱4档难度 + 真实归零失败并触发主角飞撞碎玻璃歪脸慢滑搞笑结局", "tagline": "全屏 3×3 九宫格闪身步 × 恐龙/写实丧尸/写实木乃伊 × 4档难度 × 撞碎屏幕歪脸搞笑结局", "genre": "2D 全屏九宫格多世界奔跑闪避 & 功夫绝招反击", "created_at": "2026-11-20 16:07:11", "moves_30": [{"id": 1, "name": "01. 闪身步", "voice": "闪身步！", "kind": "dodge", "cat": "纯闪避", "key": "Space", "dmg": 0, "qiCost": 0, "iframe": 0.65, "desc": "【纯闪避·无攻击】腰腹猛拧瞬间闪去安全格！躲开红格必触发极限闪身+25气力！"}, {"id": 4, "name": "04. 拔泥步", "voice": "拔泥步！", "kind": "dodge", "cat": "纯闪避", "key": "1", "dmg": 0, "qiCost": 0, "iframe": 0.6, "desc": "【纯闪避·无攻击】高抬大腿稳健换格，免疫地面减速陷阱并躲避冲撞！"}, {"id": 5, "name": "05. 野鸡溜", "voice": "野鸡溜！", "kind": "dodge", "cat": "纯闪避", "key": "2", "dmg": 0, "qiCost": 0, "iframe": 0.72, "desc": "【纯闪避·无攻击】贴地超低身位疾滑换格，专躲空中翼龙/尸鸦/圣甲虫俯冲！"}, {"id": 6, "name": "06. 游场碎步", "voice": "游场碎步！", "kind": "dodge", "cat": "纯闪避", "key": "3", "dmg": 0, "qiCost": 0, "iframe": 0.75, "desc": "【纯闪避·无攻击】高频碎步闪避并留下一串残影分身，大幅延长无敌时间！"}, {"id": 7, "name": "07. 矮子步", "voice": "矮子步！", "kind": "dodge", "cat": "纯闪避", "key": "4", "dmg": 0, "qiCost": 0, "iframe": 0.68, "desc": "【纯闪避·无攻击】极限深蹲蟹行切格，轻松躲过横穿整排的冲锋巨兽！"}, {"id": 8, "name": "08. 车水步", "voice": "车水步！", "kind": "dodge", "cat": "纯闪避", "key": "5", "dmg": 0, "qiCost": 0, "iframe": 0.62, "desc": "【纯闪避·无攻击】连续后撤踏板步退至后排安全格，躲开正上方竖列俯冲！"}, {"id": 9, "name": "09. 走梗平衡步", "voice": "走梗步！", "kind": "dodge", "cat": "纯闪避", "key": "6", "dmg": 0, "qiCost": 0, "iframe": 0.7, "desc": "【纯闪避·无攻击】在九宫格边缘极速穿行，灵巧穿梭于两只敌人缝隙之间！"}, {"id": 10, "name": "10. 盘根拧腰步", "voice": "盘根拧腰！", "kind": "dodge", "cat": "纯闪避", "key": "7", "dmg": 0, "qiCost": 0, "iframe": 0.8, "desc": "【纯闪避·无攻击】原地360度螺旋拧腰化劲，直接闪避当前格内所有冲击！"}, {"id": 22, "name": "22. 旱船晃·太极闪", "voice": "旱船晃！", "kind": "dodge", "cat": "纯闪避", "key": "X", "dmg": 0, "qiCost": 10, "iframe": 0.9, "desc": "【纯闪避·缓速】左右摇晃身段进入太极领域，令全场敌人减速65%并安全躲避！"}, {"id": 26, "name": "26. 白鹤亮翅·金钟闪", "voice": "白鹤亮翅！", "kind": "dodge", "cat": "纯闪避", "key": "N", "dmg": 0, "qiCost": 15, "iframe": 1.15, "desc": "【纯闪避·无敌】双臂振开金光护体，获得超长1.15秒绝对闪避无敌！"}, {"id": 2, "name": "02. 浪子踢球", "voice": "浪子踢球！", "kind": "attack", "cat": "主力攻击", "key": "J", "dmg": 140, "qiCost": 0, "iframe": 0.2, "range": "col", "desc": "【攻击招式】后仰顿挫高勾腿，将当前竖列扑来的敌人当皮球一脚踢飞上天！"}, {"id": 3, "name": "03. 狗熊哆嗦毛", "voice": "狗熊哆嗦毛！", "kind": "attack", "cat": "周围震飞", "key": "K", "dmg": 120, "qiCost": 10, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】核心肌群高频抖动，震飞自身十字相邻5格内的全部敌人！"}, {"id": 11, "name": "11. 猴子扳桩", "voice": "猴子扳桩！", "kind": "attack", "cat": "单体擒摔", "key": "8", "dmg": 200, "qiCost": 15, "iframe": 0.25, "range": "col", "desc": "【攻击招式】跃起扳住前方敌人猛烈砸向九宫格地面，重创Boss！"}, {"id": 12, "name": "12. 扁担闪·横扫", "voice": "扁担闪！", "kind": "attack", "cat": "整排横扫", "key": "9", "dmg": 165, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】双臂如铁扁担平举横扫，清空整条横排3格所有敌人！"}, {"id": 13, "name": "13. 十字靠身(铁山靠)", "voice": "铁山靠！", "kind": "attack", "cat": "十字撞击", "key": "L", "dmg": 240, "qiCost": 20, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】拧腰沉肩猛烈铁山靠，将十字范围内重甲Boss撞出硬直！"}, {"id": 14, "name": "14. 蛤蟆洼·震地", "voice": "蛤蟆洼！", "kind": "attack", "cat": "范围震晕", "key": "U", "dmg": 180, "qiCost": 18, "iframe": 0.25, "range": "cross", "desc": "【攻击招式】深蹲蛙跃重踏九宫格，震飞周围全部恐龙/丧尸/木乃伊！"}, {"id": 15, "name": "15. 小儿骑竹马", "voice": "小儿骑竹马！", "kind": "attack", "cat": "竖列踏击", "key": "I", "dmg": 160, "qiCost": 12, "iframe": 0.28, "range": "col", "desc": "【攻击招式】跨步腾跃踩踏前方敌人脊背借力二段劈踢！"}, {"id": 16, "name": "16. 燕子三抄水", "voice": "燕子三抄水！", "kind": "attack", "cat": "三连飞踢", "key": "O", "dmg": 215, "qiCost": 20, "iframe": 0.28, "range": "col", "desc": "【攻击招式】连续三次掠格飞踢，专斩高速冲锋敌人！"}, {"id": 17, "name": "17. 喜鹊登枝", "voice": "喜鹊登枝！", "kind": "attack", "cat": "防空神踢", "key": "P", "dmg": 185, "qiCost": 15, "iframe": 0.25, "range": "all_air", "desc": "【攻击招式】凌空蹬踏高空踢击，专打天上飞来的翼龙/尸鸦/圣甲虫！"}, {"id": 18, "name": "18. 拐子步·侧踹", "voice": "拐子侧踹！", "kind": "attack", "cat": "横排破甲", "key": "F", "dmg": 195, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】怪异折线变向后重侧踹，踹穿整排重甲防线！"}, {"id": 19, "name": "19. 磨盘转·旋风", "voice": "磨盘旋风腿！", "kind": "attack", "cat": "九宫旋风", "key": "G", "dmg": 230, "qiCost": 25, "iframe": 0.35, "range": "cross", "desc": "【攻击招式】高速旋转扫腿，卷起金色旋风清空十字五格！"}, {"id": 20, "name": "20. 鲤鱼打挺·回春", "voice": "鲤鱼打挺！", "kind": "attack", "cat": "反击回血", "key": "R", "dmg": 150, "qiCost": 25, "iframe": 0.4, "range": "cross", "desc": "【攻击+回血】猛烈挺腹弹射震飞周围敌人，并回复30点生命值！"}, {"id": 21, "name": "21. 大鹏展翅·掠空", "voice": "大鹏展翅！", "kind": "attack", "cat": "整排音爆", "key": "Z", "dmg": 260, "qiCost": 25, "iframe": 0.35, "range": "row", "desc": "【绝学攻击】双臂展开掀起整排音爆冲击，横扫所有横向敌人！"}, {"id": 23, "name": "23. 大花场·八连踢", "voice": "大花场八连踢！", "kind": "attack", "cat": "机关连踢", "key": "C", "dmg": 340, "qiCost": 35, "iframe": 0.4, "range": "col", "desc": "【绝学攻击】连续8脚浪子踢球高速连发，瞬间融化竖列Boss！"}, {"id": 24, "name": "24. 仙人指路·点穴", "voice": "仙人指路！", "kind": "attack", "cat": "贯穿激光", "key": "V", "dmg": 295, "qiCost": 30, "iframe": 0.28, "range": "col", "desc": "【绝学攻击】单指罡气贯穿整条竖列，100%触发暴击秒杀！"}, {"id": 25, "name": "25. 叶底藏花·回马枪", "voice": "叶底藏花！", "kind": "attack", "cat": "致命反踢", "key": "B", "dmg": 310, "qiCost": 30, "iframe": 0.35, "range": "cross", "desc": "【绝学攻击】假意退让瞬间拧腰回头重踢，专克偷袭敌人！"}, {"id": 27, "name": "27. 黑虎掏心·寸劲", "voice": "黑虎掏心！", "kind": "attack", "cat": "单体秒杀", "key": "M", "dmg": 420, "qiCost": 35, "iframe": 0.3, "range": "col", "desc": "【绝学攻击】贴身核心寸劲爆发，对霸王龙/巨型丧尸/法老王造成毁灭伤害！"}, {"id": 28, "name": "28. 金鸡独立·千斤坠", "voice": "金鸡独立千斤坠！", "kind": "attack", "cat": "全图震爆", "key": "T", "dmg": 360, "qiCost": 45, "iframe": 0.45, "range": "all", "desc": "【全屏绝学】单腿独立蓄力后千斤坠踏裂九宫格，震飞全屏敌人！"}, {"id": 29, "name": "29. 乌龙绞柱·风暴", "voice": "乌龙绞柱！", "kind": "attack", "cat": "全图龙卷", "key": "Y", "dmg": 390, "qiCost": 50, "iframe": 0.5, "range": "all", "desc": "【全屏绝学】双腿螺旋绞杀卷起全屏龙卷风，把九宫格所有敌人卷上天空！"}, {"id": 30, "name": "30. 三十路闪身万象归宗", "voice": "终极奥义！三十路闪身万象归宗！", "kind": "attack", "cat": "终极奥义", "key": "Q/E", "dmg": 780, "qiCost": 60, "iframe": 1.2, "range": "all", "desc": "【终极必杀】九宫格9个格子同时召唤黑背心宗师分身，齐声施展浪子踢球清空全屏！"}]};
+    const GDD = {"slug": "shanshenbu-30-jurassic", "title": "闪身步30招：全屏九宫格多世界大乱斗 v2.1", "prompt": "v2.1 全屏九宫格覆盖整个画面 + 拟真写实漫画风丧尸与木乃伊 + 简单/中等/困难/地狱4档难度 + 真实归零失败并触发主角飞撞碎玻璃歪脸慢滑搞笑结局", "tagline": "全屏 3×3 九宫格闪身步 × 恐龙/写实丧尸/写实木乃伊 × 4档难度 × 撞碎屏幕歪脸搞笑结局", "genre": "2D 全屏九宫格多世界奔跑闪避 & 功夫绝招反击", "created_at": "2026-11-20 16:22:09", "moves_30": [{"id": 1, "name": "01. 闪身步", "voice": "闪身步！", "kind": "dodge", "cat": "纯闪避", "key": "Space", "dmg": 0, "qiCost": 0, "iframe": 0.65, "desc": "【纯闪避·无攻击】腰腹猛拧瞬间闪去安全格！躲开红格必触发极限闪身+25气力！"}, {"id": 4, "name": "04. 拔泥步", "voice": "拔泥步！", "kind": "dodge", "cat": "纯闪避", "key": "1", "dmg": 0, "qiCost": 0, "iframe": 0.6, "desc": "【纯闪避·无攻击】高抬大腿稳健换格，免疫地面减速陷阱并躲避冲撞！"}, {"id": 5, "name": "05. 野鸡溜", "voice": "野鸡溜！", "kind": "dodge", "cat": "纯闪避", "key": "2", "dmg": 0, "qiCost": 0, "iframe": 0.72, "desc": "【纯闪避·无攻击】贴地超低身位疾滑换格，专躲空中翼龙/尸鸦/圣甲虫俯冲！"}, {"id": 6, "name": "06. 游场碎步", "voice": "游场碎步！", "kind": "dodge", "cat": "纯闪避", "key": "3", "dmg": 0, "qiCost": 0, "iframe": 0.75, "desc": "【纯闪避·无攻击】高频碎步闪避并留下一串残影分身，大幅延长无敌时间！"}, {"id": 7, "name": "07. 矮子步", "voice": "矮子步！", "kind": "dodge", "cat": "纯闪避", "key": "4", "dmg": 0, "qiCost": 0, "iframe": 0.68, "desc": "【纯闪避·无攻击】极限深蹲蟹行切格，轻松躲过横穿整排的冲锋巨兽！"}, {"id": 8, "name": "08. 车水步", "voice": "车水步！", "kind": "dodge", "cat": "纯闪避", "key": "5", "dmg": 0, "qiCost": 0, "iframe": 0.62, "desc": "【纯闪避·无攻击】连续后撤踏板步退至后排安全格，躲开正上方竖列俯冲！"}, {"id": 9, "name": "09. 走梗平衡步", "voice": "走梗步！", "kind": "dodge", "cat": "纯闪避", "key": "6", "dmg": 0, "qiCost": 0, "iframe": 0.7, "desc": "【纯闪避·无攻击】在九宫格边缘极速穿行，灵巧穿梭于两只敌人缝隙之间！"}, {"id": 10, "name": "10. 盘根拧腰步", "voice": "盘根拧腰！", "kind": "dodge", "cat": "纯闪避", "key": "7", "dmg": 0, "qiCost": 0, "iframe": 0.8, "desc": "【纯闪避·无攻击】原地360度螺旋拧腰化劲，直接闪避当前格内所有冲击！"}, {"id": 22, "name": "22. 旱船晃·太极闪", "voice": "旱船晃！", "kind": "dodge", "cat": "纯闪避", "key": "X", "dmg": 0, "qiCost": 10, "iframe": 0.9, "desc": "【纯闪避·缓速】左右摇晃身段进入太极领域，令全场敌人减速65%并安全躲避！"}, {"id": 26, "name": "26. 白鹤亮翅·金钟闪", "voice": "白鹤亮翅！", "kind": "dodge", "cat": "纯闪避", "key": "N", "dmg": 0, "qiCost": 15, "iframe": 1.15, "desc": "【纯闪避·无敌】双臂振开金光护体，获得超长1.15秒绝对闪避无敌！"}, {"id": 2, "name": "02. 浪子踢球", "voice": "浪子踢球！", "kind": "attack", "cat": "主力攻击", "key": "J", "dmg": 140, "qiCost": 0, "iframe": 0.2, "range": "col", "desc": "【攻击招式】后仰顿挫高勾腿，将当前竖列扑来的敌人当皮球一脚踢飞上天！"}, {"id": 3, "name": "03. 狗熊哆嗦毛", "voice": "狗熊哆嗦毛！", "kind": "attack", "cat": "周围震飞", "key": "K", "dmg": 120, "qiCost": 10, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】核心肌群高频抖动，震飞自身十字相邻5格内的全部敌人！"}, {"id": 11, "name": "11. 猴子扳桩", "voice": "猴子扳桩！", "kind": "attack", "cat": "单体擒摔", "key": "8", "dmg": 200, "qiCost": 15, "iframe": 0.25, "range": "col", "desc": "【攻击招式】跃起扳住前方敌人猛烈砸向九宫格地面，重创Boss！"}, {"id": 12, "name": "12. 扁担闪·横扫", "voice": "扁担闪！", "kind": "attack", "cat": "整排横扫", "key": "9", "dmg": 165, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】双臂如铁扁担平举横扫，清空整条横排3格所有敌人！"}, {"id": 13, "name": "13. 十字靠身(铁山靠)", "voice": "铁山靠！", "kind": "attack", "cat": "十字撞击", "key": "L", "dmg": 240, "qiCost": 20, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】拧腰沉肩猛烈铁山靠，将十字范围内重甲Boss撞出硬直！"}, {"id": 14, "name": "14. 蛤蟆洼·震地", "voice": "蛤蟆洼！", "kind": "attack", "cat": "范围震晕", "key": "U", "dmg": 180, "qiCost": 18, "iframe": 0.25, "range": "cross", "desc": "【攻击招式】深蹲蛙跃重踏九宫格，震飞周围全部恐龙/丧尸/木乃伊！"}, {"id": 15, "name": "15. 小儿骑竹马", "voice": "小儿骑竹马！", "kind": "attack", "cat": "竖列踏击", "key": "I", "dmg": 160, "qiCost": 12, "iframe": 0.28, "range": "col", "desc": "【攻击招式】跨步腾跃踩踏前方敌人脊背借力二段劈踢！"}, {"id": 16, "name": "16. 燕子三抄水", "voice": "燕子三抄水！", "kind": "attack", "cat": "三连飞踢", "key": "O", "dmg": 215, "qiCost": 20, "iframe": 0.28, "range": "col", "desc": "【攻击招式】连续三次掠格飞踢，专斩高速冲锋敌人！"}, {"id": 17, "name": "17. 喜鹊登枝", "voice": "喜鹊登枝！", "kind": "attack", "cat": "防空神踢", "key": "P", "dmg": 185, "qiCost": 15, "iframe": 0.25, "range": "all_air", "desc": "【攻击招式】凌空蹬踏高空踢击，专打天上飞来的翼龙/尸鸦/圣甲虫！"}, {"id": 18, "name": "18. 拐子步·侧踹", "voice": "拐子侧踹！", "kind": "attack", "cat": "横排破甲", "key": "F", "dmg": 195, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】怪异折线变向后重侧踹，踹穿整排重甲防线！"}, {"id": 19, "name": "19. 磨盘转·旋风", "voice": "磨盘旋风腿！", "kind": "attack", "cat": "九宫旋风", "key": "G", "dmg": 230, "qiCost": 25, "iframe": 0.35, "range": "cross", "desc": "【攻击招式】高速旋转扫腿，卷起金色旋风清空十字五格！"}, {"id": 20, "name": "20. 鲤鱼打挺·回春", "voice": "鲤鱼打挺！", "kind": "attack", "cat": "反击回血", "key": "R", "dmg": 150, "qiCost": 25, "iframe": 0.4, "range": "cross", "desc": "【攻击+回血】猛烈挺腹弹射震飞周围敌人，并回复30点生命值！"}, {"id": 21, "name": "21. 大鹏展翅·掠空", "voice": "大鹏展翅！", "kind": "attack", "cat": "整排音爆", "key": "Z", "dmg": 260, "qiCost": 25, "iframe": 0.35, "range": "row", "desc": "【绝学攻击】双臂展开掀起整排音爆冲击，横扫所有横向敌人！"}, {"id": 23, "name": "23. 大花场·八连踢", "voice": "大花场八连踢！", "kind": "attack", "cat": "机关连踢", "key": "C", "dmg": 340, "qiCost": 35, "iframe": 0.4, "range": "col", "desc": "【绝学攻击】连续8脚浪子踢球高速连发，瞬间融化竖列Boss！"}, {"id": 24, "name": "24. 仙人指路·点穴", "voice": "仙人指路！", "kind": "attack", "cat": "贯穿激光", "key": "V", "dmg": 295, "qiCost": 30, "iframe": 0.28, "range": "col", "desc": "【绝学攻击】单指罡气贯穿整条竖列，100%触发暴击秒杀！"}, {"id": 25, "name": "25. 叶底藏花·回马枪", "voice": "叶底藏花！", "kind": "attack", "cat": "致命反踢", "key": "B", "dmg": 310, "qiCost": 30, "iframe": 0.35, "range": "cross", "desc": "【绝学攻击】假意退让瞬间拧腰回头重踢，专克偷袭敌人！"}, {"id": 27, "name": "27. 黑虎掏心·寸劲", "voice": "黑虎掏心！", "kind": "attack", "cat": "单体秒杀", "key": "M", "dmg": 420, "qiCost": 35, "iframe": 0.3, "range": "col", "desc": "【绝学攻击】贴身核心寸劲爆发，对霸王龙/巨型丧尸/法老王造成毁灭伤害！"}, {"id": 28, "name": "28. 金鸡独立·千斤坠", "voice": "金鸡独立千斤坠！", "kind": "attack", "cat": "全图震爆", "key": "T", "dmg": 360, "qiCost": 45, "iframe": 0.45, "range": "all", "desc": "【全屏绝学】单腿独立蓄力后千斤坠踏裂九宫格，震飞全屏敌人！"}, {"id": 29, "name": "29. 乌龙绞柱·风暴", "voice": "乌龙绞柱！", "kind": "attack", "cat": "全图龙卷", "key": "Y", "dmg": 390, "qiCost": 50, "iframe": 0.5, "range": "all", "desc": "【全屏绝学】双腿螺旋绞杀卷起全屏龙卷风，把九宫格所有敌人卷上天空！"}, {"id": 30, "name": "30. 三十路闪身万象归宗", "voice": "终极奥义！三十路闪身万象归宗！", "kind": "attack", "cat": "终极奥义", "key": "Q/E", "dmg": 780, "qiCost": 60, "iframe": 1.2, "range": "all", "desc": "【终极必杀】九宫格9个格子同时召唤黑背心宗师分身，齐声施展浪子踢球清空全屏！"}]};
 
     // =========================================================================
     // 1. DIFFICULTY PRESETS (Easy / Medium / Hard / Nightmare)
@@ -542,7 +612,7 @@
     function renderMovesDock() {
       const list = MOVES_30.filter(m => currentFilter === 'all' || m.kind === currentFilter);
       movesGridEl.innerHTML = list.map(m => `
-        <div class="move-card ${m.kind === 'dodge' ? 'is-dodge' : ''}" id="move-card-${m.id}" title="${m.desc}" onclick="executeMove(${m.id})">
+        <div class="move-card ${m.kind === 'dodge' ? 'is-dodge' : ''}" id="move-card-${m.id}" title="${m.desc}" onclick="executeMove(${m.id});closeDock()">
           <div class="m-name">${m.name}</div>
           <div class="m-meta">
             <span style="color:${m.kind === 'dodge' ? '#38bdf8' : '#f59e0b'};">${m.cat}</span>
@@ -567,9 +637,42 @@
     // =========================================================================
     const canvas = document.getElementById('game-canvas');
     const ctx = canvas.getContext('2d');
-    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    // Polyfill for old iOS Safari (<16) / old Android WebView that lack CanvasRenderingContext2D.roundRect
+    if (!CanvasRenderingContext2D.prototype.roundRect) {
+      CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
+        if (Array.isArray(r)) r = r[0] || 0;
+        r = Math.max(0, Math.min(r || 0, Math.abs(w) / 2, Math.abs(h) / 2));
+        this.moveTo(x + r, y);
+        this.arcTo(x + w, y, x + w, y + h, r);
+        this.arcTo(x + w, y + h, x, y + h, r);
+        this.arcTo(x, y + h, x, y, r);
+        this.arcTo(x, y, x + w, y, r);
+        this.closePath();
+      };
+    }
+    function isMobileLayout() { return window.innerWidth < 820 || window.innerHeight < 520; }
+    function resizeCanvas() {
+      const vv = window.visualViewport;
+      canvas.width = Math.round(vv ? vv.width : window.innerWidth);
+      canvas.height = Math.round(vv ? vv.height : window.innerHeight);
+      document.body.classList.toggle('is-mobile', isMobileLayout());
+      document.body.classList.toggle('is-landscape', canvas.width > canvas.height);
+    }
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('orientationchange', () => setTimeout(resizeCanvas, 250));
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', resizeCanvas);
+
+    // Mobile drawers: settings panel + 30-move sheet
+    function closeDock() { document.body.classList.remove('moves-open'); }
+    document.getElementById('btn-settings').addEventListener('click', () => {
+      document.body.classList.toggle('settings-open');
+      closeDock();
+    });
+    document.getElementById('btn-dock-toggle').addEventListener('click', () => {
+      document.body.classList.toggle('moves-open');
+      document.body.classList.remove('settings-open');
+    });
 
     const state = {
       difficulty: 'medium',
@@ -635,9 +738,11 @@
     function getGridRect() {
       const w = canvas.width;
       const h = canvas.height;
-      const topMargin = 104;
-      const bottomMargin = 102;
-      const sideMargin = Math.max(18, Math.round(w * 0.03));
+      const mob = isMobileLayout();
+      const land = w > h;
+      const topMargin = mob ? (land ? 58 : 86) : 104;
+      const bottomMargin = mob ? (land ? 56 : 176) : 102;
+      const sideMargin = mob ? 6 : Math.max(18, Math.round(w * 0.03));
       const gridW = Math.max(280, w - sideMargin * 2);
       const gridH = Math.max(240, h - topMargin - bottomMargin);
       return {
@@ -1208,7 +1313,8 @@
       const img = pose === 'kick' ? ASSETS.hero_kick : (pose === 'dodge' ? ASSETS.hero_dodge : ASSETS.hero_ready);
       if (!img || !img.complete || img.naturalWidth === 0) return;
       const g = getGridRect();
-      const drawH = Math.min(185, g.cellH * 1.05);
+      let drawH = Math.min(185, g.cellH * 1.05);
+      if ((img.naturalWidth / img.naturalHeight) * drawH > g.cellW * 1.15) drawH = g.cellW * 1.15 * img.naturalHeight / img.naturalWidth;
       const drawW = (img.naturalWidth / img.naturalHeight) * drawH;
 
       const runBob = pose === 'ready' ? Math.abs(Math.sin(t * 14)) * 11 : 0;
@@ -1259,7 +1365,9 @@
       const img = ASSETS[e.sprite];
       if (!img || !img.complete || img.naturalWidth === 0) return;
       const g = getGridRect();
-      const baseH = Math.min(175, g.cellH * 0.96) * e.scale;
+      let baseH = Math.min(175, g.cellH * 0.96) * e.scale;
+      const maxW = g.cellW * 1.2 * Math.max(1, e.scale * 0.9);
+      if ((img.naturalWidth / img.naturalHeight) * baseH > maxW) baseH = maxW * img.naturalHeight / img.naturalWidth;
       const drawW = (img.naturalWidth / img.naturalHeight) * baseH;
       const drawH = baseH;
 
