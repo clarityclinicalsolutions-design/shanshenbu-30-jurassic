@@ -356,7 +356,7 @@
 
   <script>
     const MOVES_30 = [{"id": 1, "name": "01. 闪身步", "voice": "闪身步！", "kind": "dodge", "cat": "纯闪避", "key": "Space", "dmg": 0, "qiCost": 0, "iframe": 0.65, "desc": "【纯闪避·无攻击】腰腹猛拧瞬间闪去安全格！躲开红格必触发极限闪身+25气力！"}, {"id": 4, "name": "04. 拔泥步", "voice": "拔泥步！", "kind": "dodge", "cat": "纯闪避", "key": "1", "dmg": 0, "qiCost": 0, "iframe": 0.6, "desc": "【纯闪避·无攻击】高抬大腿稳健换格，免疫地面减速陷阱并躲避冲撞！"}, {"id": 5, "name": "05. 野鸡溜", "voice": "野鸡溜！", "kind": "dodge", "cat": "纯闪避", "key": "2", "dmg": 0, "qiCost": 0, "iframe": 0.72, "desc": "【纯闪避·无攻击】贴地超低身位疾滑换格，专躲空中翼龙/尸鸦/圣甲虫俯冲！"}, {"id": 6, "name": "06. 游场碎步", "voice": "游场碎步！", "kind": "dodge", "cat": "纯闪避", "key": "3", "dmg": 0, "qiCost": 0, "iframe": 0.75, "desc": "【纯闪避·无攻击】高频碎步闪避并留下一串残影分身，大幅延长无敌时间！"}, {"id": 7, "name": "07. 矮子步", "voice": "矮子步！", "kind": "dodge", "cat": "纯闪避", "key": "4", "dmg": 0, "qiCost": 0, "iframe": 0.68, "desc": "【纯闪避·无攻击】极限深蹲蟹行切格，轻松躲过横穿整排的冲锋巨兽！"}, {"id": 8, "name": "08. 车水步", "voice": "车水步！", "kind": "dodge", "cat": "纯闪避", "key": "5", "dmg": 0, "qiCost": 0, "iframe": 0.62, "desc": "【纯闪避·无攻击】连续后撤踏板步退至后排安全格，躲开正上方竖列俯冲！"}, {"id": 9, "name": "09. 走梗平衡步", "voice": "走梗步！", "kind": "dodge", "cat": "纯闪避", "key": "6", "dmg": 0, "qiCost": 0, "iframe": 0.7, "desc": "【纯闪避·无攻击】在九宫格边缘极速穿行，灵巧穿梭于两只敌人缝隙之间！"}, {"id": 10, "name": "10. 盘根拧腰步", "voice": "盘根拧腰！", "kind": "dodge", "cat": "纯闪避", "key": "7", "dmg": 0, "qiCost": 0, "iframe": 0.8, "desc": "【纯闪避·无攻击】原地360度螺旋拧腰化劲，直接闪避当前格内所有冲击！"}, {"id": 22, "name": "22. 旱船晃·太极闪", "voice": "旱船晃！", "kind": "dodge", "cat": "纯闪避", "key": "X", "dmg": 0, "qiCost": 10, "iframe": 0.9, "desc": "【纯闪避·缓速】左右摇晃身段进入太极领域，令全场敌人减速65%并安全躲避！"}, {"id": 26, "name": "26. 白鹤亮翅·金钟闪", "voice": "白鹤亮翅！", "kind": "dodge", "cat": "纯闪避", "key": "N", "dmg": 0, "qiCost": 15, "iframe": 1.15, "desc": "【纯闪避·无敌】双臂振开金光护体，获得超长1.15秒绝对闪避无敌！"}, {"id": 2, "name": "02. 浪子踢球", "voice": "浪子踢球！", "kind": "attack", "cat": "主力攻击", "key": "J", "dmg": 140, "qiCost": 0, "iframe": 0.2, "range": "col", "desc": "【攻击招式】后仰顿挫高勾腿，将当前竖列扑来的敌人当皮球一脚踢飞上天！"}, {"id": 3, "name": "03. 狗熊哆嗦毛", "voice": "狗熊哆嗦毛！", "kind": "attack", "cat": "周围震飞", "key": "K", "dmg": 120, "qiCost": 10, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】核心肌群高频抖动，震飞自身十字相邻5格内的全部敌人！"}, {"id": 11, "name": "11. 猴子扳桩", "voice": "猴子扳桩！", "kind": "attack", "cat": "单体擒摔", "key": "8", "dmg": 200, "qiCost": 15, "iframe": 0.25, "range": "col", "desc": "【攻击招式】跃起扳住前方敌人猛烈砸向九宫格地面，重创Boss！"}, {"id": 12, "name": "12. 扁担闪·横扫", "voice": "扁担闪！", "kind": "attack", "cat": "整排横扫", "key": "9", "dmg": 165, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】双臂如铁扁担平举横扫，清空整条横排3格所有敌人！"}, {"id": 13, "name": "13. 十字靠身(铁山靠)", "voice": "铁山靠！", "kind": "attack", "cat": "十字撞击", "key": "L", "dmg": 240, "qiCost": 20, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】拧腰沉肩猛烈铁山靠，将十字范围内重甲Boss撞出硬直！"}, {"id": 14, "name": "14. 蛤蟆洼·震地", "voice": "蛤蟆洼！", "kind": "attack", "cat": "范围震晕", "key": "U", "dmg": 180, "qiCost": 18, "iframe": 0.25, "range": "cross", "desc": "【攻击招式】深蹲蛙跃重踏九宫格，震飞周围全部恐龙/丧尸/木乃伊！"}, {"id": 15, "name": "15. 小儿骑竹马", "voice": "小儿骑竹马！", "kind": "attack", "cat": "竖列踏击", "key": "I", "dmg": 160, "qiCost": 12, "iframe": 0.28, "range": "col", "desc": "【攻击招式】跨步腾跃踩踏前方敌人脊背借力二段劈踢！"}, {"id": 16, "name": "16. 燕子三抄水", "voice": "燕子三抄水！", "kind": "attack", "cat": "三连飞踢", "key": "O", "dmg": 215, "qiCost": 20, "iframe": 0.28, "range": "col", "desc": "【攻击招式】连续三次掠格飞踢，专斩高速冲锋敌人！"}, {"id": 17, "name": "17. 喜鹊登枝", "voice": "喜鹊登枝！", "kind": "attack", "cat": "防空神踢", "key": "P", "dmg": 185, "qiCost": 15, "iframe": 0.25, "range": "all_air", "desc": "【攻击招式】凌空蹬踏高空踢击，专打天上飞来的翼龙/尸鸦/圣甲虫！"}, {"id": 18, "name": "18. 拐子步·侧踹", "voice": "拐子侧踹！", "kind": "attack", "cat": "横排破甲", "key": "F", "dmg": 195, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】怪异折线变向后重侧踹，踹穿整排重甲防线！"}, {"id": 19, "name": "19. 磨盘转·旋风", "voice": "磨盘旋风腿！", "kind": "attack", "cat": "九宫旋风", "key": "G", "dmg": 230, "qiCost": 25, "iframe": 0.35, "range": "cross", "desc": "【攻击招式】高速旋转扫腿，卷起金色旋风清空十字五格！"}, {"id": 20, "name": "20. 鲤鱼打挺·回春", "voice": "鲤鱼打挺！", "kind": "attack", "cat": "反击回血", "key": "R", "dmg": 150, "qiCost": 25, "iframe": 0.4, "range": "cross", "desc": "【攻击+回血】猛烈挺腹弹射震飞周围敌人，并回复30点生命值！"}, {"id": 21, "name": "21. 大鹏展翅·掠空", "voice": "大鹏展翅！", "kind": "attack", "cat": "整排音爆", "key": "Z", "dmg": 260, "qiCost": 25, "iframe": 0.35, "range": "row", "desc": "【绝学攻击】双臂展开掀起整排音爆冲击，横扫所有横向敌人！"}, {"id": 23, "name": "23. 大花场·八连踢", "voice": "大花场八连踢！", "kind": "attack", "cat": "机关连踢", "key": "C", "dmg": 340, "qiCost": 35, "iframe": 0.4, "range": "col", "desc": "【绝学攻击】连续8脚浪子踢球高速连发，瞬间融化竖列Boss！"}, {"id": 24, "name": "24. 仙人指路·点穴", "voice": "仙人指路！", "kind": "attack", "cat": "贯穿激光", "key": "V", "dmg": 295, "qiCost": 30, "iframe": 0.28, "range": "col", "desc": "【绝学攻击】单指罡气贯穿整条竖列，100%触发暴击秒杀！"}, {"id": 25, "name": "25. 叶底藏花·回马枪", "voice": "叶底藏花！", "kind": "attack", "cat": "致命反踢", "key": "B", "dmg": 310, "qiCost": 30, "iframe": 0.35, "range": "cross", "desc": "【绝学攻击】假意退让瞬间拧腰回头重踢，专克偷袭敌人！"}, {"id": 27, "name": "27. 黑虎掏心·寸劲", "voice": "黑虎掏心！", "kind": "attack", "cat": "单体秒杀", "key": "M", "dmg": 420, "qiCost": 35, "iframe": 0.3, "range": "col", "desc": "【绝学攻击】贴身核心寸劲爆发，对霸王龙/巨型丧尸/法老王造成毁灭伤害！"}, {"id": 28, "name": "28. 金鸡独立·千斤坠", "voice": "金鸡独立千斤坠！", "kind": "attack", "cat": "全图震爆", "key": "T", "dmg": 360, "qiCost": 45, "iframe": 0.45, "range": "all", "desc": "【全屏绝学】单腿独立蓄力后千斤坠踏裂九宫格，震飞全屏敌人！"}, {"id": 29, "name": "29. 乌龙绞柱·风暴", "voice": "乌龙绞柱！", "kind": "attack", "cat": "全图龙卷", "key": "Y", "dmg": 390, "qiCost": 50, "iframe": 0.5, "range": "all", "desc": "【全屏绝学】双腿螺旋绞杀卷起全屏龙卷风，把九宫格所有敌人卷上天空！"}, {"id": 30, "name": "30. 三十路闪身万象归宗", "voice": "终极奥义！三十路闪身万象归宗！", "kind": "attack", "cat": "终极奥义", "key": "Q/E", "dmg": 780, "qiCost": 60, "iframe": 1.2, "range": "all", "desc": "【终极必杀】九宫格9个格子同时召唤黑背心宗师分身，齐声施展浪子踢球清空全屏！"}];
-    const GDD = {"slug": "shanshenbu-30-jurassic", "title": "闪身步30招：全屏九宫格多世界大乱斗 v2.1", "prompt": "v2.1 全屏九宫格覆盖整个画面 + 拟真写实漫画风丧尸与木乃伊 + 简单/中等/困难/地狱4档难度 + 真实归零失败并触发主角飞撞碎玻璃歪脸慢滑搞笑结局", "tagline": "全屏 3×3 九宫格闪身步 × 恐龙/写实丧尸/写实木乃伊 × 4档难度 × 撞碎屏幕歪脸搞笑结局", "genre": "2D 全屏九宫格多世界奔跑闪避 & 功夫绝招反击", "created_at": "2026-11-20 15:45:54", "moves_30": [{"id": 1, "name": "01. 闪身步", "voice": "闪身步！", "kind": "dodge", "cat": "纯闪避", "key": "Space", "dmg": 0, "qiCost": 0, "iframe": 0.65, "desc": "【纯闪避·无攻击】腰腹猛拧瞬间闪去安全格！躲开红格必触发极限闪身+25气力！"}, {"id": 4, "name": "04. 拔泥步", "voice": "拔泥步！", "kind": "dodge", "cat": "纯闪避", "key": "1", "dmg": 0, "qiCost": 0, "iframe": 0.6, "desc": "【纯闪避·无攻击】高抬大腿稳健换格，免疫地面减速陷阱并躲避冲撞！"}, {"id": 5, "name": "05. 野鸡溜", "voice": "野鸡溜！", "kind": "dodge", "cat": "纯闪避", "key": "2", "dmg": 0, "qiCost": 0, "iframe": 0.72, "desc": "【纯闪避·无攻击】贴地超低身位疾滑换格，专躲空中翼龙/尸鸦/圣甲虫俯冲！"}, {"id": 6, "name": "06. 游场碎步", "voice": "游场碎步！", "kind": "dodge", "cat": "纯闪避", "key": "3", "dmg": 0, "qiCost": 0, "iframe": 0.75, "desc": "【纯闪避·无攻击】高频碎步闪避并留下一串残影分身，大幅延长无敌时间！"}, {"id": 7, "name": "07. 矮子步", "voice": "矮子步！", "kind": "dodge", "cat": "纯闪避", "key": "4", "dmg": 0, "qiCost": 0, "iframe": 0.68, "desc": "【纯闪避·无攻击】极限深蹲蟹行切格，轻松躲过横穿整排的冲锋巨兽！"}, {"id": 8, "name": "08. 车水步", "voice": "车水步！", "kind": "dodge", "cat": "纯闪避", "key": "5", "dmg": 0, "qiCost": 0, "iframe": 0.62, "desc": "【纯闪避·无攻击】连续后撤踏板步退至后排安全格，躲开正上方竖列俯冲！"}, {"id": 9, "name": "09. 走梗平衡步", "voice": "走梗步！", "kind": "dodge", "cat": "纯闪避", "key": "6", "dmg": 0, "qiCost": 0, "iframe": 0.7, "desc": "【纯闪避·无攻击】在九宫格边缘极速穿行，灵巧穿梭于两只敌人缝隙之间！"}, {"id": 10, "name": "10. 盘根拧腰步", "voice": "盘根拧腰！", "kind": "dodge", "cat": "纯闪避", "key": "7", "dmg": 0, "qiCost": 0, "iframe": 0.8, "desc": "【纯闪避·无攻击】原地360度螺旋拧腰化劲，直接闪避当前格内所有冲击！"}, {"id": 22, "name": "22. 旱船晃·太极闪", "voice": "旱船晃！", "kind": "dodge", "cat": "纯闪避", "key": "X", "dmg": 0, "qiCost": 10, "iframe": 0.9, "desc": "【纯闪避·缓速】左右摇晃身段进入太极领域，令全场敌人减速65%并安全躲避！"}, {"id": 26, "name": "26. 白鹤亮翅·金钟闪", "voice": "白鹤亮翅！", "kind": "dodge", "cat": "纯闪避", "key": "N", "dmg": 0, "qiCost": 15, "iframe": 1.15, "desc": "【纯闪避·无敌】双臂振开金光护体，获得超长1.15秒绝对闪避无敌！"}, {"id": 2, "name": "02. 浪子踢球", "voice": "浪子踢球！", "kind": "attack", "cat": "主力攻击", "key": "J", "dmg": 140, "qiCost": 0, "iframe": 0.2, "range": "col", "desc": "【攻击招式】后仰顿挫高勾腿，将当前竖列扑来的敌人当皮球一脚踢飞上天！"}, {"id": 3, "name": "03. 狗熊哆嗦毛", "voice": "狗熊哆嗦毛！", "kind": "attack", "cat": "周围震飞", "key": "K", "dmg": 120, "qiCost": 10, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】核心肌群高频抖动，震飞自身十字相邻5格内的全部敌人！"}, {"id": 11, "name": "11. 猴子扳桩", "voice": "猴子扳桩！", "kind": "attack", "cat": "单体擒摔", "key": "8", "dmg": 200, "qiCost": 15, "iframe": 0.25, "range": "col", "desc": "【攻击招式】跃起扳住前方敌人猛烈砸向九宫格地面，重创Boss！"}, {"id": 12, "name": "12. 扁担闪·横扫", "voice": "扁担闪！", "kind": "attack", "cat": "整排横扫", "key": "9", "dmg": 165, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】双臂如铁扁担平举横扫，清空整条横排3格所有敌人！"}, {"id": 13, "name": "13. 十字靠身(铁山靠)", "voice": "铁山靠！", "kind": "attack", "cat": "十字撞击", "key": "L", "dmg": 240, "qiCost": 20, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】拧腰沉肩猛烈铁山靠，将十字范围内重甲Boss撞出硬直！"}, {"id": 14, "name": "14. 蛤蟆洼·震地", "voice": "蛤蟆洼！", "kind": "attack", "cat": "范围震晕", "key": "U", "dmg": 180, "qiCost": 18, "iframe": 0.25, "range": "cross", "desc": "【攻击招式】深蹲蛙跃重踏九宫格，震飞周围全部恐龙/丧尸/木乃伊！"}, {"id": 15, "name": "15. 小儿骑竹马", "voice": "小儿骑竹马！", "kind": "attack", "cat": "竖列踏击", "key": "I", "dmg": 160, "qiCost": 12, "iframe": 0.28, "range": "col", "desc": "【攻击招式】跨步腾跃踩踏前方敌人脊背借力二段劈踢！"}, {"id": 16, "name": "16. 燕子三抄水", "voice": "燕子三抄水！", "kind": "attack", "cat": "三连飞踢", "key": "O", "dmg": 215, "qiCost": 20, "iframe": 0.28, "range": "col", "desc": "【攻击招式】连续三次掠格飞踢，专斩高速冲锋敌人！"}, {"id": 17, "name": "17. 喜鹊登枝", "voice": "喜鹊登枝！", "kind": "attack", "cat": "防空神踢", "key": "P", "dmg": 185, "qiCost": 15, "iframe": 0.25, "range": "all_air", "desc": "【攻击招式】凌空蹬踏高空踢击，专打天上飞来的翼龙/尸鸦/圣甲虫！"}, {"id": 18, "name": "18. 拐子步·侧踹", "voice": "拐子侧踹！", "kind": "attack", "cat": "横排破甲", "key": "F", "dmg": 195, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】怪异折线变向后重侧踹，踹穿整排重甲防线！"}, {"id": 19, "name": "19. 磨盘转·旋风", "voice": "磨盘旋风腿！", "kind": "attack", "cat": "九宫旋风", "key": "G", "dmg": 230, "qiCost": 25, "iframe": 0.35, "range": "cross", "desc": "【攻击招式】高速旋转扫腿，卷起金色旋风清空十字五格！"}, {"id": 20, "name": "20. 鲤鱼打挺·回春", "voice": "鲤鱼打挺！", "kind": "attack", "cat": "反击回血", "key": "R", "dmg": 150, "qiCost": 25, "iframe": 0.4, "range": "cross", "desc": "【攻击+回血】猛烈挺腹弹射震飞周围敌人，并回复30点生命值！"}, {"id": 21, "name": "21. 大鹏展翅·掠空", "voice": "大鹏展翅！", "kind": "attack", "cat": "整排音爆", "key": "Z", "dmg": 260, "qiCost": 25, "iframe": 0.35, "range": "row", "desc": "【绝学攻击】双臂展开掀起整排音爆冲击，横扫所有横向敌人！"}, {"id": 23, "name": "23. 大花场·八连踢", "voice": "大花场八连踢！", "kind": "attack", "cat": "机关连踢", "key": "C", "dmg": 340, "qiCost": 35, "iframe": 0.4, "range": "col", "desc": "【绝学攻击】连续8脚浪子踢球高速连发，瞬间融化竖列Boss！"}, {"id": 24, "name": "24. 仙人指路·点穴", "voice": "仙人指路！", "kind": "attack", "cat": "贯穿激光", "key": "V", "dmg": 295, "qiCost": 30, "iframe": 0.28, "range": "col", "desc": "【绝学攻击】单指罡气贯穿整条竖列，100%触发暴击秒杀！"}, {"id": 25, "name": "25. 叶底藏花·回马枪", "voice": "叶底藏花！", "kind": "attack", "cat": "致命反踢", "key": "B", "dmg": 310, "qiCost": 30, "iframe": 0.35, "range": "cross", "desc": "【绝学攻击】假意退让瞬间拧腰回头重踢，专克偷袭敌人！"}, {"id": 27, "name": "27. 黑虎掏心·寸劲", "voice": "黑虎掏心！", "kind": "attack", "cat": "单体秒杀", "key": "M", "dmg": 420, "qiCost": 35, "iframe": 0.3, "range": "col", "desc": "【绝学攻击】贴身核心寸劲爆发，对霸王龙/巨型丧尸/法老王造成毁灭伤害！"}, {"id": 28, "name": "28. 金鸡独立·千斤坠", "voice": "金鸡独立千斤坠！", "kind": "attack", "cat": "全图震爆", "key": "T", "dmg": 360, "qiCost": 45, "iframe": 0.45, "range": "all", "desc": "【全屏绝学】单腿独立蓄力后千斤坠踏裂九宫格，震飞全屏敌人！"}, {"id": 29, "name": "29. 乌龙绞柱·风暴", "voice": "乌龙绞柱！", "kind": "attack", "cat": "全图龙卷", "key": "Y", "dmg": 390, "qiCost": 50, "iframe": 0.5, "range": "all", "desc": "【全屏绝学】双腿螺旋绞杀卷起全屏龙卷风，把九宫格所有敌人卷上天空！"}, {"id": 30, "name": "30. 三十路闪身万象归宗", "voice": "终极奥义！三十路闪身万象归宗！", "kind": "attack", "cat": "终极奥义", "key": "Q/E", "dmg": 780, "qiCost": 60, "iframe": 1.2, "range": "all", "desc": "【终极必杀】九宫格9个格子同时召唤黑背心宗师分身，齐声施展浪子踢球清空全屏！"}]};
+    const GDD = {"slug": "shanshenbu-30-jurassic", "title": "闪身步30招：全屏九宫格多世界大乱斗 v2.1", "prompt": "v2.1 全屏九宫格覆盖整个画面 + 拟真写实漫画风丧尸与木乃伊 + 简单/中等/困难/地狱4档难度 + 真实归零失败并触发主角飞撞碎玻璃歪脸慢滑搞笑结局", "tagline": "全屏 3×3 九宫格闪身步 × 恐龙/写实丧尸/写实木乃伊 × 4档难度 × 撞碎屏幕歪脸搞笑结局", "genre": "2D 全屏九宫格多世界奔跑闪避 & 功夫绝招反击", "created_at": "2026-11-20 16:07:11", "moves_30": [{"id": 1, "name": "01. 闪身步", "voice": "闪身步！", "kind": "dodge", "cat": "纯闪避", "key": "Space", "dmg": 0, "qiCost": 0, "iframe": 0.65, "desc": "【纯闪避·无攻击】腰腹猛拧瞬间闪去安全格！躲开红格必触发极限闪身+25气力！"}, {"id": 4, "name": "04. 拔泥步", "voice": "拔泥步！", "kind": "dodge", "cat": "纯闪避", "key": "1", "dmg": 0, "qiCost": 0, "iframe": 0.6, "desc": "【纯闪避·无攻击】高抬大腿稳健换格，免疫地面减速陷阱并躲避冲撞！"}, {"id": 5, "name": "05. 野鸡溜", "voice": "野鸡溜！", "kind": "dodge", "cat": "纯闪避", "key": "2", "dmg": 0, "qiCost": 0, "iframe": 0.72, "desc": "【纯闪避·无攻击】贴地超低身位疾滑换格，专躲空中翼龙/尸鸦/圣甲虫俯冲！"}, {"id": 6, "name": "06. 游场碎步", "voice": "游场碎步！", "kind": "dodge", "cat": "纯闪避", "key": "3", "dmg": 0, "qiCost": 0, "iframe": 0.75, "desc": "【纯闪避·无攻击】高频碎步闪避并留下一串残影分身，大幅延长无敌时间！"}, {"id": 7, "name": "07. 矮子步", "voice": "矮子步！", "kind": "dodge", "cat": "纯闪避", "key": "4", "dmg": 0, "qiCost": 0, "iframe": 0.68, "desc": "【纯闪避·无攻击】极限深蹲蟹行切格，轻松躲过横穿整排的冲锋巨兽！"}, {"id": 8, "name": "08. 车水步", "voice": "车水步！", "kind": "dodge", "cat": "纯闪避", "key": "5", "dmg": 0, "qiCost": 0, "iframe": 0.62, "desc": "【纯闪避·无攻击】连续后撤踏板步退至后排安全格，躲开正上方竖列俯冲！"}, {"id": 9, "name": "09. 走梗平衡步", "voice": "走梗步！", "kind": "dodge", "cat": "纯闪避", "key": "6", "dmg": 0, "qiCost": 0, "iframe": 0.7, "desc": "【纯闪避·无攻击】在九宫格边缘极速穿行，灵巧穿梭于两只敌人缝隙之间！"}, {"id": 10, "name": "10. 盘根拧腰步", "voice": "盘根拧腰！", "kind": "dodge", "cat": "纯闪避", "key": "7", "dmg": 0, "qiCost": 0, "iframe": 0.8, "desc": "【纯闪避·无攻击】原地360度螺旋拧腰化劲，直接闪避当前格内所有冲击！"}, {"id": 22, "name": "22. 旱船晃·太极闪", "voice": "旱船晃！", "kind": "dodge", "cat": "纯闪避", "key": "X", "dmg": 0, "qiCost": 10, "iframe": 0.9, "desc": "【纯闪避·缓速】左右摇晃身段进入太极领域，令全场敌人减速65%并安全躲避！"}, {"id": 26, "name": "26. 白鹤亮翅·金钟闪", "voice": "白鹤亮翅！", "kind": "dodge", "cat": "纯闪避", "key": "N", "dmg": 0, "qiCost": 15, "iframe": 1.15, "desc": "【纯闪避·无敌】双臂振开金光护体，获得超长1.15秒绝对闪避无敌！"}, {"id": 2, "name": "02. 浪子踢球", "voice": "浪子踢球！", "kind": "attack", "cat": "主力攻击", "key": "J", "dmg": 140, "qiCost": 0, "iframe": 0.2, "range": "col", "desc": "【攻击招式】后仰顿挫高勾腿，将当前竖列扑来的敌人当皮球一脚踢飞上天！"}, {"id": 3, "name": "03. 狗熊哆嗦毛", "voice": "狗熊哆嗦毛！", "kind": "attack", "cat": "周围震飞", "key": "K", "dmg": 120, "qiCost": 10, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】核心肌群高频抖动，震飞自身十字相邻5格内的全部敌人！"}, {"id": 11, "name": "11. 猴子扳桩", "voice": "猴子扳桩！", "kind": "attack", "cat": "单体擒摔", "key": "8", "dmg": 200, "qiCost": 15, "iframe": 0.25, "range": "col", "desc": "【攻击招式】跃起扳住前方敌人猛烈砸向九宫格地面，重创Boss！"}, {"id": 12, "name": "12. 扁担闪·横扫", "voice": "扁担闪！", "kind": "attack", "cat": "整排横扫", "key": "9", "dmg": 165, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】双臂如铁扁担平举横扫，清空整条横排3格所有敌人！"}, {"id": 13, "name": "13. 十字靠身(铁山靠)", "voice": "铁山靠！", "kind": "attack", "cat": "十字撞击", "key": "L", "dmg": 240, "qiCost": 20, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】拧腰沉肩猛烈铁山靠，将十字范围内重甲Boss撞出硬直！"}, {"id": 14, "name": "14. 蛤蟆洼·震地", "voice": "蛤蟆洼！", "kind": "attack", "cat": "范围震晕", "key": "U", "dmg": 180, "qiCost": 18, "iframe": 0.25, "range": "cross", "desc": "【攻击招式】深蹲蛙跃重踏九宫格，震飞周围全部恐龙/丧尸/木乃伊！"}, {"id": 15, "name": "15. 小儿骑竹马", "voice": "小儿骑竹马！", "kind": "attack", "cat": "竖列踏击", "key": "I", "dmg": 160, "qiCost": 12, "iframe": 0.28, "range": "col", "desc": "【攻击招式】跨步腾跃踩踏前方敌人脊背借力二段劈踢！"}, {"id": 16, "name": "16. 燕子三抄水", "voice": "燕子三抄水！", "kind": "attack", "cat": "三连飞踢", "key": "O", "dmg": 215, "qiCost": 20, "iframe": 0.28, "range": "col", "desc": "【攻击招式】连续三次掠格飞踢，专斩高速冲锋敌人！"}, {"id": 17, "name": "17. 喜鹊登枝", "voice": "喜鹊登枝！", "kind": "attack", "cat": "防空神踢", "key": "P", "dmg": 185, "qiCost": 15, "iframe": 0.25, "range": "all_air", "desc": "【攻击招式】凌空蹬踏高空踢击，专打天上飞来的翼龙/尸鸦/圣甲虫！"}, {"id": 18, "name": "18. 拐子步·侧踹", "voice": "拐子侧踹！", "kind": "attack", "cat": "横排破甲", "key": "F", "dmg": 195, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】怪异折线变向后重侧踹，踹穿整排重甲防线！"}, {"id": 19, "name": "19. 磨盘转·旋风", "voice": "磨盘旋风腿！", "kind": "attack", "cat": "九宫旋风", "key": "G", "dmg": 230, "qiCost": 25, "iframe": 0.35, "range": "cross", "desc": "【攻击招式】高速旋转扫腿，卷起金色旋风清空十字五格！"}, {"id": 20, "name": "20. 鲤鱼打挺·回春", "voice": "鲤鱼打挺！", "kind": "attack", "cat": "反击回血", "key": "R", "dmg": 150, "qiCost": 25, "iframe": 0.4, "range": "cross", "desc": "【攻击+回血】猛烈挺腹弹射震飞周围敌人，并回复30点生命值！"}, {"id": 21, "name": "21. 大鹏展翅·掠空", "voice": "大鹏展翅！", "kind": "attack", "cat": "整排音爆", "key": "Z", "dmg": 260, "qiCost": 25, "iframe": 0.35, "range": "row", "desc": "【绝学攻击】双臂展开掀起整排音爆冲击，横扫所有横向敌人！"}, {"id": 23, "name": "23. 大花场·八连踢", "voice": "大花场八连踢！", "kind": "attack", "cat": "机关连踢", "key": "C", "dmg": 340, "qiCost": 35, "iframe": 0.4, "range": "col", "desc": "【绝学攻击】连续8脚浪子踢球高速连发，瞬间融化竖列Boss！"}, {"id": 24, "name": "24. 仙人指路·点穴", "voice": "仙人指路！", "kind": "attack", "cat": "贯穿激光", "key": "V", "dmg": 295, "qiCost": 30, "iframe": 0.28, "range": "col", "desc": "【绝学攻击】单指罡气贯穿整条竖列，100%触发暴击秒杀！"}, {"id": 25, "name": "25. 叶底藏花·回马枪", "voice": "叶底藏花！", "kind": "attack", "cat": "致命反踢", "key": "B", "dmg": 310, "qiCost": 30, "iframe": 0.35, "range": "cross", "desc": "【绝学攻击】假意退让瞬间拧腰回头重踢，专克偷袭敌人！"}, {"id": 27, "name": "27. 黑虎掏心·寸劲", "voice": "黑虎掏心！", "kind": "attack", "cat": "单体秒杀", "key": "M", "dmg": 420, "qiCost": 35, "iframe": 0.3, "range": "col", "desc": "【绝学攻击】贴身核心寸劲爆发，对霸王龙/巨型丧尸/法老王造成毁灭伤害！"}, {"id": 28, "name": "28. 金鸡独立·千斤坠", "voice": "金鸡独立千斤坠！", "kind": "attack", "cat": "全图震爆", "key": "T", "dmg": 360, "qiCost": 45, "iframe": 0.45, "range": "all", "desc": "【全屏绝学】单腿独立蓄力后千斤坠踏裂九宫格，震飞全屏敌人！"}, {"id": 29, "name": "29. 乌龙绞柱·风暴", "voice": "乌龙绞柱！", "kind": "attack", "cat": "全图龙卷", "key": "Y", "dmg": 390, "qiCost": 50, "iframe": 0.5, "range": "all", "desc": "【全屏绝学】双腿螺旋绞杀卷起全屏龙卷风，把九宫格所有敌人卷上天空！"}, {"id": 30, "name": "30. 三十路闪身万象归宗", "voice": "终极奥义！三十路闪身万象归宗！", "kind": "attack", "cat": "终极奥义", "key": "Q/E", "dmg": 780, "qiCost": 60, "iframe": 1.2, "range": "all", "desc": "【终极必杀】九宫格9个格子同时召唤黑背心宗师分身，齐声施展浪子踢球清空全屏！"}]};
 
     // =========================================================================
     // 1. DIFFICULTY PRESETS (Easy / Medium / Hard / Nightmare)
@@ -507,235 +507,32 @@
     const music = new ComedyMusicEngine();
 
     // =========================================================================
-    // 4. LOAD HAND-PAINTED SPRITES + GRITTY REALISTIC ANATOMICAL ZOMBIE & MUMMY COMIC SPRITES!
+    // 4. LOAD HAND-PAINTED 2D ARCADE PNG SPRITES (HERO, DINOS, REALISTIC ZOMBIES & MUMMIES!)
     // =========================================================================
     const ASSETS = {};
-    function svgToImg(svgStr) {
-      const img = new Image();
-      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgStr.trim());
-      return img;
-    }
-
     const FILE_ASSETS = {
-      hero_ready: 'sprites/hero_ready.png',
-      hero_dodge: 'sprites/hero_dodge.png',
-      hero_kick: 'sprites/hero_kick.png',
-      dino_trex: 'sprites/dino_trex.png',
-      dino_raptor: 'sprites/dino_raptor.png',
-      dino_triceratops: 'sprites/dino_triceratops.png',
-      dino_pteranodon: 'sprites/dino_pteranodon.png',
-      bg_jurassic: 'sprites/bg_jurassic_jungle.jpg',
-      bg_desert: 'sprites/bg_desert_pyramid.jpg',
-      bg_studio: 'sprites/bg_dance_studio.jpg',
+      hero_ready: 'sprites/hero_ready.png?v=22',
+      hero_dodge: 'sprites/hero_dodge.png?v=22',
+      hero_kick: 'sprites/hero_kick.png?v=22',
+      dino_trex: 'sprites/dino_trex.png?v=22',
+      dino_raptor: 'sprites/dino_raptor.png?v=22',
+      dino_triceratops: 'sprites/dino_triceratops.png?v=22',
+      dino_pteranodon: 'sprites/dino_pteranodon.png?v=22',
+      zombie_runner: 'sprites/zombie_runner.png?v=22',
+      zombie_brute: 'sprites/zombie_brute.png?v=22',
+      zombie_crow: 'sprites/zombie_crow.png?v=22',
+      mummy_runner: 'sprites/mummy_runner.png?v=22',
+      mummy_pharaoh: 'sprites/mummy_pharaoh.png?v=22',
+      mummy_scarab: 'sprites/mummy_scarab.png?v=22',
+      bg_jurassic: 'sprites/bg_jurassic_jungle.jpg?v=22',
+      bg_desert: 'sprites/bg_desert_pyramid.jpg?v=22',
+      bg_studio: 'sprites/bg_dance_studio.jpg?v=22',
     };
     for (const [k, url] of Object.entries(FILE_ASSETS)) {
       const im = new Image();
       im.src = url;
       ASSETS[k] = im;
     }
-
-    // -------------------------------------------------------------------------
-    // GRITTY ANATOMICAL REALISTIC-COMIC ZOMBIE SPRITES (Capcom / Resident Evil 2D Ink Style!)
-    // -------------------------------------------------------------------------
-    ASSETS.zombie_runner = svgToImg(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 380">
-        <defs>
-          <linearGradient id="zSkin" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8da170"/><stop offset="55%" stop-color="#5d6e47"/><stop offset="100%" stop-color="#374128"/></linearGradient>
-          <linearGradient id="zCoat" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#334155"/><stop offset="100%" stop-color="#0f172a"/></linearGradient>
-          <linearGradient id="zShirt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#cbd5e1"/><stop offset="100%" stop-color="#64748b"/></linearGradient>
-        </defs>
-        <!-- Back Striding Leg & Torn Trousers -->
-        <path d="M126,238 L92,312 L74,358 L106,364 L126,315 L154,250 Z" fill="#1e293b" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M72,354 L46,364 L96,370 L108,360 Z" fill="#09090b"/>
-        <!-- Front Lunging Leg with Torn Knee Showing Bone/Sinew -->
-        <path d="M168,236 L208,302 L232,358 L262,352 L238,292 L196,232 Z" fill="#0f172a" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M204,296 L224,290 L228,312 L208,314 Z" fill="url(#zSkin)" stroke="#09090b" stroke-width="3"/>
-        <path d="M230,354 L274,362 L268,372 L226,366 Z" fill="#18181b" stroke="#09090b" stroke-width="3"/>
-        <!-- Back Reaching Clawed Arm -->
-        <path d="M112,136 L52,162 L24,194 L40,206 L74,182 L124,162 Z" fill="url(#zSkin)" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M24,194 L8,208 L18,216 L34,204 M28,202 L18,224 L28,226 L40,208" fill="#4d5c38" stroke="#09090b" stroke-width="3"/>
-        <!-- Hunched Muscular Torso in Shredded Dark Suit & Bloodstained Shirt -->
-        <path d="M104,116 Q155,96 204,124 L196,244 L118,244 Z" fill="url(#zCoat)" stroke="#09090b" stroke-width="5.5" stroke-linejoin="round"/>
-        <path d="M138,118 L178,124 L168,215 L136,215 Z" fill="url(#zShirt)" stroke="#09090b" stroke-width="3.5"/>
-        <!-- Torn Ribcage / Stain Details & Shredded Red Tie -->
-        <path d="M148,144 Q162,158 156,192 Q144,174 148,144 Z" fill="#7f1d1d" opacity="0.85"/>
-        <path d="M156,124 L168,126 L176,184 L162,202 L150,180 Z" fill="#991b1b" stroke="#09090b" stroke-width="3.5"/>
-        <!-- Exposed Gaunt Neck Tendons -->
-        <path d="M144,90 L180,96 L174,128 L142,124 Z" fill="url(#zSkin)" stroke="#09090b" stroke-width="4"/>
-        <path d="M154,96 L152,122 M166,98 L168,124" stroke="#2c351e" stroke-width="3"/>
-        <!-- Realistic Gaunt Skull-Like Zombie Head (Sunken Cheeks, Glowing Bloodshot Eyes, Jagged Jaw!) -->
-        <path d="M132,42 Q165,16 202,42 Q216,74 202,102 L188,116 L154,114 L138,94 Q126,70 132,42 Z" fill="url(#zSkin)" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <!-- Disheveled Dark Hair Strands -->
-        <path d="M130,52 Q144,16 176,22 Q204,24 208,52 Q188,36 164,40 Q144,38 130,52 Z" fill="#18181b" stroke="#09090b" stroke-width="3.5"/>
-        <!-- Sunken Dark Eye Sockets + Piercing Pale Yellow-Red Eyes -->
-        <path d="M150,58 L174,64 L168,78 L148,74 Z" fill="#18181b"/>
-        <path d="M184,64 L204,58 L202,74 L184,78 Z" fill="#18181b"/>
-        <circle cx="161" cy="68" r="4.5" fill="#facc15"/>
-        <circle cx="193" cy="68" r="4.5" fill="#facc15"/>
-        <!-- Hollow Cheekbone Shading & Snarling Jaw with Sharp Exposed Teeth -->
-        <path d="M144,82 Q156,92 146,102" stroke="#2c351e" stroke-width="3" fill="none"/>
-        <path d="M154,88 L198,86 L194,108 L158,108 Z" fill="#450a0a" stroke="#09090b" stroke-width="4"/>
-        <path d="M158,88 L164,98 L170,88 L176,99 L182,88 L188,98 L194,88" fill="#fef3c7" stroke="#09090b" stroke-width="2"/>
-        <path d="M162,108 L167,100 L173,108 L179,100 L185,108 L190,100" fill="#fef3c7" stroke="#09090b" stroke-width="2"/>
-        <!-- Foreground Muscular Sinewy Arm Lunging Forward! -->
-        <path d="M194,132 L252,148 L294,142 L298,166 L248,176 L186,160 Z" fill="url(#zSkin)" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M214,146 L250,154" stroke="#2c351e" stroke-width="3"/>
-        <path d="M294,142 L314,134 L310,148 L316,156 L304,162 L312,172 L294,166 Z" fill="#6b7c52" stroke="#09090b" stroke-width="3.5"/>
-      </svg>
-    `);
-
-    ASSETS.zombie_brute = svgToImg(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 390">
-        <defs>
-          <linearGradient id="brSkin" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7c9060"/><stop offset="50%" stop-color="#4d5d38"/><stop offset="100%" stop-color="#28311d"/></linearGradient>
-        </defs>
-        <!-- Giant Rusted Steel I-Beam / Bent STOP Sign Weapon -->
-        <g transform="rotate(18 265 160)">
-          <rect x="262" y="42" width="16" height="235" rx="4" fill="#64748b" stroke="#09090b" stroke-width="5"/>
-          <polygon points="244,12 296,12 322,38 322,88 296,114 244,114 218,88 218,38" fill="#991b1b" stroke="#cbd5e1" stroke-width="5"/>
-          <text x="270" y="74" font-size="28" font-weight="900" fill="#f8fafc" text-anchor="middle" font-family="Impact, Arial">STOP</text>
-        </g>
-        <!-- Massive Muscular Legs & Work Boots -->
-        <path d="M102,250 L82,356 L138,360 L152,262 Z" fill="#1e293b" stroke="#09090b" stroke-width="6" stroke-linejoin="round"/>
-        <path d="M188,250 L212,358 L266,352 L242,254 Z" fill="#1e293b" stroke="#09090b" stroke-width="6" stroke-linejoin="round"/>
-        <path d="M74,352 L140,356 L142,376 L64,374 Z" fill="#09090b"/>
-        <path d="M210,354 L276,352 L286,374 L208,376 Z" fill="#09090b"/>
-        <!-- Towering Hulking Mutant Torso (Vein & Pec Shading!) -->
-        <path d="M68,106 Q172,72 270,112 L250,262 L92,262 Z" fill="url(#brSkin)" stroke="#09090b" stroke-width="6.5" stroke-linejoin="round"/>
-        <!-- Muscular Chest Contours & Dark Scar -->
-        <path d="M116,154 Q146,174 170,152 Q196,174 226,154" stroke="#222a18" stroke-width="5" fill="none"/>
-        <path d="M140,184 L204,184 M144,208 L200,208 M172,154 L172,240" stroke="#222a18" stroke-width="4"/>
-        <!-- Shredded High-Vis Construction Vest Strips -->
-        <path d="M76,108 L128,112 L116,252 L92,252 Z" fill="#c2410c" stroke="#09090b" stroke-width="5"/>
-        <path d="M214,112 L264,112 L248,252 L222,252 Z" fill="#c2410c" stroke="#09090b" stroke-width="5"/>
-        <rect x="86" y="180" width="34" height="14" fill="#fde047" stroke="#09090b" stroke-width="2.5"/>
-        <rect x="224" y="180" width="32" height="14" fill="#fde047" stroke="#09090b" stroke-width="2.5"/>
-        <!-- Massive Biceps & Clenched Mutant Fists -->
-        <path d="M76,118 L24,184 L38,246 L76,240 L74,192 L100,152 Z" fill="url(#brSkin)" stroke="#09090b" stroke-width="6" stroke-linejoin="round"/>
-        <path d="M262,118 L314,178 L294,242 L254,234 L268,186 L244,152 Z" fill="url(#brSkin)" stroke="#09090b" stroke-width="6" stroke-linejoin="round"/>
-        <!-- Fierce Heavy-Browed Mutant Boss Head -->
-        <path d="M126,56 Q172,24 218,56 L216,118 L188,134 L156,134 L128,118 Z" fill="url(#brSkin)" stroke="#09090b" stroke-width="6" stroke-linejoin="round"/>
-        <path d="M136,74 L168,84 L140,94 Z" fill="#09090b"/>
-        <path d="M208,74 L176,84 L204,94 Z" fill="#09090b"/>
-        <circle cx="152" cy="85" r="5" fill="#ef4444"/>
-        <circle cx="192" cy="85" r="5" fill="#ef4444"/>
-        <path d="M144,104 L200,104 L194,126 L150,126 Z" fill="#450a0a" stroke="#09090b" stroke-width="4"/>
-        <path d="M150,104 L158,118 L166,104 L174,119 L182,104 L190,118 L196,104" fill="#fef3c7" stroke="#09090b" stroke-width="2.5"/>
-      </svg>
-    `);
-
-    ASSETS.zombie_crow = svgToImg(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
-        <!-- Jagged Decayed Demon Crow Wings -->
-        <path d="M160,92 L12,18 L48,74 L16,102 L68,114 L42,140 L146,118 Z" fill="#1e1b4b" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M160,92 L308,18 L272,74 L304,102 L252,114 L278,140 L174,118 Z" fill="#312e81" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M160,92 L62,48 M160,92 L258,48" stroke="#6d28d9" stroke-width="4"/>
-        <!-- Sinister Body & Talons -->
-        <ellipse cx="160" cy="108" rx="34" ry="42" fill="#0f172a" stroke="#09090b" stroke-width="5"/>
-        <path d="M138,142 L126,174 L144,162 M182,142 L194,174 L176,162" stroke="#facc15" stroke-width="5" stroke-linecap="round"/>
-        <!-- Fierce Glowing Eyes & Hooked Raptor Beak -->
-        <path d="M136,84 L156,94 L138,100 Z" fill="#ef4444"/>
-        <path d="M184,84 L164,94 L182,100 Z" fill="#ef4444"/>
-        <polygon points="146,104 174,104 160,148" fill="#cbd5e1" stroke="#09090b" stroke-width="4.5"/>
-      </svg>
-    `);
-
-    // -------------------------------------------------------------------------
-    // GRITTY ANATOMICAL REALISTIC-COMIC ANCIENT EGYPTIAN MUMMIES & PHARAOH WARLORD!
-    // -------------------------------------------------------------------------
-    ASSETS.mummy_runner = svgToImg(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 380">
-        <defs>
-          <linearGradient id="mWrap" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3e2bc"/><stop offset="55%" stop-color="#c8a974"/><stop offset="100%" stop-color="#7c5d32"/></linearGradient>
-          <linearGradient id="mDecay" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#451a03"/><stop offset="100%" stop-color="#1c1917"/></linearGradient>
-        </defs>
-        <!-- Flowing Shredded Ancient Linen Ribbons -->
-        <path d="M198,136 Q266,94 304,126 Q272,150 202,158 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="4.5"/>
-        <path d="M110,186 Q44,168 14,202 Q58,216 114,206 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="4.5"/>
-        <!-- Sinewy Bandaged Legs Striding Forward -->
-        <path d="M126,232 L90,312 L72,360 L108,364 L130,310 L154,244 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="5.5" stroke-linejoin="round"/>
-        <path d="M168,232 L208,306 L232,360 L264,352 L238,292 L196,230 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="5.5" stroke-linejoin="round"/>
-        <!-- Bandage Cross-Lines on Legs -->
-        <path d="M98,290 L132,302 M86,326 L120,336 M192,286 L230,276 M212,324 L250,314" stroke="#573917" stroke-width="4"/>
-        <!-- Back Reaching Wrapped Arm -->
-        <path d="M114,132 L50,152 L20,188 L38,200 L72,174 L124,158 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="5"/>
-        <!-- Gaunt Muscular Wrapped Torso with Exposed Dark Ribs & Ancient Amulet -->
-        <path d="M106,112 Q158,92 206,120 L194,242 L118,242 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="5.5" stroke-linejoin="round"/>
-        <!-- Exposed Dark Dessicated Ribcage Gap -->
-        <path d="M138,144 L178,148 L172,186 L142,182 Z" fill="url(#mDecay)" stroke="#291506" stroke-width="3"/>
-        <path d="M142,156 L176,160 M144,170 L174,174" stroke="#d6b482" stroke-width="4"/>
-        <!-- Criss-Cross Bandage Straps across Chest -->
-        <path d="M110,126 L202,148 M112,196 L196,184 M116,220 L194,230" stroke="#573917" stroke-width="4.5"/>
-        <!-- Torn Egyptian Gold Waist Sash -->
-        <path d="M116,228 L196,228 L186,282 L156,262 L126,282 Z" fill="#b45309" stroke="#291506" stroke-width="4"/>
-        <!-- Realistic Skull-Wrapped Mummy Head (Sunken Bandage Mask + Glowing Cursed Turquoise Eyes + Skeletal Jaw!) -->
-        <path d="M132,40 Q168,14 202,42 Q216,74 200,104 L186,118 L152,116 L136,96 Q124,68 132,40 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="5.5" stroke-linejoin="round"/>
-        <path d="M134,54 L204,46 M136,88 L202,94" stroke="#573917" stroke-width="4"/>
-        <!-- Deep Shadowed Eye Opening with Piercing Cyan Cursed Glow -->
-        <path d="M146,56 L202,58 L198,80 L146,78 Z" fill="#09090b"/>
-        <polygon points="154,65 170,69 156,74" fill="#22d3ee"/>
-        <polygon points="196,65 180,69 194,74" fill="#22d3ee"/>
-        <!-- Exposed Dessicated Skeletal Grin -->
-        <path d="M156,92 L192,92 L188,112 L160,112 Z" fill="#1c1917" stroke="#291506" stroke-width="3"/>
-        <path d="M162,94 L162,110 M170,94 L170,110 M178,94 L178,110 M186,94 L186,110" stroke="#fef3c7" stroke-width="3.5"/>
-        <!-- Foreground Clawing Wrapped Arm -->
-        <path d="M194,130 L254,144 L296,136 L300,162 L248,174 L186,158 Z" fill="url(#mWrap)" stroke="#291506" stroke-width="5.5" stroke-linejoin="round"/>
-        <path d="M214,136 L220,166 M246,142 L250,172 M274,140 L278,166" stroke="#573917" stroke-width="3.5"/>
-        <path d="M296,136 L316,128 L312,144 L318,154 L306,160 L314,170 L296,162 Z" fill="#7c5d32" stroke="#291506" stroke-width="3.5"/>
-      </svg>
-    `);
-
-    ASSETS.mummy_pharaoh = svgToImg(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 390">
-        <defs>
-          <linearGradient id="pGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fef08a"/><stop offset="50%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#92400e"/></linearGradient>
-          <linearGradient id="pLinen" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#a16207"/></linearGradient>
-        </defs>
-        <!-- Glowing Cursed Golden Pharaoh Scepter Staff -->
-        <rect x="292" y="42" width="14" height="310" rx="6" fill="url(#pGold)" stroke="#09090b" stroke-width="5"/>
-        <polygon points="299,8 326,48 299,88 272,48" fill="#22d3ee" stroke="#fef08a" stroke-width="5"/>
-        <!-- Flowing Spectral Cape & Ancient Bandages -->
-        <path d="M84,126 L36,344 L112,324 L172,360 L236,326 L284,344 L256,126 Z" fill="#1e3a8a" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <!-- Broad Armored Undead Pharaoh Torso -->
-        <path d="M98,128 L244,128 L224,296 L118,296 Z" fill="url(#pLinen)" stroke="#09090b" stroke-width="6"/>
-        <path d="M106,184 L236,196 M110,224 L230,214 M114,256 L226,268" stroke="#78350f" stroke-width="5"/>
-        <!-- Ornate Jeweled Egyptian Royal Collar & Shoulder Pauldrons -->
-        <path d="M78,122 Q170,186 264,122 L248,166 Q170,214 94,166 Z" fill="url(#pGold)" stroke="#09090b" stroke-width="5"/>
-        <path d="M110,146 Q170,182 232,146" stroke="#0284c7" stroke-width="10" fill="none"/>
-        <!-- Muscular Bandaged Warlord Arms -->
-        <path d="M98,134 L42,196 L64,234 L116,182 Z" fill="url(#pLinen)" stroke="#09090b" stroke-width="5"/>
-        <path d="M244,134 L298,188 L280,226 L226,182 Z" fill="url(#pLinen)" stroke="#09090b" stroke-width="5"/>
-        <!-- Grand Striped Golden Nemes Headdress -->
-        <path d="M76,144 L106,36 Q172,4 238,36 L268,144 L228,154 L216,96 L128,96 L116,154 Z" fill="url(#pGold)" stroke="#09090b" stroke-width="6" stroke-linejoin="round"/>
-        <path d="M96,68 L248,68 M88,92 L256,92 M80,116 L264,116" stroke="#1e3a8a" stroke-width="9"/>
-        <!-- Cobra Crown -->
-        <path d="M172,10 Q192,28 172,48 Q152,28 172,10 Z" fill="#fde047" stroke="#09090b" stroke-width="4"/>
-        <!-- Fierce Undead Skeletal Pharaoh Mask with Glowing Cyan Eyes & Royal Beard -->
-        <path d="M128,54 L216,54 L208,122 L172,144 L136,122 Z" fill="url(#pGold)" stroke="#09090b" stroke-width="5.5"/>
-        <path d="M138,76 L168,84 L142,94 Z" fill="#09090b"/>
-        <path d="M206,76 L176,84 L202,94 Z" fill="#09090b"/>
-        <circle cx="152" cy="85" r="5.5" fill="#22d3ee"/>
-        <circle cx="192" cy="85" r="5.5" fill="#22d3ee"/>
-        <path d="M150,112 L194,112 L188,128 L156,128 Z" fill="#09090b"/>
-        <path d="M158,112 L158,126 M168,112 L168,126 M178,112 L178,126 M186,112 L186,126" stroke="#fef3c7" stroke-width="3.5"/>
-        <rect x="160" y="136" width="24" height="36" rx="4" fill="#1e3a8a" stroke="#f59e0b" stroke-width="4"/>
-      </svg>
-    `);
-
-    ASSETS.mummy_scarab = svgToImg(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 180">
-        <!-- Razor Metallic Winged Golden Scarab -->
-        <path d="M150,82 L12,18 L34,98 L142,102 Z" fill="#f59e0b" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M150,82 L288,18 L266,98 L158,102 Z" fill="#d97706" stroke="#09090b" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M142,88 L56,56 M158,88 L244,56" stroke="#fef08a" stroke-width="4"/>
-        <!-- Horned Armored Turquoise Carapace -->
-        <ellipse cx="150" cy="96" rx="44" ry="52" fill="#0e7490" stroke="#09090b" stroke-width="6"/>
-        <path d="M150,48 L150,146" stroke="#09090b" stroke-width="5"/>
-        <path d="M126,56 L112,26 L138,48 M174,56 L188,26 L162,48" fill="#fef08a" stroke="#09090b" stroke-width="4"/>
-        <circle cx="132" cy="68" r="7" fill="#ef4444"/>
-        <circle cx="168" cy="68" r="7" fill="#ef4444"/>
-      </svg>
-    `);
 
     // =========================================================================
     // 5. 30 MOVES DOCK RENDERING
@@ -807,7 +604,7 @@
     window.__OMNIGAME_QA__ = {
       getReport: () => ({
         title: GDD.title,
-        mode: 'v2.1_FullScreen_3x3_Grid',
+        mode: 'v2.2_FullScreen_3x3_Grid_RealisticUndead',
         difficulty: state.difficulty,
         world: state.world,
         faction: state.faction,
@@ -955,18 +752,18 @@
 
       if (f === 'zombies') {
         const pool = [
-          { sprite: 'zombie_runner', label: '🧟 狂暴感染丧尸', hp: 120, isAir: false, isBoss: false, scale: 1.05 },
-          { sprite: 'zombie_crow', label: '🦇 变异噬魂尸鸦', hp: 100, isAir: true, isBoss: false, scale: 0.95 },
-          { sprite: 'zombie_brute', label: '🚧 暴君铁锤巨丧尸', hp: 330, isAir: false, isBoss: true, scale: 1.32 },
+          { sprite: 'zombie_runner', label: '🧟 狂暴感染丧尸', hp: 120, isAir: false, isBoss: false, scale: 1.12 },
+          { sprite: 'zombie_crow', label: '🦇 变异噬魂尸鸦', hp: 100, isAir: true, isBoss: false, scale: 0.90 },
+          { sprite: 'zombie_brute', label: '🚧 暴君突变巨丧尸', hp: 330, isAir: false, isBoss: true, scale: 1.32 },
         ];
-        return pool[Math.random() < 0.22 ? 2 : (Math.random() < 0.48 ? 1 : 0)];
+        return pool[Math.random() < 0.25 ? 2 : (Math.random() < 0.50 ? 1 : 0)];
       } else if (f === 'mummies') {
         const pool = [
-          { sprite: 'mummy_runner', label: '🏺 诅咒古墓木乃伊', hp: 125, isAir: false, isBoss: false, scale: 1.05 },
-          { sprite: 'mummy_scarab', label: '🪲 黄金魔甲圣甲虫', hp: 95, isAir: true, isBoss: false, scale: 0.92 },
-          { sprite: 'mummy_pharaoh', label: '👑 亡灵黄金法老王', hp: 350, isAir: false, isBoss: true, scale: 1.35 },
+          { sprite: 'mummy_runner', label: '🏺 诅咒古墓木乃伊', hp: 125, isAir: false, isBoss: false, scale: 1.18 },
+          { sprite: 'mummy_scarab', label: '🪲 魔甲青金圣甲虫', hp: 95, isAir: true, isBoss: false, scale: 0.86 },
+          { sprite: 'mummy_pharaoh', label: '👑 亡灵黄金法老王', hp: 350, isAir: false, isBoss: true, scale: 1.36 },
         ];
-        return pool[Math.random() < 0.22 ? 2 : (Math.random() < 0.48 ? 1 : 0)];
+        return pool[Math.random() < 0.25 ? 2 : (Math.random() < 0.50 ? 1 : 0)];
       } else {
         const pool = [
           { sprite: 'dino_raptor', label: '🦎 镰爪迅猛龙', hp: 120, isAir: false, isBoss: false, scale: 1.05 },
@@ -1468,6 +1265,12 @@
 
       ctx.save();
       ctx.translate(e.x, e.y);
+      if (!e.kicked) {
+        ctx.fillStyle = e.isAir ? 'rgba(0,0,0,0.28)' : 'rgba(0,0,0,0.46)';
+        ctx.beginPath();
+        ctx.ellipse(0, drawH * 0.34, Math.max(24, drawW * 0.34), 11, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
       if (e.rot !== 0) ctx.rotate(e.rot);
       const bob = Math.abs(Math.sin(t * 11)) * 8;
       ctx.translate(0, -bob);
