@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <title>《闪身步30招：全屏九宫格大乱斗》 — 恐龙 / 拟真丧尸 / 拟真木乃伊 + 搞笑撞屏结局</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🕺</text></svg>" />
+  <title>《闪身步30招：全屏九宫格大乱斗》 — 30招独立手绘动作版</title>
   <style>
     :root {
       --gold: #f59e0b;
@@ -106,14 +107,22 @@
     }
     .stance-tab.active { background: var(--gold); color: #0c0a09; border-color: #fff; }
     .moves-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
-      gap: 4px; max-height: 60px; overflow-y: auto; padding-right: 4px;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(156px, 1fr));
+      gap: 4px; max-height: 68px; overflow-y: auto; padding-right: 4px;
     }
     .move-card {
+      display: flex; align-items: center; gap: 6px;
       background: rgba(24, 24, 27, 0.94);
       border: 1px solid rgba(245, 158, 11, 0.3);
       border-radius: 6px; padding: 3px 6px; cursor: pointer; transition: all 0.12s;
     }
+    .move-card .m-thumb {
+      width: 28px; height: 28px; object-fit: contain; flex-shrink: 0;
+      border-radius: 5px; background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(245,158,11,0.28);
+    }
+    .move-card.is-dodge .m-thumb { border-color: rgba(56,189,248,0.42); }
+    .move-card .m-info { flex: 1; min-width: 0; }
     .move-card.is-dodge { border-color: rgba(56, 189, 248, 0.45); }
     .move-card.is-dodge .m-name { color: #7dd3fc; }
     .move-card:hover { transform: translateY(-1px); background: rgba(245, 158, 11, 0.22); }
@@ -121,7 +130,7 @@
       border-color: #fff; box-shadow: 0 0 12px rgba(245, 158, 11, 0.65);
       background: rgba(245, 158, 11, 0.3);
     }
-    .move-card .m-name { font-size: 10px; font-weight: 800; color: #fef08a; }
+    .move-card .m-name { font-size: 10px; font-weight: 800; color: #fef08a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .move-card .m-meta {
       font-size: 8.5px; color: #a8a29e; display: flex; justify-content: space-between; margin-top: 1px;
     }
@@ -245,14 +254,15 @@
       }
       .dock-header, .moves-grid { display: none !important; }
       body.moves-open .dock-header { display: flex !important; margin: 6px 0 4px; }
-      body.moves-open .dock-header > div:last-child { display: none; }
+      body.moves-open .dock-header > div:last-child { display: none !important; }
       body.moves-open .moves-grid {
         display: grid !important; grid-template-columns: repeat(2, 1fr);
-        max-height: 46vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
+        max-height: 58vh; overflow-y: auto; -webkit-overflow-scrolling: touch;
       }
-      body.moves-open .move-card { padding: 7px 8px; }
-      body.moves-open .move-card .m-name { font-size: 12px; }
-      body.moves-open .move-card .m-meta { font-size: 10px; }
+      body.moves-open .move-card { padding: 6px 7px; }
+      body.moves-open .move-card .m-thumb { width: 34px; height: 34px; }
+      body.moves-open .move-card .m-name { font-size: 11.5px; }
+      body.moves-open .move-card .m-meta { font-size: 9.5px; }
       body.moves-open .touch-overlay { display: none !important; }
 
       .touch-overlay { bottom: calc(58px + env(safe-area-inset-bottom)); left: 6px; right: 6px; }
@@ -284,7 +294,7 @@
         <span class="badge-v2" id="diff-badge">🟡 中等难度</span>
       </div>
       <div style="font-size:9.5px;color:#d6d3d1;margin-top:2px;">
-        WASD/点全屏九宫格移动 | <strong style="color:#38bdf8;">Space: 01.闪身步(纯躲避)</strong> | <strong style="color:#f59e0b;">J: 02.浪子踢球(攻击)</strong>
+        WASD/点全屏九宫格移动 | <strong style="color:#38bdf8;">Space: 01.闪身步(纯躲避)</strong> | <strong style="color:#f59e0b;">J: 02.浪子踢球(攻)</strong> · <strong style="color:#fef08a;">30招独立手绘动作</strong>
       </div>
       <div class="bars-box">
         <div class="bar-row">
@@ -426,7 +436,7 @@
 
   <script>
     const MOVES_30 = [{"id": 1, "name": "01. 闪身步", "voice": "闪身步！", "kind": "dodge", "cat": "纯闪避", "key": "Space", "dmg": 0, "qiCost": 0, "iframe": 0.65, "desc": "【纯闪避·无攻击】腰腹猛拧瞬间闪去安全格！躲开红格必触发极限闪身+25气力！"}, {"id": 4, "name": "04. 拔泥步", "voice": "拔泥步！", "kind": "dodge", "cat": "纯闪避", "key": "1", "dmg": 0, "qiCost": 0, "iframe": 0.6, "desc": "【纯闪避·无攻击】高抬大腿稳健换格，免疫地面减速陷阱并躲避冲撞！"}, {"id": 5, "name": "05. 野鸡溜", "voice": "野鸡溜！", "kind": "dodge", "cat": "纯闪避", "key": "2", "dmg": 0, "qiCost": 0, "iframe": 0.72, "desc": "【纯闪避·无攻击】贴地超低身位疾滑换格，专躲空中翼龙/尸鸦/圣甲虫俯冲！"}, {"id": 6, "name": "06. 游场碎步", "voice": "游场碎步！", "kind": "dodge", "cat": "纯闪避", "key": "3", "dmg": 0, "qiCost": 0, "iframe": 0.75, "desc": "【纯闪避·无攻击】高频碎步闪避并留下一串残影分身，大幅延长无敌时间！"}, {"id": 7, "name": "07. 矮子步", "voice": "矮子步！", "kind": "dodge", "cat": "纯闪避", "key": "4", "dmg": 0, "qiCost": 0, "iframe": 0.68, "desc": "【纯闪避·无攻击】极限深蹲蟹行切格，轻松躲过横穿整排的冲锋巨兽！"}, {"id": 8, "name": "08. 车水步", "voice": "车水步！", "kind": "dodge", "cat": "纯闪避", "key": "5", "dmg": 0, "qiCost": 0, "iframe": 0.62, "desc": "【纯闪避·无攻击】连续后撤踏板步退至后排安全格，躲开正上方竖列俯冲！"}, {"id": 9, "name": "09. 走梗平衡步", "voice": "走梗步！", "kind": "dodge", "cat": "纯闪避", "key": "6", "dmg": 0, "qiCost": 0, "iframe": 0.7, "desc": "【纯闪避·无攻击】在九宫格边缘极速穿行，灵巧穿梭于两只敌人缝隙之间！"}, {"id": 10, "name": "10. 盘根拧腰步", "voice": "盘根拧腰！", "kind": "dodge", "cat": "纯闪避", "key": "7", "dmg": 0, "qiCost": 0, "iframe": 0.8, "desc": "【纯闪避·无攻击】原地360度螺旋拧腰化劲，直接闪避当前格内所有冲击！"}, {"id": 22, "name": "22. 旱船晃·太极闪", "voice": "旱船晃！", "kind": "dodge", "cat": "纯闪避", "key": "X", "dmg": 0, "qiCost": 10, "iframe": 0.9, "desc": "【纯闪避·缓速】左右摇晃身段进入太极领域，令全场敌人减速65%并安全躲避！"}, {"id": 26, "name": "26. 白鹤亮翅·金钟闪", "voice": "白鹤亮翅！", "kind": "dodge", "cat": "纯闪避", "key": "N", "dmg": 0, "qiCost": 15, "iframe": 1.15, "desc": "【纯闪避·无敌】双臂振开金光护体，获得超长1.15秒绝对闪避无敌！"}, {"id": 2, "name": "02. 浪子踢球", "voice": "浪子踢球！", "kind": "attack", "cat": "主力攻击", "key": "J", "dmg": 140, "qiCost": 0, "iframe": 0.2, "range": "col", "desc": "【攻击招式】后仰顿挫高勾腿，将当前竖列扑来的敌人当皮球一脚踢飞上天！"}, {"id": 3, "name": "03. 狗熊哆嗦毛", "voice": "狗熊哆嗦毛！", "kind": "attack", "cat": "周围震飞", "key": "K", "dmg": 120, "qiCost": 10, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】核心肌群高频抖动，震飞自身十字相邻5格内的全部敌人！"}, {"id": 11, "name": "11. 猴子扳桩", "voice": "猴子扳桩！", "kind": "attack", "cat": "单体擒摔", "key": "8", "dmg": 200, "qiCost": 15, "iframe": 0.25, "range": "col", "desc": "【攻击招式】跃起扳住前方敌人猛烈砸向九宫格地面，重创Boss！"}, {"id": 12, "name": "12. 扁担闪·横扫", "voice": "扁担闪！", "kind": "attack", "cat": "整排横扫", "key": "9", "dmg": 165, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】双臂如铁扁担平举横扫，清空整条横排3格所有敌人！"}, {"id": 13, "name": "13. 十字靠身(铁山靠)", "voice": "铁山靠！", "kind": "attack", "cat": "十字撞击", "key": "L", "dmg": 240, "qiCost": 20, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】拧腰沉肩猛烈铁山靠，将十字范围内重甲Boss撞出硬直！"}, {"id": 14, "name": "14. 蛤蟆洼·震地", "voice": "蛤蟆洼！", "kind": "attack", "cat": "范围震晕", "key": "U", "dmg": 180, "qiCost": 18, "iframe": 0.25, "range": "cross", "desc": "【攻击招式】深蹲蛙跃重踏九宫格，震飞周围全部恐龙/丧尸/木乃伊！"}, {"id": 15, "name": "15. 小儿骑竹马", "voice": "小儿骑竹马！", "kind": "attack", "cat": "竖列踏击", "key": "I", "dmg": 160, "qiCost": 12, "iframe": 0.28, "range": "col", "desc": "【攻击招式】跨步腾跃踩踏前方敌人脊背借力二段劈踢！"}, {"id": 16, "name": "16. 燕子三抄水", "voice": "燕子三抄水！", "kind": "attack", "cat": "三连飞踢", "key": "O", "dmg": 215, "qiCost": 20, "iframe": 0.28, "range": "col", "desc": "【攻击招式】连续三次掠格飞踢，专斩高速冲锋敌人！"}, {"id": 17, "name": "17. 喜鹊登枝", "voice": "喜鹊登枝！", "kind": "attack", "cat": "防空神踢", "key": "P", "dmg": 185, "qiCost": 15, "iframe": 0.25, "range": "all_air", "desc": "【攻击招式】凌空蹬踏高空踢击，专打天上飞来的翼龙/尸鸦/圣甲虫！"}, {"id": 18, "name": "18. 拐子步·侧踹", "voice": "拐子侧踹！", "kind": "attack", "cat": "横排破甲", "key": "F", "dmg": 195, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】怪异折线变向后重侧踹，踹穿整排重甲防线！"}, {"id": 19, "name": "19. 磨盘转·旋风", "voice": "磨盘旋风腿！", "kind": "attack", "cat": "九宫旋风", "key": "G", "dmg": 230, "qiCost": 25, "iframe": 0.35, "range": "cross", "desc": "【攻击招式】高速旋转扫腿，卷起金色旋风清空十字五格！"}, {"id": 20, "name": "20. 鲤鱼打挺·回春", "voice": "鲤鱼打挺！", "kind": "attack", "cat": "反击回血", "key": "R", "dmg": 150, "qiCost": 25, "iframe": 0.4, "range": "cross", "desc": "【攻击+回血】猛烈挺腹弹射震飞周围敌人，并回复30点生命值！"}, {"id": 21, "name": "21. 大鹏展翅·掠空", "voice": "大鹏展翅！", "kind": "attack", "cat": "整排音爆", "key": "Z", "dmg": 260, "qiCost": 25, "iframe": 0.35, "range": "row", "desc": "【绝学攻击】双臂展开掀起整排音爆冲击，横扫所有横向敌人！"}, {"id": 23, "name": "23. 大花场·八连踢", "voice": "大花场八连踢！", "kind": "attack", "cat": "机关连踢", "key": "C", "dmg": 340, "qiCost": 35, "iframe": 0.4, "range": "col", "desc": "【绝学攻击】连续8脚浪子踢球高速连发，瞬间融化竖列Boss！"}, {"id": 24, "name": "24. 仙人指路·点穴", "voice": "仙人指路！", "kind": "attack", "cat": "贯穿激光", "key": "V", "dmg": 295, "qiCost": 30, "iframe": 0.28, "range": "col", "desc": "【绝学攻击】单指罡气贯穿整条竖列，100%触发暴击秒杀！"}, {"id": 25, "name": "25. 叶底藏花·回马枪", "voice": "叶底藏花！", "kind": "attack", "cat": "致命反踢", "key": "B", "dmg": 310, "qiCost": 30, "iframe": 0.35, "range": "cross", "desc": "【绝学攻击】假意退让瞬间拧腰回头重踢，专克偷袭敌人！"}, {"id": 27, "name": "27. 黑虎掏心·寸劲", "voice": "黑虎掏心！", "kind": "attack", "cat": "单体秒杀", "key": "M", "dmg": 420, "qiCost": 35, "iframe": 0.3, "range": "col", "desc": "【绝学攻击】贴身核心寸劲爆发，对霸王龙/巨型丧尸/法老王造成毁灭伤害！"}, {"id": 28, "name": "28. 金鸡独立·千斤坠", "voice": "金鸡独立千斤坠！", "kind": "attack", "cat": "全图震爆", "key": "T", "dmg": 360, "qiCost": 45, "iframe": 0.45, "range": "all", "desc": "【全屏绝学】单腿独立蓄力后千斤坠踏裂九宫格，震飞全屏敌人！"}, {"id": 29, "name": "29. 乌龙绞柱·风暴", "voice": "乌龙绞柱！", "kind": "attack", "cat": "全图龙卷", "key": "Y", "dmg": 390, "qiCost": 50, "iframe": 0.5, "range": "all", "desc": "【全屏绝学】双腿螺旋绞杀卷起全屏龙卷风，把九宫格所有敌人卷上天空！"}, {"id": 30, "name": "30. 三十路闪身万象归宗", "voice": "终极奥义！三十路闪身万象归宗！", "kind": "attack", "cat": "终极奥义", "key": "Q/E", "dmg": 780, "qiCost": 60, "iframe": 1.2, "range": "all", "desc": "【终极必杀】九宫格9个格子同时召唤黑背心宗师分身，齐声施展浪子踢球清空全屏！"}];
-    const GDD = {"slug": "shanshenbu-30-jurassic", "title": "闪身步30招：全屏九宫格多世界大乱斗 v2.1", "prompt": "v2.1 全屏九宫格覆盖整个画面 + 拟真写实漫画风丧尸与木乃伊 + 简单/中等/困难/地狱4档难度 + 真实归零失败并触发主角飞撞碎玻璃歪脸慢滑搞笑结局", "tagline": "全屏 3×3 九宫格闪身步 × 恐龙/写实丧尸/写实木乃伊 × 4档难度 × 撞碎屏幕歪脸搞笑结局", "genre": "2D 全屏九宫格多世界奔跑闪避 & 功夫绝招反击", "created_at": "2026-11-20 16:22:09", "moves_30": [{"id": 1, "name": "01. 闪身步", "voice": "闪身步！", "kind": "dodge", "cat": "纯闪避", "key": "Space", "dmg": 0, "qiCost": 0, "iframe": 0.65, "desc": "【纯闪避·无攻击】腰腹猛拧瞬间闪去安全格！躲开红格必触发极限闪身+25气力！"}, {"id": 4, "name": "04. 拔泥步", "voice": "拔泥步！", "kind": "dodge", "cat": "纯闪避", "key": "1", "dmg": 0, "qiCost": 0, "iframe": 0.6, "desc": "【纯闪避·无攻击】高抬大腿稳健换格，免疫地面减速陷阱并躲避冲撞！"}, {"id": 5, "name": "05. 野鸡溜", "voice": "野鸡溜！", "kind": "dodge", "cat": "纯闪避", "key": "2", "dmg": 0, "qiCost": 0, "iframe": 0.72, "desc": "【纯闪避·无攻击】贴地超低身位疾滑换格，专躲空中翼龙/尸鸦/圣甲虫俯冲！"}, {"id": 6, "name": "06. 游场碎步", "voice": "游场碎步！", "kind": "dodge", "cat": "纯闪避", "key": "3", "dmg": 0, "qiCost": 0, "iframe": 0.75, "desc": "【纯闪避·无攻击】高频碎步闪避并留下一串残影分身，大幅延长无敌时间！"}, {"id": 7, "name": "07. 矮子步", "voice": "矮子步！", "kind": "dodge", "cat": "纯闪避", "key": "4", "dmg": 0, "qiCost": 0, "iframe": 0.68, "desc": "【纯闪避·无攻击】极限深蹲蟹行切格，轻松躲过横穿整排的冲锋巨兽！"}, {"id": 8, "name": "08. 车水步", "voice": "车水步！", "kind": "dodge", "cat": "纯闪避", "key": "5", "dmg": 0, "qiCost": 0, "iframe": 0.62, "desc": "【纯闪避·无攻击】连续后撤踏板步退至后排安全格，躲开正上方竖列俯冲！"}, {"id": 9, "name": "09. 走梗平衡步", "voice": "走梗步！", "kind": "dodge", "cat": "纯闪避", "key": "6", "dmg": 0, "qiCost": 0, "iframe": 0.7, "desc": "【纯闪避·无攻击】在九宫格边缘极速穿行，灵巧穿梭于两只敌人缝隙之间！"}, {"id": 10, "name": "10. 盘根拧腰步", "voice": "盘根拧腰！", "kind": "dodge", "cat": "纯闪避", "key": "7", "dmg": 0, "qiCost": 0, "iframe": 0.8, "desc": "【纯闪避·无攻击】原地360度螺旋拧腰化劲，直接闪避当前格内所有冲击！"}, {"id": 22, "name": "22. 旱船晃·太极闪", "voice": "旱船晃！", "kind": "dodge", "cat": "纯闪避", "key": "X", "dmg": 0, "qiCost": 10, "iframe": 0.9, "desc": "【纯闪避·缓速】左右摇晃身段进入太极领域，令全场敌人减速65%并安全躲避！"}, {"id": 26, "name": "26. 白鹤亮翅·金钟闪", "voice": "白鹤亮翅！", "kind": "dodge", "cat": "纯闪避", "key": "N", "dmg": 0, "qiCost": 15, "iframe": 1.15, "desc": "【纯闪避·无敌】双臂振开金光护体，获得超长1.15秒绝对闪避无敌！"}, {"id": 2, "name": "02. 浪子踢球", "voice": "浪子踢球！", "kind": "attack", "cat": "主力攻击", "key": "J", "dmg": 140, "qiCost": 0, "iframe": 0.2, "range": "col", "desc": "【攻击招式】后仰顿挫高勾腿，将当前竖列扑来的敌人当皮球一脚踢飞上天！"}, {"id": 3, "name": "03. 狗熊哆嗦毛", "voice": "狗熊哆嗦毛！", "kind": "attack", "cat": "周围震飞", "key": "K", "dmg": 120, "qiCost": 10, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】核心肌群高频抖动，震飞自身十字相邻5格内的全部敌人！"}, {"id": 11, "name": "11. 猴子扳桩", "voice": "猴子扳桩！", "kind": "attack", "cat": "单体擒摔", "key": "8", "dmg": 200, "qiCost": 15, "iframe": 0.25, "range": "col", "desc": "【攻击招式】跃起扳住前方敌人猛烈砸向九宫格地面，重创Boss！"}, {"id": 12, "name": "12. 扁担闪·横扫", "voice": "扁担闪！", "kind": "attack", "cat": "整排横扫", "key": "9", "dmg": 165, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】双臂如铁扁担平举横扫，清空整条横排3格所有敌人！"}, {"id": 13, "name": "13. 十字靠身(铁山靠)", "voice": "铁山靠！", "kind": "attack", "cat": "十字撞击", "key": "L", "dmg": 240, "qiCost": 20, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】拧腰沉肩猛烈铁山靠，将十字范围内重甲Boss撞出硬直！"}, {"id": 14, "name": "14. 蛤蟆洼·震地", "voice": "蛤蟆洼！", "kind": "attack", "cat": "范围震晕", "key": "U", "dmg": 180, "qiCost": 18, "iframe": 0.25, "range": "cross", "desc": "【攻击招式】深蹲蛙跃重踏九宫格，震飞周围全部恐龙/丧尸/木乃伊！"}, {"id": 15, "name": "15. 小儿骑竹马", "voice": "小儿骑竹马！", "kind": "attack", "cat": "竖列踏击", "key": "I", "dmg": 160, "qiCost": 12, "iframe": 0.28, "range": "col", "desc": "【攻击招式】跨步腾跃踩踏前方敌人脊背借力二段劈踢！"}, {"id": 16, "name": "16. 燕子三抄水", "voice": "燕子三抄水！", "kind": "attack", "cat": "三连飞踢", "key": "O", "dmg": 215, "qiCost": 20, "iframe": 0.28, "range": "col", "desc": "【攻击招式】连续三次掠格飞踢，专斩高速冲锋敌人！"}, {"id": 17, "name": "17. 喜鹊登枝", "voice": "喜鹊登枝！", "kind": "attack", "cat": "防空神踢", "key": "P", "dmg": 185, "qiCost": 15, "iframe": 0.25, "range": "all_air", "desc": "【攻击招式】凌空蹬踏高空踢击，专打天上飞来的翼龙/尸鸦/圣甲虫！"}, {"id": 18, "name": "18. 拐子步·侧踹", "voice": "拐子侧踹！", "kind": "attack", "cat": "横排破甲", "key": "F", "dmg": 195, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】怪异折线变向后重侧踹，踹穿整排重甲防线！"}, {"id": 19, "name": "19. 磨盘转·旋风", "voice": "磨盘旋风腿！", "kind": "attack", "cat": "九宫旋风", "key": "G", "dmg": 230, "qiCost": 25, "iframe": 0.35, "range": "cross", "desc": "【攻击招式】高速旋转扫腿，卷起金色旋风清空十字五格！"}, {"id": 20, "name": "20. 鲤鱼打挺·回春", "voice": "鲤鱼打挺！", "kind": "attack", "cat": "反击回血", "key": "R", "dmg": 150, "qiCost": 25, "iframe": 0.4, "range": "cross", "desc": "【攻击+回血】猛烈挺腹弹射震飞周围敌人，并回复30点生命值！"}, {"id": 21, "name": "21. 大鹏展翅·掠空", "voice": "大鹏展翅！", "kind": "attack", "cat": "整排音爆", "key": "Z", "dmg": 260, "qiCost": 25, "iframe": 0.35, "range": "row", "desc": "【绝学攻击】双臂展开掀起整排音爆冲击，横扫所有横向敌人！"}, {"id": 23, "name": "23. 大花场·八连踢", "voice": "大花场八连踢！", "kind": "attack", "cat": "机关连踢", "key": "C", "dmg": 340, "qiCost": 35, "iframe": 0.4, "range": "col", "desc": "【绝学攻击】连续8脚浪子踢球高速连发，瞬间融化竖列Boss！"}, {"id": 24, "name": "24. 仙人指路·点穴", "voice": "仙人指路！", "kind": "attack", "cat": "贯穿激光", "key": "V", "dmg": 295, "qiCost": 30, "iframe": 0.28, "range": "col", "desc": "【绝学攻击】单指罡气贯穿整条竖列，100%触发暴击秒杀！"}, {"id": 25, "name": "25. 叶底藏花·回马枪", "voice": "叶底藏花！", "kind": "attack", "cat": "致命反踢", "key": "B", "dmg": 310, "qiCost": 30, "iframe": 0.35, "range": "cross", "desc": "【绝学攻击】假意退让瞬间拧腰回头重踢，专克偷袭敌人！"}, {"id": 27, "name": "27. 黑虎掏心·寸劲", "voice": "黑虎掏心！", "kind": "attack", "cat": "单体秒杀", "key": "M", "dmg": 420, "qiCost": 35, "iframe": 0.3, "range": "col", "desc": "【绝学攻击】贴身核心寸劲爆发，对霸王龙/巨型丧尸/法老王造成毁灭伤害！"}, {"id": 28, "name": "28. 金鸡独立·千斤坠", "voice": "金鸡独立千斤坠！", "kind": "attack", "cat": "全图震爆", "key": "T", "dmg": 360, "qiCost": 45, "iframe": 0.45, "range": "all", "desc": "【全屏绝学】单腿独立蓄力后千斤坠踏裂九宫格，震飞全屏敌人！"}, {"id": 29, "name": "29. 乌龙绞柱·风暴", "voice": "乌龙绞柱！", "kind": "attack", "cat": "全图龙卷", "key": "Y", "dmg": 390, "qiCost": 50, "iframe": 0.5, "range": "all", "desc": "【全屏绝学】双腿螺旋绞杀卷起全屏龙卷风，把九宫格所有敌人卷上天空！"}, {"id": 30, "name": "30. 三十路闪身万象归宗", "voice": "终极奥义！三十路闪身万象归宗！", "kind": "attack", "cat": "终极奥义", "key": "Q/E", "dmg": 780, "qiCost": 60, "iframe": 1.2, "range": "all", "desc": "【终极必杀】九宫格9个格子同时召唤黑背心宗师分身，齐声施展浪子踢球清空全屏！"}]};
+    const GDD = {"slug": "shanshenbu-30-jurassic", "title": "闪身步30招：全屏九宫格多世界大乱斗 v3.0", "prompt": "v3.0 30招独立手绘街机动作 + 全屏九宫格 + 拟真写实丧尸与木乃伊 + 手机自适应抽屉", "tagline": "30招独立动作全实装 × 全屏 3×3 九宫格 × 恐龙/写实丧尸/写实木乃伊 × 手机自适应", "genre": "2D 全屏九宫格多世界奔跑闪避 & 功夫绝招反击", "created_at": "2026-11-26 06:49:17", "moves_30": [{"id": 1, "name": "01. 闪身步", "voice": "闪身步！", "kind": "dodge", "cat": "纯闪避", "key": "Space", "dmg": 0, "qiCost": 0, "iframe": 0.65, "desc": "【纯闪避·无攻击】腰腹猛拧瞬间闪去安全格！躲开红格必触发极限闪身+25气力！"}, {"id": 4, "name": "04. 拔泥步", "voice": "拔泥步！", "kind": "dodge", "cat": "纯闪避", "key": "1", "dmg": 0, "qiCost": 0, "iframe": 0.6, "desc": "【纯闪避·无攻击】高抬大腿稳健换格，免疫地面减速陷阱并躲避冲撞！"}, {"id": 5, "name": "05. 野鸡溜", "voice": "野鸡溜！", "kind": "dodge", "cat": "纯闪避", "key": "2", "dmg": 0, "qiCost": 0, "iframe": 0.72, "desc": "【纯闪避·无攻击】贴地超低身位疾滑换格，专躲空中翼龙/尸鸦/圣甲虫俯冲！"}, {"id": 6, "name": "06. 游场碎步", "voice": "游场碎步！", "kind": "dodge", "cat": "纯闪避", "key": "3", "dmg": 0, "qiCost": 0, "iframe": 0.75, "desc": "【纯闪避·无攻击】高频碎步闪避并留下一串残影分身，大幅延长无敌时间！"}, {"id": 7, "name": "07. 矮子步", "voice": "矮子步！", "kind": "dodge", "cat": "纯闪避", "key": "4", "dmg": 0, "qiCost": 0, "iframe": 0.68, "desc": "【纯闪避·无攻击】极限深蹲蟹行切格，轻松躲过横穿整排的冲锋巨兽！"}, {"id": 8, "name": "08. 车水步", "voice": "车水步！", "kind": "dodge", "cat": "纯闪避", "key": "5", "dmg": 0, "qiCost": 0, "iframe": 0.62, "desc": "【纯闪避·无攻击】连续后撤踏板步退至后排安全格，躲开正上方竖列俯冲！"}, {"id": 9, "name": "09. 走梗平衡步", "voice": "走梗步！", "kind": "dodge", "cat": "纯闪避", "key": "6", "dmg": 0, "qiCost": 0, "iframe": 0.7, "desc": "【纯闪避·无攻击】在九宫格边缘极速穿行，灵巧穿梭于两只敌人缝隙之间！"}, {"id": 10, "name": "10. 盘根拧腰步", "voice": "盘根拧腰！", "kind": "dodge", "cat": "纯闪避", "key": "7", "dmg": 0, "qiCost": 0, "iframe": 0.8, "desc": "【纯闪避·无攻击】原地360度螺旋拧腰化劲，直接闪避当前格内所有冲击！"}, {"id": 22, "name": "22. 旱船晃·太极闪", "voice": "旱船晃！", "kind": "dodge", "cat": "纯闪避", "key": "X", "dmg": 0, "qiCost": 10, "iframe": 0.9, "desc": "【纯闪避·缓速】左右摇晃身段进入太极领域，令全场敌人减速65%并安全躲避！"}, {"id": 26, "name": "26. 白鹤亮翅·金钟闪", "voice": "白鹤亮翅！", "kind": "dodge", "cat": "纯闪避", "key": "N", "dmg": 0, "qiCost": 15, "iframe": 1.15, "desc": "【纯闪避·无敌】双臂振开金光护体，获得超长1.15秒绝对闪避无敌！"}, {"id": 2, "name": "02. 浪子踢球", "voice": "浪子踢球！", "kind": "attack", "cat": "主力攻击", "key": "J", "dmg": 140, "qiCost": 0, "iframe": 0.2, "range": "col", "desc": "【攻击招式】后仰顿挫高勾腿，将当前竖列扑来的敌人当皮球一脚踢飞上天！"}, {"id": 3, "name": "03. 狗熊哆嗦毛", "voice": "狗熊哆嗦毛！", "kind": "attack", "cat": "周围震飞", "key": "K", "dmg": 120, "qiCost": 10, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】核心肌群高频抖动，震飞自身十字相邻5格内的全部敌人！"}, {"id": 11, "name": "11. 猴子扳桩", "voice": "猴子扳桩！", "kind": "attack", "cat": "单体擒摔", "key": "8", "dmg": 200, "qiCost": 15, "iframe": 0.25, "range": "col", "desc": "【攻击招式】跃起扳住前方敌人猛烈砸向九宫格地面，重创Boss！"}, {"id": 12, "name": "12. 扁担闪·横扫", "voice": "扁担闪！", "kind": "attack", "cat": "整排横扫", "key": "9", "dmg": 165, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】双臂如铁扁担平举横扫，清空整条横排3格所有敌人！"}, {"id": 13, "name": "13. 十字靠身(铁山靠)", "voice": "铁山靠！", "kind": "attack", "cat": "十字撞击", "key": "L", "dmg": 240, "qiCost": 20, "iframe": 0.3, "range": "cross", "desc": "【攻击招式】拧腰沉肩猛烈铁山靠，将十字范围内重甲Boss撞出硬直！"}, {"id": 14, "name": "14. 蛤蟆洼·震地", "voice": "蛤蟆洼！", "kind": "attack", "cat": "范围震晕", "key": "U", "dmg": 180, "qiCost": 18, "iframe": 0.25, "range": "cross", "desc": "【攻击招式】深蹲蛙跃重踏九宫格，震飞周围全部恐龙/丧尸/木乃伊！"}, {"id": 15, "name": "15. 小儿骑竹马", "voice": "小儿骑竹马！", "kind": "attack", "cat": "竖列踏击", "key": "I", "dmg": 160, "qiCost": 12, "iframe": 0.28, "range": "col", "desc": "【攻击招式】跨步腾跃踩踏前方敌人脊背借力二段劈踢！"}, {"id": 16, "name": "16. 燕子三抄水", "voice": "燕子三抄水！", "kind": "attack", "cat": "三连飞踢", "key": "O", "dmg": 215, "qiCost": 20, "iframe": 0.28, "range": "col", "desc": "【攻击招式】连续三次掠格飞踢，专斩高速冲锋敌人！"}, {"id": 17, "name": "17. 喜鹊登枝", "voice": "喜鹊登枝！", "kind": "attack", "cat": "防空神踢", "key": "P", "dmg": 185, "qiCost": 15, "iframe": 0.25, "range": "all_air", "desc": "【攻击招式】凌空蹬踏高空踢击，专打天上飞来的翼龙/尸鸦/圣甲虫！"}, {"id": 18, "name": "18. 拐子步·侧踹", "voice": "拐子侧踹！", "kind": "attack", "cat": "横排破甲", "key": "F", "dmg": 195, "qiCost": 15, "iframe": 0.22, "range": "row", "desc": "【攻击招式】怪异折线变向后重侧踹，踹穿整排重甲防线！"}, {"id": 19, "name": "19. 磨盘转·旋风", "voice": "磨盘旋风腿！", "kind": "attack", "cat": "九宫旋风", "key": "G", "dmg": 230, "qiCost": 25, "iframe": 0.35, "range": "cross", "desc": "【攻击招式】高速旋转扫腿，卷起金色旋风清空十字五格！"}, {"id": 20, "name": "20. 鲤鱼打挺·回春", "voice": "鲤鱼打挺！", "kind": "attack", "cat": "反击回血", "key": "R", "dmg": 150, "qiCost": 25, "iframe": 0.4, "range": "cross", "desc": "【攻击+回血】猛烈挺腹弹射震飞周围敌人，并回复30点生命值！"}, {"id": 21, "name": "21. 大鹏展翅·掠空", "voice": "大鹏展翅！", "kind": "attack", "cat": "整排音爆", "key": "Z", "dmg": 260, "qiCost": 25, "iframe": 0.35, "range": "row", "desc": "【绝学攻击】双臂展开掀起整排音爆冲击，横扫所有横向敌人！"}, {"id": 23, "name": "23. 大花场·八连踢", "voice": "大花场八连踢！", "kind": "attack", "cat": "机关连踢", "key": "C", "dmg": 340, "qiCost": 35, "iframe": 0.4, "range": "col", "desc": "【绝学攻击】连续8脚浪子踢球高速连发，瞬间融化竖列Boss！"}, {"id": 24, "name": "24. 仙人指路·点穴", "voice": "仙人指路！", "kind": "attack", "cat": "贯穿激光", "key": "V", "dmg": 295, "qiCost": 30, "iframe": 0.28, "range": "col", "desc": "【绝学攻击】单指罡气贯穿整条竖列，100%触发暴击秒杀！"}, {"id": 25, "name": "25. 叶底藏花·回马枪", "voice": "叶底藏花！", "kind": "attack", "cat": "致命反踢", "key": "B", "dmg": 310, "qiCost": 30, "iframe": 0.35, "range": "cross", "desc": "【绝学攻击】假意退让瞬间拧腰回头重踢，专克偷袭敌人！"}, {"id": 27, "name": "27. 黑虎掏心·寸劲", "voice": "黑虎掏心！", "kind": "attack", "cat": "单体秒杀", "key": "M", "dmg": 420, "qiCost": 35, "iframe": 0.3, "range": "col", "desc": "【绝学攻击】贴身核心寸劲爆发，对霸王龙/巨型丧尸/法老王造成毁灭伤害！"}, {"id": 28, "name": "28. 金鸡独立·千斤坠", "voice": "金鸡独立千斤坠！", "kind": "attack", "cat": "全图震爆", "key": "T", "dmg": 360, "qiCost": 45, "iframe": 0.45, "range": "all", "desc": "【全屏绝学】单腿独立蓄力后千斤坠踏裂九宫格，震飞全屏敌人！"}, {"id": 29, "name": "29. 乌龙绞柱·风暴", "voice": "乌龙绞柱！", "kind": "attack", "cat": "全图龙卷", "key": "Y", "dmg": 390, "qiCost": 50, "iframe": 0.5, "range": "all", "desc": "【全屏绝学】双腿螺旋绞杀卷起全屏龙卷风，把九宫格所有敌人卷上天空！"}, {"id": 30, "name": "30. 三十路闪身万象归宗", "voice": "终极奥义！三十路闪身万象归宗！", "kind": "attack", "cat": "终极奥义", "key": "Q/E", "dmg": 780, "qiCost": 60, "iframe": 1.2, "range": "all", "desc": "【终极必杀】九宫格9个格子同时召唤黑背心宗师分身，齐声施展浪子踢球清空全屏！"}]};
 
     // =========================================================================
     // 1. DIFFICULTY PRESETS (Easy / Medium / Hard / Nightmare)
@@ -577,13 +587,13 @@
     const music = new ComedyMusicEngine();
 
     // =========================================================================
-    // 4. LOAD HAND-PAINTED 2D ARCADE PNG SPRITES (HERO, DINOS, REALISTIC ZOMBIES & MUMMIES!)
+    // 4. LOAD ALL 30 UNIQUE HAND-PAINTED HERO MOVE SPRITES + STAGE & ENEMY ART!
     // =========================================================================
     const ASSETS = {};
     const FILE_ASSETS = {
-      hero_ready: 'sprites/hero_ready.png?v=22',
-      hero_dodge: 'sprites/hero_dodge.png?v=22',
-      hero_kick: 'sprites/hero_kick.png?v=22',
+      hero_ready: 'sprites/hero_ready.png?v=30',
+      hero_dodge: 'sprites/move_01.png?v=30',
+      hero_kick: 'sprites/move_02.png?v=30',
       dino_trex: 'sprites/dino_trex.png?v=22',
       dino_raptor: 'sprites/dino_raptor.png?v=22',
       dino_triceratops: 'sprites/dino_triceratops.png?v=22',
@@ -598,11 +608,49 @@
       bg_desert: 'sprites/bg_desert_pyramid.jpg?v=22',
       bg_studio: 'sprites/bg_dance_studio.jpg?v=22',
     };
+    for (let i = 1; i <= 30; i++) {
+      const k = 'move_' + String(i).padStart(2, '0');
+      FILE_ASSETS[k] = `sprites/${k}.png?v=30`;
+    }
     for (const [k, url] of Object.entries(FILE_ASSETS)) {
       const im = new Image();
       im.src = url;
       ASSETS[k] = im;
     }
+
+    // Per-move kinetic profile & custom VFX choreography table across all 30 moves!
+    const MOVE_CHOREO = {
+      1:  { motion: 'lunge',  fx: 'wind_cyan',     dur: 0.65, headRatio: 0.78 },
+      2:  { motion: 'lunge',  fx: 'kick_gold',     dur: 0.68, headRatio: 0.74 },
+      3:  { motion: 'shake',  fx: 'tremor_purple', dur: 0.78, headRatio: 0.84 },
+      4:  { motion: 'hop',    fx: 'mud_drops',     dur: 0.68, headRatio: 0.85 },
+      5:  { motion: 'crouch', fx: 'skim_cyan',     dur: 0.72, headRatio: 0.66 },
+      6:  { motion: 'shake',  fx: 'wind_cyan',     dur: 0.72, headRatio: 0.83 },
+      7:  { motion: 'crouch', fx: 'dust_ring',     dur: 0.72, headRatio: 0.76 },
+      8:  { motion: 'hop',    fx: 'waterwheel',    dur: 0.70, headRatio: 0.82 },
+      9:  { motion: 'sway',   fx: 'balance_line',  dur: 0.75, headRatio: 0.85 },
+      10: { motion: 'spin',   fx: 'crimson_swirl', dur: 0.76, headRatio: 0.84 },
+      11: { motion: 'leap',   fx: 'slam_crater',   dur: 0.76, headRatio: 0.74 },
+      12: { motion: 'lunge',  fx: 'row_beam',      dur: 0.76, headRatio: 0.76 },
+      13: { motion: 'lunge',  fx: 'iron_cone',     dur: 0.76, headRatio: 0.84 },
+      14: { motion: 'slam',   fx: 'quake_cross',   dur: 0.78, headRatio: 0.76 },
+      15: { motion: 'gallop', fx: 'confetti_hop',  dur: 0.84, headRatio: 0.84 },
+      16: { motion: 'dash3',  fx: 'triple_cyan',   dur: 0.78, headRatio: 0.68 },
+      17: { motion: 'sky',    fx: 'anti_air_arc',  dur: 0.76, headRatio: 0.82 },
+      18: { motion: 'lunge',  fx: 'row_beam',      dur: 0.72, headRatio: 0.84 },
+      19: { motion: 'tornado',fx: 'cyclone_gold',  dur: 0.82, headRatio: 0.84 },
+      20: { motion: 'leap',   fx: 'heal_lotus',    dur: 0.82, headRatio: 0.72 },
+      21: { motion: 'sky',    fx: 'wing_gusts',    dur: 0.80, headRatio: 0.80 },
+      22: { motion: 'sway',   fx: 'taiji_aura',    dur: 0.85, headRatio: 0.84 },
+      23: { motion: 'flurry', fx: 'eight_kicks',   dur: 0.88, headRatio: 0.84 },
+      24: { motion: 'lunge',  fx: 'col_laser',     dur: 0.78, headRatio: 0.84 },
+      25: { motion: 'lunge',  fx: 'ambush_crimson',dur: 0.74, headRatio: 0.84 },
+      26: { motion: 'sky',    fx: 'crane_bell',    dur: 0.90, headRatio: 0.84 },
+      27: { motion: 'lunge',  fx: 'tiger_blaze',   dur: 0.85, headRatio: 0.84 },
+      28: { motion: 'stomp',  fx: 'all_fissure',   dur: 0.92, headRatio: 0.84 },
+      29: { motion: 'drill',  fx: 'storm_funnel',  dur: 0.92, headRatio: 0.22 },
+      30: { motion: 'ascend', fx: 'finale_nova',   dur: 1.10, headRatio: 0.86 },
+    };
 
     // =========================================================================
     // 5. 30 MOVES DOCK RENDERING
@@ -611,15 +659,20 @@
     const movesGridEl = document.getElementById('moves-grid');
     function renderMovesDock() {
       const list = MOVES_30.filter(m => currentFilter === 'all' || m.kind === currentFilter);
-      movesGridEl.innerHTML = list.map(m => `
+      movesGridEl.innerHTML = list.map(m => {
+        const padId = String(m.id).padStart(2, '0');
+        return `
         <div class="move-card ${m.kind === 'dodge' ? 'is-dodge' : ''}" id="move-card-${m.id}" title="${m.desc}" onclick="executeMove(${m.id});closeDock()">
-          <div class="m-name">${m.name}</div>
-          <div class="m-meta">
-            <span style="color:${m.kind === 'dodge' ? '#38bdf8' : '#f59e0b'};">${m.cat}</span>
-            <span>${m.kind === 'dodge' ? '纯躲避' : '威力:' + m.dmg} | ${m.key}</span>
+          <img class="m-thumb" src="sprites/move_${padId}.png?v=30" alt="${m.name}" loading="lazy" />
+          <div class="m-info">
+            <div class="m-name">${m.name}</div>
+            <div class="m-meta">
+              <span style="color:${m.kind === 'dodge' ? '#38bdf8' : '#f59e0b'};">${m.cat}</span>
+              <span>${m.kind === 'dodge' ? '纯躲' : m.dmg} | ${m.key}</span>
+            </div>
           </div>
-        </div>
-      `).join('');
+        </div>`;
+      }).join('');
     }
     renderMovesDock();
 
@@ -707,11 +760,18 @@
     window.__OMNIGAME_QA__ = {
       getReport: () => ({
         title: GDD.title,
-        mode: 'v2.2_FullScreen_3x3_Grid_RealisticUndead',
+        mode: 'v3.0_30_Unique_HandPainted_Poses_VFX',
         difficulty: state.difficulty,
         world: state.world,
         faction: state.faction,
         hp: state.hp,
+        qi: state.qi,
+        activeMoveId: hero.activeMoveId,
+        heroPose: hero.pose,
+        loadedMoveSprites: MOVES_30.filter(m => {
+          const k = 'move_' + String(m.id).padStart(2, '0');
+          return ASSETS[k] && ASSETS[k].complete && ASSETS[k].naturalWidth > 0;
+        }).length,
         isGameOver: state.isGameOver,
         framesRendered: state.framesRendered,
         fps: state.fps,
@@ -725,6 +785,8 @@
       px: 0, py: 0,
       facing: 1,
       pose: 'ready',
+      activeMoveId: 0,
+      poseDuration: 0.7,
       poseTimer: 0,
       iframeTimer: 0,
       afterimages: [],
@@ -733,6 +795,7 @@
     const enemies = [];
     const floatingTexts = [];
     const shockwaves = [];
+    const moveFxList = [];
 
     // FULL-SCREEN 3x3 GRID covering ~94% of the screen width and full vertical arena!
     function getGridRect() {
@@ -809,10 +872,11 @@
       enemies.length = 0;
       floatingTexts.length = 0;
       shockwaves.length = 0;
+      moveFxList.length = 0;
       hero.col = 1; hero.row = 1;
       const c = cellCenter(1, 1);
       hero.px = c.x; hero.py = c.y;
-      hero.pose = 'ready'; hero.iframeTimer = 0.6;
+      hero.pose = 'ready'; hero.activeMoveId = 0; hero.iframeTimer = 0.6;
       document.getElementById('gameover-overlay').classList.remove('show');
       document.getElementById('touch-overlay').style.display = 'flex';
       document.getElementById('moves-dock').style.display = 'block';
@@ -945,35 +1009,64 @@
     }
 
     // =========================================================================
-    // 8. EXECUTE ANY OF THE 30 MOVES (PURE DODGE vs ATTACK)
+    // 8. EXECUTE ANY OF THE 30 MOVES (30 UNIQUE POSES + 30 UNIQUE VFX!)
     // =========================================================================
     function executeMove(moveId) {
       if (state.isGameOver) return;
       const move = MOVES_30.find(m => m.id === moveId) || MOVES_30[0];
+      const padId = String(move.id).padStart(2, '0');
+      const poseKey = 'move_' + padId;
+      const choreo = MOVE_CHOREO[move.id] || MOVE_CHOREO[1];
 
-      if (move.qiCost > 0 && state.qi < move.qiCost) {
-        floatingTexts.push({ x: hero.px, y: hero.py - 80, text: `气力不足！(用【闪身步】纯躲避回气)`, color: '#38bdf8', life: 1.0 });
-        return;
+      // Allow executing the move's unique pose & animation smoothly even when Qi is regenerating:
+      // full power when Qi >= qiCost; "蓄势/轻击" (60% power) if Qi is low so clicking all 30 moves always shows its pose!
+      let powerScale = 1.0;
+      if (move.qiCost > 0) {
+        if (state.qi >= move.qiCost) {
+          state.qi -= move.qiCost;
+        } else {
+          powerScale = 0.55;
+          state.qi = 0;
+          floatingTexts.push({ x: hero.px, y: hero.py - 88, text: `气力蓄势释放 (闪身回气威力翻倍!)`, color: '#38bdf8', life: 0.9 });
+        }
       }
-      state.qi = Math.max(0, state.qi - move.qiCost);
 
       document.querySelectorAll('.move-card').forEach(c => c.classList.remove('active-move'));
       const card = document.getElementById('move-card-' + move.id);
-      if (card) card.classList.add('active-move');
+      if (card) {
+        card.classList.add('active-move');
+        if (card.scrollIntoView) card.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      }
 
       if (move.kind === 'dodge') {
         const wasInDanger = isCellDangerous(hero.col, hero.row);
-        for (let i = 0; i < 3; i++) {
-          hero.afterimages.push({ x: hero.px - i * 18 * hero.facing, y: hero.py, facing: hero.facing, pose: 'dodge', life: 0.48 - i * 0.09 });
+        const cloneCount = move.id === 6 ? 5 : (move.id === 10 || move.id === 22 || move.id === 26 ? 4 : 3);
+        for (let i = 0; i < cloneCount; i++) {
+          hero.afterimages.push({
+            x: hero.px - i * 18 * hero.facing,
+            y: hero.py,
+            facing: hero.facing,
+            pose: poseKey,
+            moveId: move.id,
+            life: 0.54 - i * 0.08,
+          });
         }
         const safe = findSafeTile();
         if (safe.c !== hero.col) hero.facing = safe.c > hero.col ? 1 : -1;
         hero.col = safe.c;
         hero.row = safe.r;
-        hero.pose = 'dodge';
-        hero.poseTimer = 0.52;
+        hero.pose = poseKey;
+        hero.activeMoveId = move.id;
+        hero.poseDuration = choreo.dur;
+        hero.poseTimer = choreo.dur;
         hero.iframeTimer = Math.max(hero.iframeTimer, move.iframe);
         if (move.id === 22) state.witchTimeTimer = 2.0;
+
+        moveFxList.push({
+          id: move.id, fx: choreo.fx,
+          x: hero.px, y: hero.py, facing: hero.facing,
+          t: 0, dur: choreo.dur,
+        });
 
         if (wasInDanger) {
           state.perfectDodges++;
@@ -986,37 +1079,69 @@
           state.bannerSub = `完美避开危险红格！气力 +25 · 得分 +150`;
           floatingTexts.push({ x: hero.px, y: hero.py - 90, text: '⚡ 极限闪身！+25气力', color: '#38bdf8', life: 1.1 });
         } else {
+          state.qi = Math.min(state.maxQi, state.qi + 6);
           music.playSFX('dodge');
           speakChineseCallout(move.voice, false);
           state.bannerText = `💨 【${move.name}】`;
           state.bannerSub = move.desc;
         }
         state.bannerKind = 'dodge';
-        state.bannerTimer = 1.45;
+        state.bannerTimer = 1.65;
         return; // STRICTLY ZERO DAMAGE!
       }
 
-      // ATTACK MOVES
-      hero.pose = 'kick';
-      hero.poseTimer = 0.52;
+      // ATTACK MOVES (20 UNIQUE POSES & SIGNATURE STRIKE VFX!)
+      hero.pose = poseKey;
+      hero.activeMoveId = move.id;
+      hero.poseDuration = choreo.dur;
+      hero.poseTimer = choreo.dur;
       hero.iframeTimer = Math.max(hero.iframeTimer, move.iframe);
       music.playSFX('kick');
       speakChineseCallout(move.voice, move.id >= 21);
 
       if (move.id === 20) state.hp = Math.min(state.maxHp, state.hp + 30);
+
+      // Special multi-clone visual choreography for triple-dash, 8-kick flurry, & 30th finale
+      if (move.id === 16 || move.id === 23 || move.id === 29) {
+        for (let i = 1; i <= 3; i++) {
+          hero.afterimages.push({
+            x: hero.px + (move.id === 16 ? i * 26 : -i * 18) * hero.facing,
+            y: hero.py - i * 10,
+            facing: hero.facing,
+            pose: poseKey,
+            moveId: move.id,
+            life: 0.62 - i * 0.1,
+          });
+        }
+      }
       if (move.id === 30) {
+        const finalePoses = [1, 2, 3, 13, 15, 19, 24, 28, 29];
+        let pIdx = 0;
         for (let r = 0; r < 3; r++) {
           for (let c = 0; c < 3; c++) {
             const pt = cellCenter(c, r);
-            hero.afterimages.push({ x: pt.x, y: pt.y, facing: c === 2 ? -1 : 1, pose: 'kick', life: 0.95 });
+            const fmId = finalePoses[pIdx++];
+            hero.afterimages.push({
+              x: pt.x, y: pt.y,
+              facing: c === 2 ? -1 : 1,
+              pose: 'move_' + String(fmId).padStart(2, '0'),
+              moveId: fmId,
+              life: 1.08,
+            });
           }
         }
       }
 
+      moveFxList.push({
+        id: move.id, fx: choreo.fx,
+        x: hero.px, y: hero.py, facing: hero.facing,
+        t: 0, dur: choreo.dur,
+      });
+
       state.bannerText = `💥 【${move.name}】`;
       state.bannerSub = move.desc;
       state.bannerKind = 'attack';
-      state.bannerTimer = 1.6;
+      state.bannerTimer = 1.75;
 
       const g = getGridRect();
       let hitCount = 0;
@@ -1032,10 +1157,10 @@
 
         if (inRange) {
           hitCount++;
-          const dmg = Math.round(move.dmg * (0.95 + Math.random() * 0.2));
+          const dmg = Math.round(move.dmg * powerScale * (0.95 + Math.random() * 0.2));
           e.hp -= dmg;
           e.hitFlash = 0.16;
-          shockwaves.push({ x: e.x, y: e.y, r: 18, maxR: 100, color: '#fef08a' });
+          shockwaves.push({ x: e.x, y: e.y, r: 18, maxR: 105, color: '#fef08a' });
           floatingTexts.push({ x: e.x, y: e.y - 60, text: `💥 ${move.voice} -${dmg}`, color: '#fef08a', life: 0.95 });
 
           if (e.hp <= 0) {
@@ -1051,7 +1176,7 @@
       });
 
       if (hitCount > 0) {
-        state.hitstopRemaining = 48;
+        state.hitstopRemaining = 45;
         state.shakeTimer = 0.22;
         state.shakeIntensity = move.range === 'all' ? 14 : 8;
       }
@@ -1309,24 +1434,88 @@
       ctx.restore();
     }
 
-    function drawHero(ctx, x, y, facing, pose, alpha = 1.0, isGhost = false, t = 0) {
-      const img = pose === 'kick' ? ASSETS.hero_kick : (pose === 'dodge' ? ASSETS.hero_dodge : ASSETS.hero_ready);
+    function drawHero(ctx, x, y, facing, pose, alpha = 1.0, isGhost = false, t = 0, moveIdOverride = 0) {
+      const img = ASSETS[pose] || ASSETS.hero_ready;
       if (!img || !img.complete || img.naturalWidth === 0) return;
       const g = getGridRect();
-      let drawH = Math.min(185, g.cellH * 1.05);
-      if ((img.naturalWidth / img.naturalHeight) * drawH > g.cellW * 1.15) drawH = g.cellW * 1.15 * img.naturalHeight / img.naturalWidth;
-      const drawW = (img.naturalWidth / img.naturalHeight) * drawH;
+      const mid = moveIdOverride || (pose === 'ready' ? 0 : hero.activeMoveId);
+      const choreo = MOVE_CHOREO[mid];
 
-      const runBob = pose === 'ready' ? Math.abs(Math.sin(t * 14)) * 11 : 0;
-      const runTilt = pose === 'ready' ? Math.sin(t * 14) * 0.06 : 0;
+      // Preserve visual character scale smoothly across wide vs tall poses
+      const baseRefH = Math.min(185, g.cellH * 1.05);
+      const aspect = img.naturalWidth / img.naturalHeight;
+      let drawH = aspect > 1.25 ? Math.min(baseRefH, g.cellW * 1.15 / aspect) : baseRefH;
+      let drawW = aspect * drawH;
+      if (drawW > g.cellW * 1.22) {
+        drawW = g.cellW * 1.22;
+        drawH = drawW / aspect;
+      }
+
+      // Per-move distinct body kinematics across all 30 poses
+      let offX = 0, offY = 0, extraRot = 0, sx = 1, sy = 1;
+      if (pose === 'ready') {
+        offY = -Math.abs(Math.sin(t * 14)) * 11;
+        extraRot = Math.sin(t * 14) * 0.06;
+      } else if (choreo && !isGhost) {
+        const p = 1 - Math.max(0, Math.min(1, hero.poseTimer / Math.max(0.01, hero.poseDuration)));
+        const easeOut = 1 - (1 - p) * (1 - p);
+        const m = choreo.motion;
+        if (m === 'lunge') {
+          offX = Math.sin(p * Math.PI) * 28;
+          extraRot = Math.sin(p * Math.PI) * 0.08;
+        } else if (m === 'crouch') {
+          offY = 16; sy = 0.94 + p * 0.06; sx = 1.06 - p * 0.06;
+        } else if (m === 'hop') {
+          offY = -Math.sin(p * Math.PI) * 26;
+        } else if (m === 'leap') {
+          offY = -Math.sin(p * Math.PI) * 52;
+          extraRot = -Math.sin(p * Math.PI) * 0.14;
+        } else if (m === 'sky') {
+          offY = -Math.sin(p * Math.PI) * 64;
+        } else if (m === 'gallop') {
+          offY = -Math.abs(Math.sin(p * Math.PI * 3)) * 28;
+          extraRot = Math.sin(p * Math.PI * 3) * 0.09;
+        } else if (m === 'shake') {
+          offX = Math.sin(t * 58) * 7;
+          offY = Math.cos(t * 48) * 3;
+        } else if (m === 'flurry') {
+          offX = Math.sin(t * 45) * 10;
+          offY = -Math.abs(Math.sin(t * 28)) * 18;
+        } else if (m === 'sway') {
+          extraRot = Math.sin(p * Math.PI * 2) * 0.14;
+          offY = -Math.sin(p * Math.PI) * 16;
+        } else if (m === 'spin') {
+          sx = Math.cos(p * Math.PI * 2);
+          if (Math.abs(sx) < 0.18) sx = sx < 0 ? -0.18 : 0.18;
+        } else if (m === 'tornado') {
+          offY = -Math.sin(p * Math.PI) * 38;
+          sx = Math.cos(p * Math.PI * 4);
+          if (Math.abs(sx) < 0.2) sx = sx < 0 ? -0.2 : 0.2;
+        } else if (m === 'drill') {
+          offY = -24 - Math.sin(p * Math.PI) * 24;
+          sx = Math.cos(p * Math.PI * 5);
+          if (Math.abs(sx) < 0.22) sx = sx < 0 ? -0.22 : 0.22;
+        } else if (m === 'slam') {
+          offY = p < 0.3 ? -32 * (p / 0.3) : (1 - Math.exp(-(p - 0.3) * 8)) * 10;
+          sy = p > 0.35 && p < 0.65 ? 0.88 : 1; sx = p > 0.35 && p < 0.65 ? 1.12 : 1;
+        } else if (m === 'stomp') {
+          offY = p < 0.48 ? -58 * Math.sin((p / 0.48) * Math.PI * 0.5) : Math.max(0, 14 * Math.sin(((p - 0.48) / 0.52) * Math.PI));
+        } else if (m === 'dash3') {
+          offX = Math.sin(p * Math.PI * 3) * 26;
+          offY = -Math.abs(Math.sin(p * Math.PI * 3)) * 14;
+        } else if (m === 'ascend') {
+          offY = -36 * easeOut - Math.sin(t * 16) * 6;
+        }
+      }
 
       ctx.save();
       ctx.globalAlpha = alpha;
       ctx.translate(x, y + g.cellH * 0.38);
 
       if (!isGhost) {
+        const shadowScale = Math.max(0.55, 1 + offY * 0.005);
         ctx.fillStyle = 'rgba(0,0,0,0.48)';
-        ctx.beginPath(); ctx.ellipse(0, 0, drawW * 0.38, 12, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(0, 0, drawW * 0.38 * shadowScale, 12 * shadowScale, 0, 0, Math.PI * 2); ctx.fill();
         if (pose === 'ready') {
           ctx.fillStyle = 'rgba(254, 243, 199, 0.36)';
           const dOff = (t * 85) % 26;
@@ -1335,28 +1524,146 @@
         }
       }
 
-      ctx.translate(0, -runBob);
-      ctx.rotate(runTilt);
       ctx.scale(facing, 1);
+      ctx.translate(offX, offY);
+      ctx.rotate(extraRot);
+      ctx.scale(sx, sy);
 
-      if (isGhost) ctx.filter = 'hue-rotate(175deg) brightness(1.45) saturate(2.5)';
+      if (isGhost) {
+        ctx.globalAlpha = alpha * 0.55;
+        ctx.globalCompositeOperation = 'lighter';
+      }
       ctx.drawImage(img, -drawW * 0.5, -drawH + 6, drawW, drawH);
-      ctx.filter = 'none';
+      ctx.globalCompositeOperation = 'source-over';
 
       if (state.customHeadImg && !isGhost) {
-        const headY = pose === 'kick' ? -drawH * 0.74 : -drawH * 0.78;
-        const headR = drawH * 0.14;
+        const headRatio = choreo ? choreo.headRatio : 0.78;
+        const headY = -drawH * headRatio;
+        const headR = Math.min(drawW, drawH) * 0.14;
         ctx.save();
         ctx.beginPath(); ctx.arc(0, headY, headR, 0, Math.PI * 2); ctx.clip();
         ctx.drawImage(state.customHeadImg, -headR, headY - headR, headR * 2, headR * 2);
         ctx.restore();
       }
+      ctx.restore();
+    }
 
-      if (!isGhost && pose === 'kick') {
-        ctx.strokeStyle = '#fef08a'; ctx.lineWidth = 7;
-        ctx.shadowColor = '#f59e0b'; ctx.shadowBlur = 18;
-        ctx.beginPath(); ctx.arc(drawW * 0.15, -drawH * 0.55, drawH * 0.5, -1.2, 0.6); ctx.stroke();
-        ctx.shadowBlur = 0;
+    function drawMoveFx(ctx, fxItem) {
+      const p = fxItem.t / Math.max(0.01, fxItem.dur);
+      const fade = Math.max(0, 1 - p);
+      const g = getGridRect();
+      ctx.save();
+      ctx.globalAlpha = fade;
+      ctx.translate(fxItem.x, fxItem.y);
+
+      switch (fxItem.fx) {
+        case 'wind_cyan':
+        case 'skim_cyan':
+          ctx.strokeStyle = '#38bdf8'; ctx.lineWidth = 4.5;
+          for (let i = -1; i <= 1; i++) {
+            ctx.beginPath();
+            ctx.arc(-fxItem.facing * 20, i * 24, 34 + p * 70, -0.7, 0.7);
+            ctx.stroke();
+          }
+          break;
+        case 'mud_drops':
+        case 'dust_ring':
+          ctx.strokeStyle = fxItem.fx === 'mud_drops' ? '#a16207' : '#fef3c7';
+          ctx.lineWidth = 5;
+          ctx.beginPath(); ctx.ellipse(0, g.cellH * 0.36, 26 + p * 65, 10 + p * 18, 0, 0, Math.PI * 2); ctx.stroke();
+          break;
+        case 'waterwheel':
+        case 'crimson_swirl':
+        case 'cyclone_gold':
+          ctx.strokeStyle = fxItem.fx === 'waterwheel' ? '#38bdf8' : (fxItem.fx === 'crimson_swirl' ? '#fb7185' : '#facc15');
+          ctx.lineWidth = 6;
+          for (let k = 0; k < 2; k++) {
+            const ang = p * 9 + k * Math.PI;
+            ctx.beginPath(); ctx.arc(0, -10, 48 + p * 48, ang, ang + 2.2); ctx.stroke();
+          }
+          break;
+        case 'balance_line':
+          ctx.strokeStyle = '#fde047'; ctx.lineWidth = 4;
+          ctx.beginPath(); ctx.moveTo(-g.cellW * 0.55, g.cellH * 0.36); ctx.lineTo(g.cellW * 0.55, g.cellH * 0.36); ctx.stroke();
+          break;
+        case 'taiji_aura':
+          ctx.strokeStyle = '#7dd3fc'; ctx.lineWidth = 5;
+          ctx.beginPath(); ctx.arc(0, 0, 52 + Math.sin(p * 12) * 14, 0, Math.PI * 2); ctx.stroke();
+          ctx.strokeStyle = '#f8fafc'; ctx.lineWidth = 3;
+          ctx.beginPath(); ctx.arc(0, 0, 34, p * 6, p * 6 + Math.PI); ctx.stroke();
+          break;
+        case 'crane_bell':
+          ctx.strokeStyle = '#fde047'; ctx.fillStyle = 'rgba(250, 204, 21, 0.16)'; ctx.lineWidth = 5;
+          ctx.beginPath(); ctx.arc(0, 0, 62 + p * 22, Math.PI, Math.PI * 2); ctx.lineTo(62 + p * 22, 42); ctx.lineTo(-(62 + p * 22), 42); ctx.closePath();
+          ctx.fill(); ctx.stroke();
+          break;
+        case 'row_beam':
+          ctx.fillStyle = 'rgba(245, 158, 11, 0.32)'; ctx.strokeStyle = '#fef08a'; ctx.lineWidth = 5;
+          ctx.fillRect(-g.w * 0.5, -24, g.w, 48);
+          ctx.strokeRect(-g.w * 0.5, -24, g.w, 48);
+          break;
+        case 'col_laser':
+          ctx.fillStyle = 'rgba(56, 189, 248, 0.36)'; ctx.strokeStyle = '#e0f2fe'; ctx.lineWidth = 5;
+          ctx.fillRect(-26, -g.h, 52, g.h * 2);
+          ctx.strokeRect(-26, -g.h, 52, g.h * 2);
+          break;
+        case 'tremor_purple':
+        case 'slam_crater':
+        case 'quake_cross':
+        case 'all_fissure':
+          ctx.strokeStyle = fxItem.fx === 'tremor_purple' ? '#c084fc' : '#f59e0b';
+          ctx.lineWidth = 6;
+          const mult = fxItem.fx === 'all_fissure' ? 2.4 : 1.3;
+          ctx.beginPath(); ctx.arc(0, 12, (40 + p * 140) * mult, 0, Math.PI * 2); ctx.stroke();
+          ctx.beginPath(); ctx.arc(0, 12, (20 + p * 90) * mult, 0, Math.PI * 2); ctx.stroke();
+          break;
+        case 'heal_lotus':
+          ctx.fillStyle = '#4ade80'; ctx.font = 'bold 20px sans-serif'; ctx.textAlign = 'center';
+          for (let i = 0; i < 6; i++) {
+            const ox = Math.sin(i * 1.1 + p * 4) * 44;
+            const oy = 30 - p * 95 - (i % 3) * 18;
+            ctx.fillText('+HP ✨', ox, oy);
+          }
+          break;
+        case 'confetti_hop':
+          ['🎉', '🐴', '🎊', '⚡'].forEach((em, idx) => {
+            ctx.font = '22px sans-serif';
+            ctx.fillText(em, Math.cos(idx * 1.6 + p * 5) * (35 + p * 45), -10 - p * 40 + Math.sin(idx) * 20);
+          });
+          break;
+        case 'eight_kicks':
+          ctx.strokeStyle = '#fef08a'; ctx.lineWidth = 5;
+          for (let k = 0; k < 5; k++) {
+            const oy = -55 + k * 24;
+            ctx.beginPath(); ctx.arc(fxItem.facing * (30 + (k % 2) * 18), oy, 38 + p * 35, -0.7, 0.7); ctx.stroke();
+          }
+          break;
+        case 'tiger_blaze':
+        case 'iron_cone':
+          ctx.fillStyle = 'rgba(239, 68, 68, 0.35)'; ctx.strokeStyle = '#fef08a'; ctx.lineWidth = 5;
+          ctx.beginPath();
+          ctx.moveTo(0, -10);
+          ctx.lineTo(fxItem.facing * (120 + p * 120), -65);
+          ctx.lineTo(fxItem.facing * (120 + p * 120), 45);
+          ctx.closePath(); ctx.fill(); ctx.stroke();
+          break;
+        case 'storm_funnel':
+          ctx.strokeStyle = '#a855f7'; ctx.lineWidth = 5;
+          for (let s = 0; s < 5; s++) {
+            ctx.beginPath(); ctx.ellipse(0, 60 - s * 45 - p * 25, 36 + s * 28 + p * 25, 14, 0, 0, Math.PI * 2); ctx.stroke();
+          }
+          break;
+        case 'finale_nova':
+          ctx.strokeStyle = '#fde047'; ctx.lineWidth = 8;
+          ctx.beginPath(); ctx.arc(0, 0, 60 + p * Math.max(g.w, g.h) * 0.75, 0, Math.PI * 2); ctx.stroke();
+          ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 5;
+          ctx.beginPath(); ctx.arc(0, 0, 30 + p * Math.max(g.w, g.h) * 0.5, 0, Math.PI * 2); ctx.stroke();
+          break;
+        default:
+          ctx.strokeStyle = fxItem.fx.includes('cyan') ? '#38bdf8' : '#fef08a';
+          ctx.lineWidth = 7;
+          ctx.beginPath(); ctx.arc(fxItem.facing * 24, -18, 62 + p * 38, -1.2, 0.7); ctx.stroke();
+          break;
       }
       ctx.restore();
     }
@@ -1648,19 +1955,25 @@
 
         if (hero.poseTimer > 0) {
           hero.poseTimer -= dt;
-          if (hero.poseTimer <= 0) hero.pose = 'ready';
+          if (hero.poseTimer <= 0) {
+            hero.pose = 'ready';
+            hero.activeMoveId = 0;
+          }
         }
         if (hero.iframeTimer > 0) hero.iframeTimer -= dt;
+        state.qi = Math.min(state.maxQi, state.qi + dt * 9);
 
         if (state.autoBot) {
           aiCooldown -= dt;
           if (aiCooldown <= 0) {
             if (isCellDangerous(hero.col, hero.row)) {
-              executeMove(1);
-              aiCooldown = 0.62;
+              const dodges = MOVES_30.filter(m => m.kind === 'dodge');
+              executeMove(dodges[Math.floor(Math.random() * dodges.length)].id);
+              aiCooldown = 0.72;
             } else if (enemies.some(e => e.alive && !e.kicked && e.telegraphTimer <= 0)) {
-              executeMove(Math.random() < 0.65 ? 2 : 3);
-              aiCooldown = 0.92;
+              const atks = MOVES_30.filter(m => m.kind === 'attack');
+              executeMove(atks[Math.floor(Math.random() * atks.length)].id);
+              aiCooldown = 0.88;
             }
           }
         }
@@ -1744,7 +2057,14 @@
         const a = hero.afterimages[i];
         a.life -= dt;
         if (a.life <= 0) { hero.afterimages.splice(i, 1); continue; }
-        drawHero(ctx, a.x, a.y, a.facing, a.pose, a.life * 0.72, true, t);
+        drawHero(ctx, a.x, a.y, a.facing, a.pose, a.life * 0.72, true, t, a.moveId || 1);
+      }
+
+      for (let i = moveFxList.length - 1; i >= 0; i--) {
+        const fxItem = moveFxList[i];
+        fxItem.t += dt;
+        if (fxItem.t >= fxItem.dur) { moveFxList.splice(i, 1); continue; }
+        drawMoveFx(ctx, fxItem);
       }
 
       const drawables = [
